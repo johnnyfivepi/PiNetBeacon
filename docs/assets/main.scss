@@ -1,0 +1,79 @@
+---
+---
+
+@import "minima";
+
+/* Global tweaks */
+body {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* Font stack used for body text in Minima */
+$post-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+
+/* Base callout styling for all blockquotes inside post content */
+.post-content blockquote {
+  font-family: $post-font-stack;
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  border-left: 4px solid #f0c419; /* default yellow */
+  background: #fffbe8;             /* default light yellow */
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+}
+
+.post-content blockquote p {
+  margin: 0.25rem 0;
+}
+
+.post-content blockquote strong {
+  font-weight: 600;
+}
+
+/* Callout variants */
+
+/* Tip (yellow) */
+.post-content blockquote.tip {
+  border-left-color: #f0c419;
+  background: #fffbe8;
+}
+
+/* Note (blue) */
+.post-content blockquote.note {
+  border-left-color: #5b9bff;
+  background: #eef5ff;
+}
+
+/* Warning (orange) */
+.post-content blockquote.warning {
+  border-left-color: #ff7b5c;
+  background: #fff0eb;
+}
+
+/* Back to safety / back-to-top links */
+
+a[href="#how-it-works"],
+a[href="#monitoring-modules"],
+a[href="#getting-started"],
+a[href="#frequently-asked-questions"],
+a[href="#contributing-to-pinetbeacon"] {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0.75rem;
+}
+
+a[href="#how-it-works"]:hover,
+a[href="#monitoring-modules"]:hover,
+a[href="#getting-started"]:hover,
+a[href="#frequently-asked-questions"]:hover,
+a[href="#contributing-to-pinetbeacon"]:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Contributing | PiNetBeacon</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Contributing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Lightweight Raspberry Pi network monitoring for curious hobbyists." />
+<meta property="og:description" content="Lightweight Raspberry Pi network monitoring for curious hobbyists." />
+<link rel="canonical" href="http://localhost:4000/PiNetBeacon/contributing/" />
+<meta property="og:url" content="http://localhost:4000/PiNetBeacon/contributing/" />
+<meta property="og:site_name" content="PiNetBeacon" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Contributing" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Lightweight Raspberry Pi network monitoring for curious hobbyists.","headline":"Contributing","url":"http://localhost:4000/PiNetBeacon/contributing/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/PiNetBeacon/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/PiNetBeacon/feed.xml" title="PiNetBeacon" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/PiNetBeacon/">PiNetBeacon</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/PiNetBeacon/contributing/">Contributing</a><a class="page-link" href="/PiNetBeacon/faq/">FAQ</a><a class="page-link" href="/PiNetBeacon/getting-started/">Getting started</a><a class="page-link" href="/PiNetBeacon/how-it-works/">How it works</a><a class="page-link" href="/PiNetBeacon/">PiNetBeacon</a><a class="page-link" href="/PiNetBeacon/monitoring-modules/">Monitoring modules</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Contributing</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="contributing-to-pinetbeacon">Contributing to PiNetBeacon</h1>
+
+<p>Thanks for your interest in contributing. PiNetBeacon is designed to be welcoming to hobbyists, learners, and curious tinkerers, not only seasoned developers. Whether you want to fix a typo, suggest an idea, or build a whole new module, we’re glad to have you here.</p>
+
+<p>This page explains how to participate, what kinds of contributions are welcome, and how to submit changes in a way that keeps the project healthy and easy to maintain.</p>
+
+<hr />
+
+<h2 id="contents-choose-your-own-adventure">Contents (choose your own adventure)</h2>
+
+<ul>
+  <li>🙋 <a href="#ways-you-can-contribute">Ways you can contribute</a></li>
+  <li>🔧 <a href="#improving-code-or-adding-modules">Improving code or adding modules</a></li>
+  <li>📝 <a href="#improving-documentation">Improving documentation</a></li>
+  <li>🐞 <a href="#reporting-issues-or-bugs">Reporting issues or bugs</a></li>
+  <li>🔀 <a href="#how-to-open-a-pull-request">How to open a pull request</a></li>
+  <li>🤝 <a href="#community-guidelines">Community guidelines</a></li>
+  <li>✨ <a href="#thank-you">Thank you</a></li>
+</ul>
+
+<hr />
+
+<h2 id="ways-you-can-contribute">Ways you can contribute</h2>
+
+<p>There are many ways to help PiNetBeacon grow, and you don’t need deep networking or programming experience to make a meaningful impact.</p>
+
+<p>Here are some contributions that are always welcome:</p>
+
+<ul>
+  <li>finding unclear wording and helping make it more readable</li>
+  <li>fixing typos or formatting issues</li>
+  <li>improving explanations for beginners</li>
+  <li>adding examples or clarifying steps</li>
+  <li>testing modules on different Raspberry Pi models</li>
+  <li>suggesting new features or checks</li>
+  <li>sharing ideas in the issue tracker</li>
+  <li>helping shape the project’s direction</li>
+</ul>
+
+<p>Even small improvements help make PiNetBeacon a friendlier place for the next person.</p>
+
+<p><a href="#contributing-to-pinetbeacon">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="improving-code-or-adding-modules">Improving code or adding modules</h2>
+
+<p>If you’re interested in contributing code, that’s fantastic. PiNetBeacon is intentionally built to be approachable for hobbyists, so the codebase is small, readable, and not packed with framework magic.</p>
+
+<p>A few tips before diving in:</p>
+
+<ul>
+  <li>Look at the existing modules to understand the structure</li>
+  <li>Keep your module focused on a clear, single purpose</li>
+  <li>Try to follow the style and tone of the current code</li>
+  <li>Be mindful of performance on lower-power Pis (Zero, Zero 2 W)</li>
+  <li>Test your module at least a few times before submitting a PR</li>
+</ul>
+
+<p>If you’re not sure whether your idea fits, feel free to open an issue first. A quick discussion can help shape your idea into something the whole project can use.</p>
+
+<p><a href="#contributing-to-pinetbeacon">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="improving-documentation">Improving documentation</h2>
+
+<p>Clear documentation is one of the most valuable parts of any open source project, and contributions here are always appreciated. You don’t need to write code to make a real difference.</p>
+
+<p>You can help by:</p>
+
+<ul>
+  <li>clarifying a step that felt confusing</li>
+  <li>adding explanations or examples</li>
+  <li>improving readability</li>
+  <li>suggesting beginner-friendly tips</li>
+  <li>fixing formatting or broken links</li>
+  <li>adding diagrams or illustrations</li>
+  <li>reorganizing sections for better flow</li>
+</ul>
+
+<p>If you spot something that made you pause or double-check, chances are someone else will appreciate that improvement too.</p>
+
+<p>Documentation lives in the <code class="language-plaintext highlighter-rouge">docs/</code> folder and is written in Markdown, so it’s easy to edit or extend.</p>
+
+<p><a href="#contributing-to-pinetbeacon">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="reporting-issues-or-bugs">Reporting issues or bugs</h2>
+
+<p>If something isn’t working the way you expect, opening an issue is a huge help. A good issue doesn’t need to be long or complicated. The goal is simply to describe what happened so others can understand and reproduce it.</p>
+
+<p>Helpful details include:</p>
+
+<ul>
+  <li>what command you ran</li>
+  <li>what you expected to happen</li>
+  <li>what actually happened</li>
+  <li>any error messages</li>
+  <li>your Raspberry Pi model and OS version</li>
+  <li>steps to reproduce the issue</li>
+  <li>screenshots or logs if relevant</li>
+</ul>
+
+<p>You don’t need to troubleshoot everything yourself. If the issue is enough to get a conversation started, that’s perfect.</p>
+
+<p><a href="#contributing-to-pinetbeacon">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="how-to-open-a-pull-request">How to open a pull request</h2>
+
+<p>Pull requests (PRs) are the main way to contribute code or documentation changes to PiNetBeacon. If you’ve never opened one before, don’t worry — GitHub makes the process straightforward.</p>
+
+<p>Here’s the typical flow:</p>
+
+<ol>
+  <li>
+    <p><strong>Fork the repository</strong><br />
+Click the “Fork” button on GitHub to create your own copy.</p>
+  </li>
+  <li>
+    <p><strong>Create a new branch</strong><br />
+Give it a short, descriptive name like <code class="language-plaintext highlighter-rouge">fix-dns-doc</code> or <code class="language-plaintext highlighter-rouge">add-http-module</code>.</p>
+  </li>
+  <li>
+    <p><strong>Make your changes</strong><br />
+Update the code or documentation. Small, focused changes are easier to review than large bundles.</p>
+  </li>
+  <li>
+    <p><strong>Test your changes</strong><br />
+Run the check script or build the docs as needed.</p>
+  </li>
+  <li>
+    <p><strong>Open a pull request</strong><br />
+Describe what you changed and why. Screenshots or examples are always welcome.</p>
+  </li>
+  <li>
+    <p><strong>Participate in review</strong><br />
+A maintainer may leave comments or suggestions. This is a normal and friendly part of the process.</p>
+  </li>
+</ol>
+
+<p>You don’t need to be an expert to contribute. PRs that improve clarity, reliability, or accessibility are always appreciated.</p>
+
+<p><a href="#contributing-to-pinetbeacon">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="community-guidelines">Community guidelines</h2>
+
+<p>PiNetBeacon is a small project built with curiosity, patience, and a sense of kindness. Everyone is welcome here, including beginners who are still learning the basics.</p>
+
+<p>To keep things comfortable for contributors and maintainers, we ask that you:</p>
+
+<ul>
+  <li>be respectful and considerate</li>
+  <li>assume good intentions</li>
+  <li>keep feedback constructive</li>
+  <li>prioritize clarity in code and communication</li>
+  <li>help others where you can</li>
+  <li>embrace learning and experimentation</li>
+</ul>
+
+<p>It’s okay if your idea isn’t fully formed or your first PR isn’t perfect. The goal is to support a community where people feel comfortable exploring and contributing at their own pace.</p>
+
+<p><a href="#contributing-to-pinetbeacon">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="thank-you">Thank you</h2>
+
+<p>Whether you contribute code, ideas, bug reports, documentation, or encouragement, we genuinely appreciate it. PiNetBeacon exists because people are curious, patient, and willing to share what they know.</p>
+
+<p>Thanks for taking the time to help make this project better for everyone.</p>
+
+<p><a href="#contributing-to-pinetbeacon">↑ Back to safety</a></p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/PiNetBeacon/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PiNetBeacon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PiNetBeacon</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Lightweight Raspberry Pi network monitoring for curious hobbyists.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

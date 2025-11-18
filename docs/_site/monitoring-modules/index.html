@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Monitoring modules | PiNetBeacon</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Monitoring modules" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Lightweight Raspberry Pi network monitoring for curious hobbyists." />
+<meta property="og:description" content="Lightweight Raspberry Pi network monitoring for curious hobbyists." />
+<link rel="canonical" href="http://localhost:4000/PiNetBeacon/monitoring-modules/" />
+<meta property="og:url" content="http://localhost:4000/PiNetBeacon/monitoring-modules/" />
+<meta property="og:site_name" content="PiNetBeacon" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Monitoring modules" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Lightweight Raspberry Pi network monitoring for curious hobbyists.","headline":"Monitoring modules","url":"http://localhost:4000/PiNetBeacon/monitoring-modules/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/PiNetBeacon/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/PiNetBeacon/feed.xml" title="PiNetBeacon" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/PiNetBeacon/">PiNetBeacon</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/PiNetBeacon/contributing/">Contributing</a><a class="page-link" href="/PiNetBeacon/faq/">FAQ</a><a class="page-link" href="/PiNetBeacon/getting-started/">Getting started</a><a class="page-link" href="/PiNetBeacon/how-it-works/">How it works</a><a class="page-link" href="/PiNetBeacon/">PiNetBeacon</a><a class="page-link" href="/PiNetBeacon/monitoring-modules/">Monitoring modules</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Monitoring modules</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="monitoring-modules">Monitoring modules</h1>
+
+<p>PiNetBeacon is built around small, focused “modules” that check different parts of your network. Think of each module as a tiny sensor that reports how things are going. None of them try to fix anything, they just collect honest little facts about your connection.</p>
+
+<p>This page walks you through the modules that PiNetBeacon supports, why each one matters, and how the results can help you understand your network’s mood.</p>
+
+<hr />
+
+<h2 id="contents-choose-your-own-adventure">Contents (choose your own adventure)</h2>
+
+<ul>
+  <li>🏓 <a href="#ping-module-latency-and-packet-loss">Ping module: latency and packet loss</a></li>
+  <li>🌐 <a href="#dns-module-testing-name-lookups">DNS module: testing name lookups</a></li>
+  <li>🔍 <a href="#http-module-checking-website-reachability">HTTP module: checking website reachability</a></li>
+  <li>🚪 <a href="#gateway-module-is-your-router-awake">Gateway module: is your router awake</a></li>
+  <li>🛠️ <a href="#optional-future-modules">Optional future modules</a></li>
+  <li>✨ <a href="#wrapping-up">Wrapping up</a></li>
+</ul>
+
+<hr />
+
+<h2 id="ping-module-latency-and-packet-loss">Ping module: latency and packet loss</h2>
+
+<p>The Ping module is the core of PiNetBeacon. It’s the one that checks how fast your network responds and whether anything goes missing along the way.</p>
+
+<p>If you read the “<a href="/PiNetBeacon/how-it-works/">How it works</a>” page, you already know the vibes: your Pi steps onto the imaginary airport moving walkway with a tiny envelope and hopes whatever’s at the other end isn’t a goblin.</p>
+
+<p>Here’s what the Ping module measures:</p>
+
+<ul>
+  <li>
+    <p><strong>Average latency</strong><br />
+This tells you how long the round trip took. Lower numbers feel snappier. Higher numbers feel like your apps are thinking too hard.</p>
+  </li>
+  <li>
+    <p><strong>Packet loss</strong><br />
+This is how many envelopes never made it back. Even a little packet loss can make video calls freeze or games feel laggy.</p>
+  </li>
+  <li>
+    <p><strong>Status</strong><br />
+PiNetBeacon translates the raw result into simple states like “up” or “down” so you don’t have to interpret weird command output.</p>
+  </li>
+  <li>
+    <p><strong>Helpful notes</strong><br />
+If something odd happened (host unreachable, timed out, permission error), the module writes a clear note in the log.</p>
+  </li>
+</ul>
+
+<p>Most home internet issues show up in the Ping module first. It’s the simplest, most reliable way to spot slowdowns or flaky behavior.</p>
+
+<p><a href="#monitoring-modules">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="dns-module-testing-name-lookups">DNS module: testing name lookups</h2>
+
+<p>The DNS module checks whether your network can turn names into addresses. When you type <code class="language-plaintext highlighter-rouge">example.com</code> into a browser, your device has to ask a DNS server, “Hi, what is the actual IP for this name?” If DNS is unhappy, almost everything feels broken.</p>
+
+<p>PiNetBeacon’s DNS module is small but helpful. It sends a simple lookup request for a hostname you choose, then records what happened.</p>
+
+<h3 id="what-the-dns-module-checks">What the DNS module checks</h3>
+
+<ul>
+  <li>
+    <p><strong>Can the Pi reach your DNS resolver?</strong><br />
+If this fails, your Pi can still “see” the internet in theory but has no idea where anything lives.</p>
+  </li>
+  <li>
+    <p><strong>How long the lookup takes</strong><br />
+Slow DNS can make websites feel sluggish even when your connection is fast.</p>
+  </li>
+  <li>
+    <p><strong>Whether the response looks valid</strong><br />
+If the query gets a weird or empty response, PiNetBeacon notes that in the log.</p>
+  </li>
+</ul>
+
+<p>This module is especially useful on days when speed tests look fine but websites refuse to load, or when every device in the house suddenly complains in chorus.</p>
+
+<p>You can pick a simple, stable hostname to test, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cloudflare.com</code></li>
+  <li><code class="language-plaintext highlighter-rouge">example.com</code></li>
+  <li>or a service you care about</li>
+</ul>
+
+<p>The DNS module logs a clear success or failure result so you do not have to read raw resolver output.</p>
+
+<p><a href="#monitoring-modules">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="http-module-checking-website-reachability">HTTP module: checking website reachability</h2>
+
+<p>The HTTP module answers a very normal, very human question:</p>
+
+<p><strong>“Is it just me, or is this website actually down?”</strong></p>
+
+<p>Instead of relying on guesses, refreshing the page six times, or Googling “is X down,” PiNetBeacon can quietly check for you.</p>
+
+<p>The HTTP module sends a tiny request to a website you choose and looks for a simple, healthy response. It doesn’t download the whole page and it doesn’t spider the site. It just taps the door and waits for a friendly “yep, I’m here.”</p>
+
+<h3 id="what-the-http-module-checks">What the HTTP module checks</h3>
+
+<ul>
+  <li>
+    <p><strong>Can the Pi reach the site at all?</strong><br />
+If your Pi can’t reach it, chances are your other devices can’t either.</p>
+  </li>
+  <li>
+    <p><strong>Does the server respond with a normal status code?</strong><br />
+(Like 200 OK. Not the dreaded 500, or the “whoops, everything’s on fire” 503.)</p>
+  </li>
+  <li>
+    <p><strong>How long the site took to reply</strong><br />
+Slow responses can reveal early signs of service issues.</p>
+  </li>
+</ul>
+
+<h3 id="why-its-useful">Why it’s useful</h3>
+
+<p>Sometimes your internet is fine but one specific service (think: email provider, chat app, game server, or your favorite dashboard) is having a mood. The HTTP module helps you confirm it without guesswork.</p>
+
+<p>You can monitor:</p>
+
+<ul>
+  <li>a homepage you depend on</li>
+  <li>an API endpoint</li>
+  <li>your router’s status page (advanced users only)</li>
+  <li>or any site that allows simple GET requests</li>
+</ul>
+
+<p>The module logs the result in clear yes/no terms so you don’t have to interpret cryptic status codes.</p>
+
+<p><a href="#monitoring-modules">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="gateway-module-is-your-router-awake">Gateway module: is your router awake</h2>
+
+<p>Your gateway (usually your router) is the first stop for all your internet traffic. If it’s slow, overloaded, overheating, or quietly having an existential crisis, everything else feels broken.</p>
+
+<p>The Gateway module checks whether your Pi can reliably talk to your router. It’s a simple test, but it answers a surprisingly important question:</p>
+
+<p><strong>“Is the problem happening inside my house, or somewhere out on the internet?”</strong></p>
+
+<h3 id="what-the-gateway-module-checks">What the Gateway module checks</h3>
+
+<ul>
+  <li>
+    <p><strong>Basic connectivity</strong><br />
+Can the Pi reach the router’s IP address?</p>
+  </li>
+  <li>
+    <p><strong>Response time</strong><br />
+If the router is sluggish, local traffic slows down even when your ISP is fine.</p>
+  </li>
+  <li>
+    <p><strong>Packet loss at the first hop</strong><br />
+This usually means Wi-Fi interference or a router that needs a little nap (or a reboot).</p>
+  </li>
+</ul>
+
+<h3 id="why-it-matters">Why it matters</h3>
+
+<p>If the gateway check is failing:</p>
+
+<ul>
+  <li>the issue is almost certainly local</li>
+  <li>your ISP is not the villain this time</li>
+  <li>your router or Wi-Fi network is having a mood</li>
+  <li>it explains streaming hiccups, smart-home chaos, and slow loading times</li>
+</ul>
+
+<p>If the gateway check is fine but everything else is a mess, the problem is more likely farther upstream.</p>
+
+<p>The Gateway module helps you separate “my house is on fire” from “the internet is on fire,” which is a surprisingly useful distinction.</p>
+
+<p><a href="#monitoring-modules">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="optional-future-modules">Optional future modules</h2>
+
+<p>PiNetBeacon is designed to grow over time. The core modules keep things lightweight and beginner friendly, but there’s room for expansion if you want to explore deeper network behavior.</p>
+
+<p>Here are a few ideas that might land in future versions, or that you can add yourself if you’re feeling adventurous.</p>
+
+<h3 id="-speed-sampling">• Speed sampling</h3>
+<p>Not a full speed test (those are too heavy for frequent checks), but small, low-impact measurements that give you a sense of how fast downloads or uploads feel at different times.</p>
+
+<h3 id="-jitter-monitoring">• Jitter monitoring</h3>
+<p>Jitter is how much your latency varies. High jitter makes video calls feel wobbly even if the connection is technically fast. It’s a great metric for “vibe checking” your network stability.</p>
+
+<h3 id="-http-status-pattern-tracking">• HTTP status pattern tracking</h3>
+<p>Look for repeating trends, like occasional 503s at the same time every evening. This is surprisingly useful for spotting upstream service hiccups.</p>
+
+<h3 id="-local-device-checks">• Local device checks</h3>
+<p>Ping or HTTP-check devices inside your home, like a NAS, smart hub, or home server. This can help you figure out if your Wi-Fi is having an off day.</p>
+
+<h3 id="-gateway-uptime-summaries">• Gateway uptime summaries</h3>
+<p>Small daily or weekly rollups that highlight “your router took a 3-minute nap at 2:17 AM.” Very handy for spotting reboot cycles or heat issues.</p>
+
+<h3 id="-dns-consistency-checks">• DNS consistency checks</h3>
+<p>Verify that your resolver is returning the same answers over time, and detect when things get weird (looking at you, captive portals and ISP redirects).</p>
+
+<p>If you decide to build one of these, PiNetBeacon’s structure should make it easy to drop in a module, log its results, and add it to the dashboard. PRs are always welcome.</p>
+
+<p><a href="#monitoring-modules">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="wrapping-up">Wrapping up</h2>
+
+<p>PiNetBeacon’s modules are intentionally small and easy to understand. Each one focuses on a specific part of your network and writes down what it sees in clear, human-friendly terms. When you combine a few modules together, you get a surprisingly good snapshot of your network’s habits.</p>
+
+<p>Whether you’re here because your internet feels “off,” or you’re just curious about how things actually work under the hood, these modules give you a simple way to explore.</p>
+
+<p>If there’s a module you’d like to see, feel free to open an issue or start a pull request. This project is built with hobbyists in mind, and contributions are always welcome.</p>
+
+<p>You can keep exploring with:</p>
+
+<ul>
+  <li><a href="/PiNetBeacon/getting-started/">Getting started</a></li>
+  <li><a href="/PiNetBeacon/how-it-works/">How it works</a></li>
+  <li><a href="/PiNetBeacon/faq/">FAQ</a></li>
+</ul>
+
+<p>Thanks for checking out PiNetBeacon. Your router may not always be awake, but we’re glad you are.</p>
+
+<p><a href="#monitoring-modules">↑ Back to safety</a></p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/PiNetBeacon/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PiNetBeacon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PiNetBeacon</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Lightweight Raspberry Pi network monitoring for curious hobbyists.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

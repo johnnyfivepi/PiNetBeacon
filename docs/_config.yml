@@ -1,0 +1,9 @@
+title: PiNetBeacon
+description: Lightweight Raspberry Pi network monitoring for curious hobbyists.
+
+theme: minima
+
+markdown: kramdown
+permalink: pretty
+
+baseurl: "/PiNetBeacon"

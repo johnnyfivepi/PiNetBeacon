@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>FAQ | PiNetBeacon</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="FAQ" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Lightweight Raspberry Pi network monitoring for curious hobbyists." />
+<meta property="og:description" content="Lightweight Raspberry Pi network monitoring for curious hobbyists." />
+<link rel="canonical" href="http://localhost:4000/PiNetBeacon/faq/" />
+<meta property="og:url" content="http://localhost:4000/PiNetBeacon/faq/" />
+<meta property="og:site_name" content="PiNetBeacon" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="FAQ" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Lightweight Raspberry Pi network monitoring for curious hobbyists.","headline":"FAQ","url":"http://localhost:4000/PiNetBeacon/faq/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/PiNetBeacon/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/PiNetBeacon/feed.xml" title="PiNetBeacon" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/PiNetBeacon/">PiNetBeacon</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/PiNetBeacon/contributing/">Contributing</a><a class="page-link" href="/PiNetBeacon/faq/">FAQ</a><a class="page-link" href="/PiNetBeacon/getting-started/">Getting started</a><a class="page-link" href="/PiNetBeacon/how-it-works/">How it works</a><a class="page-link" href="/PiNetBeacon/">PiNetBeacon</a><a class="page-link" href="/PiNetBeacon/monitoring-modules/">Monitoring modules</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">FAQ</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="frequently-asked-questions">Frequently asked questions</h1>
+
+<p>Here are answers to the questions people tend to ask while setting up or using PiNetBeacon. Everything here is beginner-friendly, and nothing assumes you already know how networking works. If something feels confusing, you’re not alone, and part of the point of PiNetBeacon is to make this stuff easier to understand. (In fact, I tend to learn by doing, so I tackled this for my own knowledge first!)</p>
+
+<hr />
+
+<h2 id="contents-choose-your-own-adventure">Contents (choose your own adventure)</h2>
+
+<ul>
+  <li>❓ <a href="#does-pinetbeacon-work-on-the-raspberry-pi-zero-2-w">Does PiNetBeacon work on the Raspberry Pi Zero 2 W?</a></li>
+  <li>🌐 <a href="#do-i-need-fast-internet-for-this-to-work">Do I need fast internet for this to work?</a></li>
+  <li>📡 <a href="#what-host-should-i-ping">What host should I ping?</a></li>
+  <li>🧪 <a href="#how-often-should-pinetbeacon-run-checks">How often should PiNetBeacon run checks?</a></li>
+  <li>🗂️ <a href="#will-this-wear-out-my-sd-card">Will this wear out my SD card?</a></li>
+  <li>🛜 <a href="#my-internet-feels-slow-but-pinetbeacon-says-its-fine-why">My internet feels slow but PiNetBeacon says it’s fine. Why?</a></li>
+  <li>🔧 <a href="#a-module-shows-an-error-what-do-i-do">A module shows an error. What do I do?</a></li>
+  <li>🔍 <a href="#where-do-i-find-the-logs">Where do I find the logs?</a></li>
+  <li>📊 <a href="#do-i-need-the-dashboard">Do I need the dashboard?</a></li>
+  <li>🤝 <a href="#can-i-contribute-or-add-my-own-module">Can I contribute or add my own module?</a></li>
+</ul>
+
+<hr />
+
+<h2 id="does-pinetbeacon-work-on-the-raspberry-pi-zero-2-w">Does PiNetBeacon work on the Raspberry Pi Zero 2 W?</h2>
+
+<p>Yes, absolutely. PiNetBeacon is lightweight and runs comfortably on the Raspberry Pi Zero 2 W. In fact, many people use it as a background “network narrator” for their home setup.</p>
+
+<p>It also works on the original Pi Zero W, Pi 3, Pi 4, Pi 5, and anything newer. If your Pi can run Raspberry Pi OS Lite and has a network connection, you’re set.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="do-i-need-fast-internet-for-this-to-work">Do I need fast internet for this to work?</h2>
+
+<p>No. PiNetBeacon isn’t measuring how <em>fast</em> your internet is. It cares more about how <em>responsive</em> and <em>reliable</em> it feels.</p>
+
+<p>Even modest internet connections can behave well or poorly depending on:</p>
+
+<ul>
+  <li>congestion</li>
+  <li>your router’s health</li>
+  <li>Wi-Fi stability</li>
+  <li>your ISP’s “personality” today</li>
+</ul>
+
+<p>PiNetBeacon focuses on latency and packet loss, which matter for things like:</p>
+
+<ul>
+  <li>loading websites</li>
+  <li>video calls</li>
+  <li>gaming</li>
+  <li>smart-home devices</li>
+</ul>
+
+<p>So whether you have gigabit fiber or something more humble, PiNetBeacon can help you understand how your connection behaves.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="what-host-should-i-ping">What host should I ping?</h2>
+
+<p>Most people start with <strong>1.1.1.1</strong> (Cloudflare) or <strong>8.8.8.8</strong> (Google). Both are reliable, well-maintained, and respond quickly.</p>
+
+<p>You can also ping:</p>
+
+<ul>
+  <li>your router’s LAN IP</li>
+  <li>a DNS server you prefer</li>
+  <li>a service you rely on</li>
+  <li>or any stable host that normally stays online</li>
+</ul>
+
+<p>If you ever notice a target behaving oddly, try switching to a different one and compare. Sometimes a single service has a temporary mood, and PiNetBeacon makes that easy to spot.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="how-often-should-pinetbeacon-run-checks">How often should PiNetBeacon run checks?</h2>
+
+<p>Most people schedule PiNetBeacon to run:</p>
+
+<ul>
+  <li>every <strong>1 minute</strong></li>
+  <li>or every <strong>5 minutes</strong></li>
+</ul>
+
+<p>Shorter intervals give you more detailed data, while longer intervals reduce how often the log grows.</p>
+
+<p>A good starting point is every 2 to 3 minutes. That gives you a clear picture of your network’s behavior without overwhelming your Pi or your storage.</p>
+
+<p>If you’re trying to diagnose something in real time, feel free to shorten the interval temporarily.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="will-this-wear-out-my-sd-card">Will this wear out my SD card?</h2>
+
+<p>Not under normal use. PiNetBeacon writes small log entries, and they’re lightweight enough that the impact on your SD card is minimal.</p>
+
+<p>If you want to be extra cautious, you can:</p>
+
+<ul>
+  <li>run checks less frequently</li>
+  <li>rotate logs occasionally</li>
+  <li>or store logs on a USB drive or network share</li>
+</ul>
+
+<p>But for most hobbyists, PiNetBeacon’s logging style is well within what SD cards handle every day without issue.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="my-internet-feels-slow-but-pinetbeacon-says-its-fine-why">My internet feels slow but PiNetBeacon says it’s fine. Why?</h2>
+
+<p>This happens more often than you might think. PiNetBeacon focuses on <em>responsiveness</em> and <em>stability</em> (latency and packet loss), but many real-world slowdowns happen for other reasons like:</p>
+
+<ul>
+  <li>a specific website or app struggling</li>
+  <li>crowded Wi-Fi channels</li>
+  <li>multiple devices using bandwidth at once</li>
+  <li>your router needing a reboot</li>
+  <li>a service throttling traffic</li>
+  <li>DNS being sluggish for a moment</li>
+</ul>
+
+<p>Think of PiNetBeacon as the “is the network actually misbehaving?” tool. If it reports normal results but things <em>feel</em> slow, the issue is often:</p>
+
+<ul>
+  <li>a single service</li>
+  <li>Wi-Fi interference</li>
+  <li>or something happening outside your Pi’s path</li>
+</ul>
+
+<p>The <strong>How it works</strong> page explains these scenarios in more detail if you want a deeper look.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="a-module-shows-an-error-what-do-i-do">A module shows an error. What do I do?</h2>
+
+<p>Don’t panic — most module errors are straightforward and usually mean something in the network path didn’t respond the way the Pi expected.</p>
+
+<p>A few common causes:</p>
+
+<ul>
+  <li>the host you’re checking is temporarily down</li>
+  <li>your Wi-Fi dropped for a moment</li>
+  <li>DNS returned something unusual</li>
+  <li>your router paused to collect itself</li>
+  <li>the Pi ran the check before the network was fully ready</li>
+</ul>
+
+<p>Each module includes a short note in the log entry to help you figure out what happened. If you’re unsure how to interpret it:</p>
+
+<ul>
+  <li>run the check again</li>
+  <li>try a different target host</li>
+  <li>check your Pi’s network connection</li>
+  <li>glance at the <strong>Gateway</strong> or <strong>DNS</strong> module’s results for context</li>
+</ul>
+
+<p>If you continue seeing the same error, feel free to open an issue on GitHub. PiNetBeacon is meant to be understandable, not mysterious.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="where-do-i-find-the-logs">Where do I find the logs?</h2>
+
+<p>PiNetBeacon stores log entries in:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data/logs/pinetbeacon.log.jsonl
+</code></pre></div></div>
+
+<p>Each line is a single JSON object. This makes it easy to:</p>
+
+<ul>
+  <li>view entries with <code class="language-plaintext highlighter-rouge">cat</code> or <code class="language-plaintext highlighter-rouge">less</code></li>
+  <li>search through them with command-line tools</li>
+  <li>feed them into the dashboard</li>
+  <li>analyze them with Python or another script</li>
+</ul>
+
+<p>Logs grow over time, but they’re plain text and very manageable. If you ever want to rotate or archive them, you can rename the file and PiNetBeacon will create a fresh one automatically.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="do-i-need-the-dashboard">Do I need the dashboard?</h2>
+
+<p>No — PiNetBeacon works perfectly well without it. The dashboard is an optional layer that turns your log data into clear visuals, which can help you spot patterns more easily.</p>
+
+<p>You might find the dashboard helpful if you want to see:</p>
+
+<ul>
+  <li>when latency spikes over time</li>
+  <li>how often packet loss appears</li>
+  <li>whether certain hours of the day behave differently</li>
+  <li>how your router or DNS responds across longer periods</li>
+</ul>
+
+<p>If you prefer reading logs directly, that’s totally fine. PiNetBeacon is designed to let you use whichever approach feels most natural.</p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+<hr />
+
+<h2 id="can-i-contribute-or-add-my-own-module">Can I contribute or add my own module?</h2>
+
+<p>Absolutely. PiNetBeacon is open source and designed to be understandable even if you’re new to scripting or networking.</p>
+
+<p>You can contribute by:</p>
+
+<ul>
+  <li>opening an issue</li>
+  <li>suggesting a new module</li>
+  <li>improving documentation</li>
+  <li>submitting a pull request</li>
+  <li>experimenting with new checks in your own fork</li>
+</ul>
+
+<p>If you’re interested in writing your own module, feel free to look at the existing ones for inspiration. They’re intentionally compact so you can learn from them without getting buried in boilerplate.</p>
+
+<p>Contributions of all sizes are welcome. You can read more about contributing here:</p>
+
+<p>👉 <a href="/PiNetBeacon/contributing/">Contributing to PiNetBeacon</a></p>
+
+<p><a href="#frequently-asked-questions">↑ Back to safety</a></p>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/PiNetBeacon/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PiNetBeacon</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PiNetBeacon</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Lightweight Raspberry Pi network monitoring for curious hobbyists.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
