@@ -7,7 +7,7 @@ title: Getting started
 
 Welcome! This page walks you through setting up PiNetBeacon on your Raspberry Pi. You don’t need any networking background to follow along. We’ll take things step by step and explain some details as we go so nothing feels mysterious.
 
-If this is your first time SSHing into a Raspberry Pi or installing a simple tool like this, you’re in the right place. Think of this page as a friendly guide standing beside you saying, “Yep, this is normal, you’re doing great.”
+If this is your first time SSHing into a Raspberry Pi or installing a tool like this, you’re in the right place. Think of this page as a friendly guide standing beside you saying, “Yep, this is normal, you’re doing great.”
 
 ---
 
@@ -15,8 +15,8 @@ If this is your first time SSHing into a Raspberry Pi or installing a simple too
 
 - 📦 [What you'll need](#what-youll-need)
 - 💿 [Install Raspberry Pi OS Lite](#install-raspberry-pi-os-lite)
-- 📥 [Clone the repository](#clone-the-repository)
 - 🔧 [Install dependencies](#install-dependencies)
+- 📥 [Clone the repository](#clone-the-repository)
 - 📝 [Configure PiNetBeacon](#configure-pinetbeacon)
 - 🏃‍♂️ [Run your first check](#run-your-first-check)
 - ✨ [Next steps](#next-steps)
@@ -44,48 +44,61 @@ Here’s the short list of things you need before starting:
 
 ## Install Raspberry Pi OS Lite
 
-PiNetBeacon runs well on Raspberry Pi OS Lite, which is the streamlined, no-desktop version of the operating system. It keeps things clean and efficient, and you won’t miss the graphical interface for this project.
+PiNetBeacon runs well on Raspberry Pi OS Lite, the streamlined version of the operating system without a graphical desktop. It keeps everything lightweight and responsive, which is exactly what we want for a tiny network watcher.
 
-Here’s how to get it onto your microSD card:
+Here’s how to get the OS onto your microSD card:
 
-1. Install the Raspberry Pi Imager on your computer.  
-   You can download it from: https://www.raspberrypi.com/software/
+1. Install [Raspberry Pi Imager - Official ](https://www.raspberrypi.com/software) on your computer and **insert your microSD card**.
 
-2. In the Imager, choose **Raspberry Pi OS Lite (64-bit)** as your operating system.
+2. Open Imager and choose:
 
-3. Before writing the image, click the gear icon to open advanced settings.  
-   Enable **SSH** and set a username and password. This lets you connect to your Pi without attaching a monitor or keyboard.
+   - **Device**: your Raspberry Pi model
+   - **Operating System**: Raspberry Pi OS Lite (64-bit) which is under `Operating System > Raspberry Pi OS (other)`
+   - **Storage**: your microSD card
+   
+   Once those three fields are all selected, the **Next** button becomes available. 
 
-4. Insert your microSD card, write the image, and let the Imager finish the setup.
+3. Click **Next** and Imager will ask if you want to apply OS customisation. (We do!)
 
-5. Place the card into your Raspberry Pi, power it on, and give it a minute to start up.
+4. Choose **Edit Settings**. This opens a configuration window with three tabs:
 
-Once it’s on your network, you can connect to it over SSH:
+   - **General**: hostname, username, password, Wi-Fi, and locale  
+   - **Services**: SSH settings  
+   - **Options**: a few optional Imager behaviors
+ 
+5. In the **General** tab, set the basics:
 
-```bash
-ssh username@raspberrypi.local
-```
+   - **Hostname** (for example, `pinetbeacon`)
+   - **Username and password** (this is what you’ll use to log in over SSH)
+   - **Wireless LAN** network name and password
+   - **Wireless LAN country** (important for enabling Wi-Fi)
+   - **Time zone** and **keyboard layout**
 
-If that doesn’t work right away, you can use the Pi’s IP address instead. Your router’s device list will usually show it.
+   > 💡 **Password tip:**  
+   > Make sure the password you choose here is something you can remember, or save it somewhere secure (like 1Password or Bitwarden). This is the password you’ll use every time you connect to your Pi over SSH, so if you forget it, you'll likely need to rewrite the SD card.
+   {: .tip}
 
-After this step, your Raspberry Pi is ready for PiNetBeacon.
+6. Switch to the **Services** tab and enable SSH:
 
-[↑ Back to safety](#getting-started)
+   - Check **Enable SSH**
+   - Choose **Use password authentication**
+   
+   This allows you to connect to your Pi from your computer without plugging in a keyboard or monitor.
 
----
+7. You can usually leave the **Options** tab as-is, but enabling **Eject media when finished** is handy.
 
-## Clone the repository
+8. Click **Save**, then let the Imager write the OS to your microSD card. When it finishes, eject the card and insert it into your Raspberry Pi.
 
-Once your Raspberry Pi is running and you can connect to it over SSH, you’re ready to download PiNetBeacon.
+9. Power on your Pi and give it a minute or two to start up. It will connect to your Wi-Fi using the details you entered earlier.
 
-Navigate to the home directory on your Pi and clone the project:
+10. Once it’s online, you can connect to it from your computer using SSH:
 
-```bash
-git clone https://github.com/YOUR-USERNAME/PiNetBeacon.git
-cd PiNetBeacon
-```
+    ```bash
+    ssh username@pinetbeacon.local
+    ```
+If that doesn’t work right away, you can SSH using the Pi’s IP address instead. Your router’s device list will usually show the Pi by its hostname.
 
-This creates a new folder containing all of PiNetBeacon’s files, and it keeps everything organized in one place. You’ll run commands from inside this directory throughout the rest of the setup.
+At this point, your Raspberry Pi is ready for updates, dependencies, and - soon - PiNetBeacon!
 
 [↑ Back to safety](#getting-started)
 
@@ -97,6 +110,7 @@ PiNetBeacon uses Python, which is already included on Raspberry Pi OS Lite. To m
 
 ```bash
 sudo apt update
+sudo apt upgrade -y
 sudo apt install -y python3 python3-pip
 ```
 
@@ -107,6 +121,23 @@ pip3 install -r requirements.txt
 ```
 
 Once Python and pip are ready, your Pi has everything it needs to run PiNetBeacon’s modules and log data.
+
+[↑ Back to safety](#getting-started)
+
+---
+
+## Clone the repository
+
+Now that your Raspberry Pi is running and you can connect to it over SSH, you’re ready to download PiNetBeacon.
+
+Navigate to the home directory on your Pi and clone the project:
+
+```bash
+git clone https://github.com/johnnyfivepi/PiNetBeacon.git
+cd PiNetBeacon
+```
+
+This creates a new folder containing all of PiNetBeacon’s files, and it keeps everything organized in one place. You’ll run commands from inside this directory throughout the rest of the setup.
 
 [↑ Back to safety](#getting-started)
 
