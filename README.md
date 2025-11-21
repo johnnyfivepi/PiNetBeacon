@@ -122,7 +122,7 @@ You can use cron or a systemd timer to run the check every minute or every few m
 
 ### 7. Optional: View the dashboard
 
-Open the file `dashboard/index.html` in a web browser. 
+Open the file `dashboard/index.html` in a web browser.
 
 This will show your most recent log information in a simple visual format.
 
@@ -130,9 +130,9 @@ You can also serve it with a tiny Python server if you want to view it from anot
 
 > **Note:**  
 > The dashboard only updates while the dashboard server is actively running on your Pi.  
-> It reads data in real time from:
+> It reads live data from:
 >
-> - `/api/logs/latest`  
+> - `/api/logs/latest`
 > - `/api/health`
 >
 > Running one-off checks *does* add entries to:
@@ -141,7 +141,7 @@ You can also serve it with a tiny Python server if you want to view it from anot
 > data/logs/pinetbeacon.log.jsonl
 > ```
 >
-> …but those entries won’t appear in the dashboard until the server is running and you click **Refresh now**.
+> …but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
 
 To run the dashboard server:
 
@@ -152,9 +152,11 @@ python3 server.py
 
 Then open your browser to:
 
-http://<your-pi-ip-address>:8080
+```
+http://<your-pi-ip>:8080
+```
 
-> 💡 Tip  
+> 💡 **Tip**  
 > The dashboard is not yet a background service.  
 > You'll need to start it manually whenever you want to view it.
 
