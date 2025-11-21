@@ -56,9 +56,17 @@ Here’s how to get the OS onto your microSD card:
    - **Operating System**: Raspberry Pi OS Lite (64-bit) which is under `Operating System > Raspberry Pi OS (other)`
    - **Storage**: your microSD card
    
-   Once those three fields are all selected, the **Next** button becomes available. 
+   Once those three fields are all selected, the **Next** button becomes available:
+
+   ![Set all three fields](../assets/images/imager.png)
 
 3. Click **Next** and Imager will ask if you want to apply OS customisation. (We do!)
+    
+    ![Apply OS customization prompt](../assets/images/imager-apply-settings.png)
+
+    > 📝 **Note:**  
+    > This is where all the good stuff lives.
+    {: .note}
 
 4. Choose **Edit Settings**. This opens a configuration window with three tabs:
 
@@ -74,6 +82,8 @@ Here’s how to get the OS onto your microSD card:
    - **Wireless LAN country** (important for enabling Wi-Fi)
    - **Time zone** and **keyboard layout**
 
+   ![Raspberry Pi Imager — General tab](../assets/images/imager-general-tab.png)
+
    > 💡 **Password tip:**  
    > Make sure the password you choose here is something you can remember, or save it somewhere secure (like 1Password or Bitwarden). This is the password you’ll use every time you connect to your Pi over SSH, so if you forget it, you'll likely need to rewrite the SD card.
    {: .tip}
@@ -83,9 +93,15 @@ Here’s how to get the OS onto your microSD card:
    - Check **Enable SSH**
    - Choose **Use password authentication**
    
-   This allows you to connect to your Pi from your computer without plugging in a keyboard or monitor.
+   ![Raspberry Pi Imager — Services tab](../assets/images/imager-services-tab.png)
+
+   > 📝 **Note:**  
+   > PiNetBeacon needs SSH enabled so you can connect without a monitor or keyboard.
+   {: .note}
 
 7. You can usually leave the **Options** tab as-is, but enabling **Eject media when finished** is handy.
+
+   ![Raspberry Pi Imager — Options tab](../assets/images/imager-options-tab.png)
 
 8. Click **Save**, then let the Imager write the OS to your microSD card. When it finishes, eject the card and insert it into your Raspberry Pi.
 
@@ -99,6 +115,10 @@ Here’s how to get the OS onto your microSD card:
 If that doesn’t work right away, you can SSH using the Pi’s IP address instead. Your router’s device list will usually show the Pi by its hostname.
 
 At this point, your Raspberry Pi is ready for updates, dependencies, and - soon - PiNetBeacon!
+
+> 📘 **More info:**  
+> The Raspberry Pi Foundation maintains full documentation for the Imager, including all OS customization options: [Official Raspberry Pi Imager documentation](https://www.raspberrypi.com/documentation/computers/getting-started.html#getting-started-imaging-your-raspberry-pi)
+{: .note}
 
 [↑ Back to safety](#getting-started)
 

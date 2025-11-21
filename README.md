@@ -128,6 +128,36 @@ This will show your most recent log information in a simple visual format.
 
 You can also serve it with a tiny Python server if you want to view it from another device.
 
+> **Note:**  
+> The dashboard only updates while the dashboard server is actively running on your Pi.  
+> It reads data in real time from:
+>
+> - `/api/logs/latest`  
+> - `/api/health`
+>
+> Running one-off checks *does* add entries to:
+>
+> ```
+> data/logs/pinetbeacon.log.jsonl
+> ```
+>
+> …but those entries won’t appear in the dashboard until the server is running and you click **Refresh now**.
+
+To run the dashboard server:
+
+```bash
+cd ~/PiNetBeacon/dashboard
+python3 server.py
+```
+
+Then open your browser to:
+
+http://<your-pi-ip-address>:8080
+
+> 💡 Tip  
+> The dashboard is not yet a background service.  
+> You'll need to start it manually whenever you want to view it.
+
 ---
 
 ## Example Log Entry
@@ -166,11 +196,18 @@ Topics include:
 - 📊 How the dashboard reads and renders data
 - 🧪 Ideas for extending PiNetBeacon with new checks
 
-If you fork this project, your own GitHub Pages documentation will be available at:
+If you fork this project and enable GitHub Pages for your fork, your own documentation site will be available at:
 
-https://YOUR-USERNAME.github.io/PiNetBeacon/
+`https://YOUR-USERNAME.github.io/PiNetBeacon/`
 
 Replace "YOUR-USERNAME" with your GitHub account name when publishing your fork.
+
+To enable GitHub Pages:
+
+1. Go to **Settings → Pages** in your fork.  
+2. Under **Source**, choose **Deploy from a branch**.  
+3. Select your default branch (for example, `main`) and set the folder to `/docs`.  
+4. Save, then wait a minute or two for GitHub to build the site.
 
 ---
 

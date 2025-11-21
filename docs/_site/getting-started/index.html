@@ -106,10 +106,19 @@ SSH lets you open a command line on your Raspberry Pi from your computer. It’s
       <li><strong>Storage</strong>: your microSD card</li>
     </ul>
 
-    <p>Once those three fields are all selected, the <strong>Next</strong> button becomes available.</p>
+    <p>Once those three fields are all selected, the <strong>Next</strong> button becomes available:</p>
+
+    <p><img src="../assets/images/imager.png" alt="Set all three fields" /></p>
   </li>
   <li>
     <p>Click <strong>Next</strong> and Imager will ask if you want to apply OS customisation. (We do!)</p>
+
+    <p><img src="../assets/images/imager-apply-settings.png" alt="Apply OS customization prompt" /></p>
+
+    <blockquote class="note">
+      <p>📝 <strong>Note:</strong><br />
+This is where all the good stuff lives.</p>
+    </blockquote>
   </li>
   <li>
     <p>Choose <strong>Edit Settings</strong>. This opens a configuration window with three tabs:</p>
@@ -131,6 +140,8 @@ SSH lets you open a command line on your Raspberry Pi from your computer. It’s
       <li><strong>Time zone</strong> and <strong>keyboard layout</strong></li>
     </ul>
 
+    <p><img src="../assets/images/imager-general-tab.png" alt="Raspberry Pi Imager — General tab" /></p>
+
     <blockquote class="tip">
       <p>💡 <strong>Password tip:</strong><br />
 Make sure the password you choose here is something you can remember, or save it somewhere secure (like 1Password or Bitwarden). This is the password you’ll use every time you connect to your Pi over SSH, so if you forget it, you’ll likely need to rewrite the SD card.</p>
@@ -144,10 +155,17 @@ Make sure the password you choose here is something you can remember, or save it
       <li>Choose <strong>Use password authentication</strong></li>
     </ul>
 
-    <p>This allows you to connect to your Pi from your computer without plugging in a keyboard or monitor.</p>
+    <p><img src="../assets/images/imager-services-tab.png" alt="Raspberry Pi Imager — Services tab" /></p>
+
+    <blockquote class="note">
+      <p>📝 <strong>Note:</strong><br />
+PiNetBeacon needs SSH enabled so you can connect without a monitor or keyboard.</p>
+    </blockquote>
   </li>
   <li>
     <p>You can usually leave the <strong>Options</strong> tab as-is, but enabling <strong>Eject media when finished</strong> is handy.</p>
+
+    <p><img src="../assets/images/imager-options-tab.png" alt="Raspberry Pi Imager — Options tab" /></p>
   </li>
   <li>
     <p>Click <strong>Save</strong>, then let the Imager write the OS to your microSD card. When it finishes, eject the card and insert it into your Raspberry Pi.</p>
@@ -165,6 +183,11 @@ Make sure the password you choose here is something you can remember, or save it
 </ol>
 
 <p>At this point, your Raspberry Pi is ready for updates, dependencies, and - soon - PiNetBeacon!</p>
+
+<blockquote class="note">
+  <p>📘 <strong>More info:</strong><br />
+The Raspberry Pi Foundation maintains full documentation for the Imager, including all OS customization options: <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html#getting-started-imaging-your-raspberry-pi">Official Raspberry Pi Imager documentation</a></p>
+</blockquote>
 
 <p><a href="#getting-started">↑ Back to safety</a></p>
 
