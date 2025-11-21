@@ -150,11 +150,18 @@ cd ~/PiNetBeacon/dashboard
 python3 server.py
 ```
 
-Then open your browser to:
+Then, open your browser (on your laptop or another device on the same network) to:
 
-```
-http://<your-pi-ip>:8080
-```
+- `http://<your-pi-ip-address>:8080`
+
+For example, if your Pi’s IP address is `192.168.1.96`, you would use:
+
+- `http://192.168.1.96:8080`
+
+If you set a hostname in Raspberry Pi Imager and your network supports `.local` names, you may also be able to use:
+
+- `http://<your-hostname>.local:8080`  
+  (for example, `http://PiNetBeacon.local:8080`)
 
 > 💡 **Tip**  
 > The dashboard is not yet a background service.  
