@@ -185,7 +185,7 @@ For example:
   "notes": "baseline check"
 }
 
-> 💡 **Why JSON Lines?**
+> 💡 **Why JSON Lines?**  
 > It's human-readable, easy to append to, and plays nicely with command-line tools and log analyzers.
 
 ---
