@@ -205,3 +205,23 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Jekyll build output
+docs/_site/
+
+# Ignore real Pi logs (but keep the sample)
+data/logs/*.jsonl
+!data/logs/sample-log.jsonl
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+
+# macOS files
+.DS_Store
+**/.DS_Store
+
