@@ -3,20 +3,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>PiNetBeacon | Lightweight Raspberry Pi network monitoring for curious hobbyists.</title>
+<title>Dashboard | PiNetBeacon</title>
 <meta name="generator" content="Jekyll v3.10.0" />
-<meta property="og:title" content="PiNetBeacon" />
+<meta property="og:title" content="Dashboard" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Lightweight Raspberry Pi network monitoring for curious hobbyists." />
 <meta property="og:description" content="Lightweight Raspberry Pi network monitoring for curious hobbyists." />
-<link rel="canonical" href="http://localhost:4000/PiNetBeacon/" />
-<meta property="og:url" content="http://localhost:4000/PiNetBeacon/" />
+<link rel="canonical" href="http://localhost:4000/PiNetBeacon/dashboard/" />
+<meta property="og:url" content="http://localhost:4000/PiNetBeacon/dashboard/" />
 <meta property="og:site_name" content="PiNetBeacon" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="PiNetBeacon" />
+<meta property="twitter:title" content="Dashboard" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"Lightweight Raspberry Pi network monitoring for curious hobbyists.","headline":"PiNetBeacon","name":"PiNetBeacon","url":"http://localhost:4000/PiNetBeacon/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"Lightweight Raspberry Pi network monitoring for curious hobbyists.","headline":"Dashboard","url":"http://localhost:4000/PiNetBeacon/dashboard/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/PiNetBeacon/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/PiNetBeacon/feed.xml" title="PiNetBeacon" /></head>
 <body><header class="site-header" role="banner">
@@ -36,33 +36,38 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home"><h1 class="page-heading">PiNetBeacon</h1><h1 id="pinetbeacon">PiNetBeacon</h1>
+        <article class="post">
 
-<p>Welcome! 👋</p>
+  <header class="post-header">
+    <h1 class="post-title">Dashboard</h1>
+  </header>
 
-<p>PiNetBeacon is a small, Raspberry Pi–friendly project that helps you <strong>watch your home internet</strong> and learn a bit more about how networks behave along the way.</p>
+  <div class="post-content">
+    <h1 id="pinetbeacon-dashboard">PiNetBeacon dashboard</h1>
 
-<p>If you’ve ever wondered:</p>
+<p>The PiNetBeacon dashboard is a small web UI that reads from your log file:</p>
 
-<ul>
-  <li>“Is my internet actually flaky, or is it just that one site?”</li>
-  <li>“What does <em>latency</em> really mean for me?”</li>
-  <li>“How often is my connection dropping when I’m not looking?”</li>
-</ul>
+<p><code class="language-plaintext highlighter-rouge">data/logs/pinetbeacon.log.jsonl</code></p>
 
-<p>…you’re in the right place.</p>
-
-<hr />
-
-<h2 id="start-here">Start here</h2>
+<p>It gives you:</p>
 
 <ul>
-  <li>👉 <a href="./getting-started/">Getting started</a> – set up PiNetBeacon on a Raspberry Pi (including the Zero 2 W)</li>
-  <li>🧠 <a href="./how-it-works/">How it works</a> – high-level overview, with diagrams and plain-language explanations</li>
-  <li>📈 <a href="./monitoring-modules/">Monitoring modules</a> – what we check, and why</li>
-  <li>❓ <a href="./faq/">FAQ</a> – common questions and troubleshooting tips</li>
+  <li>A quick “up / down” status view</li>
+  <li>Recent latency and packet loss</li>
+  <li>A simple table of recent checks</li>
 </ul>
-</div>
+
+<h2 id="starting-the-dashboard-server">Starting the dashboard server</h2>
+
+<p>On your Raspberry Pi:</p>
+
+<p>```bash
+cd ~/PiNetBeacon/dashboard
+python3 server.py</p>
+
+  </div>
+
+</article>
 
       </div>
     </main><footer class="site-footer h-card">
