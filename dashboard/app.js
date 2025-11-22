@@ -61,10 +61,16 @@ function computeSummary(entries) {
 }
 
 function renderSummary(summary) {
-  const lastStatusEl = document.getElementById("last-status");
+  // 🔁 Updated IDs to match your HTML
+  const lastStatusEl = document.getElementById("last-status-value");
   const lastStatusTimeEl = document.getElementById("last-status-time");
   const avgLatencyEl = document.getElementById("avg-latency");
   const availabilityEl = document.getElementById("availability");
+
+  if (!lastStatusEl || !lastStatusTimeEl || !avgLatencyEl || !availabilityEl) {
+    console.error("One or more summary elements are missing from the DOM.");
+    return;
+  }
 
   lastStatusEl.textContent = summary.lastStatus;
 
@@ -93,14 +99,21 @@ function renderSummary(summary) {
 }
 
 function renderTable(entries) {
-  const tbody = document.getElementById("log-table-body");
+  // 🔁 Updated ID to match your HTML
+  const tbody = document.getElementById("checks-tbody");
+  if (!tbody) {
+    console.error("Table body element #checks-tbody not found.");
+    return;
+  }
+
   tbody.innerHTML = "";
 
   if (!entries.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
     td.colSpan = 6;
-    td.textContent = "No log entries found yet. Try running pinetbeacon_check.py.";
+    td.textContent =
+      "No log entries found yet. Try running pinetbeacon_check.py.";
     tr.appendChild(td);
     tbody.appendChild(tr);
     return;
@@ -155,7 +168,8 @@ function renderTable(entries) {
 }
 
 async function updateDashboard() {
-  const healthEl = document.getElementById("health-output");
+  // 🔁 Updated ID to match your HTML
+  const healthEl = document.getElementById("health-json");
 
   try {
     const [logs, health] = await Promise.all([
@@ -169,21 +183,27 @@ async function updateDashboard() {
     renderSummary(summary);
     renderTable(entries);
 
-    healthEl.textContent = JSON.stringify(health, null, 2);
+    if (healthEl) {
+      healthEl.textContent = JSON.stringify(health, null, 2);
+    }
   } catch (err) {
     console.error(err);
-    healthEl.textContent =
-      "Error loading data from server. Check that server.py is running and that logs exist.\n\n" +
-      String(err);
+    if (healthEl) {
+      healthEl.textContent =
+        "Error loading data from server. Check that server.py is running and that logs exist.\n\n" +
+        String(err);
+    }
 
-    const tbody = document.getElementById("log-table-body");
-    tbody.innerHTML = "";
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.colSpan = 6;
-    td.textContent = "Error loading data. See the debug section below.";
-    tr.appendChild(td);
-    tbody.appendChild(tr);
+    const tbody = document.getElementById("checks-tbody");
+    if (tbody) {
+      tbody.innerHTML = "";
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 6;
+      td.textContent = "Error loading data. See the debug section below.";
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+    }
   }
 }
 
@@ -191,8 +211,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial load
   updateDashboard();
 
-  // Refresh button
-  const refreshButton = document.getElementById("refresh-button");
+  // 🔁 Updated refresh button ID to match your HTML
+  const refreshButton = document.getElementById("refresh-btn");
   if (refreshButton) {
     refreshButton.addEventListener("click", () => {
       updateDashboard();
