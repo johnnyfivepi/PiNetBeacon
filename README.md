@@ -131,11 +131,11 @@ PiNetBeacon includes a small dashboard so you can see recent checks in your brow
    python3 server.py
    ```
 
-You should see something like:
+  You should see something like:
 
-`PiNetBeacon dashboard running on http://0.0.0.0:8080/
-Serving logs from: /home/pnb/PiNetBeacon/data/logs/pinetbeacon.log.jsonl
-Press Ctrl+C to stop.`
+  `PiNetBeacon dashboard running on http://0.0.0.0:8080/
+  Serving logs from: /home/pnb/PiNetBeacon/data/logs/pinetbeacon.log.jsonl
+  Press Ctrl+C to stop.`
 
 2. On your computer, open a browser and visit one of:
 
@@ -152,16 +152,16 @@ Press Ctrl+C to stop.`
    - a table of recent log entries
    - a small “Dashboard health” JSON box at the bottom
 
-If the dashboard says there is no data yet, run a few manual checks on the Pi:
+  If the dashboard says there is no data yet, run a few manual checks on the Pi:
 
-```bash
-cd ~/PiNetBeacon/scripts
-python3 pinetbeacon_check.py
-python3 pinetbeacon_check.py
-python3 pinetbeacon_check.py
-```
+  ```bash
+  cd ~/PiNetBeacon/scripts
+  python3 pinetbeacon_check.py
+  python3 pinetbeacon_check.py
+  python3 pinetbeacon_check.py
+  ```
 
-Then, refresh the dashboard again.
+  Then, refresh the dashboard again.
 
 > **Note:**  
 > The dashboard only updates while the dashboard server is actively running on your Pi. This is because it reads live data from:
