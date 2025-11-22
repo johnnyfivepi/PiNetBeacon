@@ -1,0 +1,225 @@
+/* Basic styling for the PiNetBeacon dashboard.
+ *
+ * This is intentionally simple and self-contained.
+ * If you want to change the look and feel later, this is the file to edit.
+ */
+
+:root {
+  --pb-bg: #f5f7fb;
+  --pb-surface: #ffffff;
+  --pb-border: #dde1f0;
+  --pb-accent: #4c6fff;
+  --pb-accent-soft: #e3e8ff;
+  --pb-text: #1f2430;
+  --pb-muted: #6b7280;
+  --pb-danger: #d9534f;
+  --pb-success: #2e9d57;
+  --pb-radius-lg: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--pb-bg);
+  color: var(--pb-text);
+}
+
+/* Header */
+
+.pb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid var(--pb-border);
+  background: #ffffffcc;
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.pb-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.pb-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--pb-muted);
+}
+
+/* Refresh button */
+
+.pb-refresh {
+  border: 1px solid var(--pb-accent);
+  background: var(--pb-accent);
+  color: #ffffff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.pb-refresh:hover {
+  background: #3e5ad1;
+}
+
+/* Layout */
+
+.pb-main {
+  max-width: 1100px;
+  margin: 1.5rem auto 2.5rem;
+  padding: 0 1.5rem;
+}
+
+.pb-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.pb-card {
+  background: var(--pb-surface);
+  border-radius: var(--pb-radius-lg);
+  border: 1px solid var(--pb-border);
+  padding: 1rem 1.25rem;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+}
+
+.pb-card h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.pb-card p {
+  margin: 0.3rem 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.pb-card small {
+  color: var(--pb-muted);
+}
+
+.pb-section {
+  margin-bottom: 2rem;
+}
+
+.pb-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.pb-section-header h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.pb-section-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--pb-muted);
+}
+
+/* Table */
+
+.pb-table-wrapper {
+  border-radius: var(--pb-radius-lg);
+  border: 1px solid var(--pb-border);
+  background: var(--pb-surface);
+  overflow: hidden;
+}
+
+.pb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.pb-table thead {
+  background: var(--pb-accent-soft);
+}
+
+.pb-table th,
+.pb-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--pb-border);
+}
+
+.pb-table tbody tr:nth-child(even) {
+  background: #f9faff;
+}
+
+.pb-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status badges */
+
+.pb-status-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pb-status-badge--up {
+  background: #e6f4ec;
+  color: var(--pb-success);
+}
+
+.pb-status-badge--down {
+  background: #fde5e4;
+  color: var(--pb-danger);
+}
+
+/* Health block */
+
+.pb-health {
+  background: var(--pb-surface);
+  border-radius: var(--pb-radius-lg);
+  border: 1px solid var(--pb-border);
+  padding: 0.8rem 1rem;
+  font-size: 0.82rem;
+  color: var(--pb-muted);
+  white-space: pre-wrap;
+}
+
+/* Footer */
+
+.pb-footer {
+  text-align: center;
+  color: var(--pb-muted);
+  font-size: 0.8rem;
+  padding: 1rem 0 1.5rem;
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .pb-header {
+    padding: 1rem;
+  }
+
+  .pb-main {
+    padding: 0 1rem;
+  }
+
+  .pb-table {
+    font-size: 0.8rem;
+  }
+}

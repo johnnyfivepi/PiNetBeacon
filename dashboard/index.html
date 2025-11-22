@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PiNetBeacon dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="brand">
+        <div class="brand-mark">PiNetBeacon</div>
+        <div class="brand-subtitle">
+          Lightweight Raspberry Pi network monitoring for curious hobbyists.
+        </div>
+      </div>
+      <button id="refresh-btn" class="refresh-button">Refresh now</button>
+    </header>
+
+    <main class="page-main">
+      <section class="metrics-row">
+        <article class="metric-card" id="card-last-status">
+          <h2>Last status</h2>
+          <div class="metric-value" id="last-status-value">—</div>
+          <div class="metric-meta" id="last-status-time">No data yet</div>
+        </article>
+
+        <article class="metric-card" id="card-latency">
+          <h2>Average latency (ms)</h2>
+          <div class="metric-value" id="avg-latency">—</div>
+          <div class="metric-meta">Based on recent checks</div>
+        </article>
+
+        <article class="metric-card" id="card-availability">
+          <h2>Availability</h2>
+          <div class="metric-value" id="availability">—</div>
+          <div class="metric-meta">% of recent checks marked “up”</div>
+        </article>
+      </section>
+
+      <section class="table-section">
+        <div class="section-header">
+          <h2>Recent checks</h2>
+          <p class="section-subtitle">
+            These entries are read directly from
+            <code>data/logs/pinetbeacon.log.jsonl</code>.
+          </p>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="checks-table" id="checks-table">
+            <thead>
+              <tr>
+                <th>Time (UTC)</th>
+                <th>Target</th>
+                <th>Status</th>
+                <th>Latency (ms)</th>
+                <th>Packet loss (%)</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="checks-tbody">
+              <tr>
+                <td colspan="6" class="empty-state">
+                  Waiting for data from <code>/api/logs/latest</code>…
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="health-section">
+        <div class="section-header">
+          <h2>Dashboard health</h2>
+          <p class="section-subtitle">
+            Useful if something looks off. This is a small JSON snapshot from
+            <code>/api/health</code>.
+          </p>
+        </div>
+
+        <pre class="health-json" id="health-json">
+No data yet. Click “Refresh now” once the server is running.
+        </pre>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      PiNetBeacon · Raspberry Pi network monitoring for curious hobbyists.
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
