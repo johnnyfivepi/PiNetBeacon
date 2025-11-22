@@ -122,11 +122,50 @@ You can use cron or a systemd timer to run the check every minute or every few m
 
 ### 7. Optional: View the dashboard
 
-Open the file `dashboard/index.html` in a web browser. 
+Open the file `dashboard/index.html` in a web browser.
 
 This will show your most recent log information in a simple visual format.
 
 You can also serve it with a tiny Python server if you want to view it from another device.
+
+> **Note:**  
+> The dashboard only updates while the dashboard server is actively running on your Pi.  
+> It reads live data from:
+>
+> - `/api/logs/latest`
+> - `/api/health`
+>
+> Running one-off checks *does* add entries to:
+>
+> ```
+> data/logs/pinetbeacon.log.jsonl
+> ```
+>
+> …but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
+
+To run the dashboard server:
+
+```bash
+cd ~/PiNetBeacon/dashboard
+python3 server.py
+```
+
+Then, open your browser (on your laptop or another device on the same network) to:
+
+- `http://<your-pi-ip-address>:8080`
+
+For example, if your Pi’s IP address is `192.168.1.96`, you would use:
+
+- `http://192.168.1.96:8080`
+
+If you set a hostname in Raspberry Pi Imager and your network supports `.local` names, you may also be able to use:
+
+- `http://<your-hostname>.local:8080`  
+  (for example, `http://PiNetBeacon.local:8080`)
+
+> 💡 **Tip**  
+> The dashboard is not yet a background service.  
+> You'll need to start it manually whenever you want to view it.
 
 ---
 
@@ -146,7 +185,7 @@ For example:
   "notes": "baseline check"
 }
 
-> 💡 **Why JSON Lines?**
+> 💡 **Why JSON Lines?**  
 > It's human-readable, easy to append to, and plays nicely with command-line tools and log analyzers.
 
 ---
@@ -166,11 +205,18 @@ Topics include:
 - 📊 How the dashboard reads and renders data
 - 🧪 Ideas for extending PiNetBeacon with new checks
 
-If you fork this project, your own GitHub Pages documentation will be available at:
+If you fork this project and enable GitHub Pages for your fork, your own documentation site will be available at:
 
-https://YOUR-USERNAME.github.io/PiNetBeacon/
+`https://YOUR-USERNAME.github.io/PiNetBeacon/`
 
 Replace "YOUR-USERNAME" with your GitHub account name when publishing your fork.
+
+To enable GitHub Pages:
+
+1. Go to **Settings → Pages** in your fork.  
+2. Under **Source**, choose **Deploy from a branch**.  
+3. Select your default branch (for example, `main`) and set the folder to `/docs`.  
+4. Save, then wait a minute or two for GitHub to build the site.
 
 ---
 
