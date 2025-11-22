@@ -4,51 +4,56 @@
     <meta charset="utf-8" />
     <title>PiNetBeacon dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Cache-busting query param is fine -->
     <link rel="stylesheet" href="styles.css?v=1.0.0" />
   </head>
   <body>
     <header class="pb-header">
-      <div class="brand">
-        <div class="brand-mark">PiNetBeacon</div>
-        <div class="brand-subtitle">
+      <div>
+        <h1>PiNetBeacon</h1>
+        <p class="pb-subtitle">
           Lightweight Raspberry Pi network monitoring for curious hobbyists.
-        </div>
+        </p>
       </div>
-      <button id="refresh-btn" class="refresh-button">Refresh now</button>
+      <button id="refresh-btn" class="pb-refresh">Refresh now</button>
     </header>
 
     <main class="pb-main">
-      <section class="metrics-row">
-        <article class="metric-card" id="card-last-status">
-          <h2>Last status</h2>
-          <div class="metric-value" id="last-status-value">—</div>
-          <div class="metric-meta" id="last-status-time">No data yet</div>
-        </article>
+      <!-- Top metric cards -->
+      <section class="pb-section">
+        <div class="pb-cards">
+          <article class="pb-card" id="card-last-status">
+            <h2>Last status</h2>
+            <p id="last-status-value">—</p>
+            <small id="last-status-time">No data yet</small>
+          </article>
 
-        <article class="metric-card" id="card-latency">
-          <h2>Average latency (ms)</h2>
-          <div class="metric-value" id="avg-latency">—</div>
-          <div class="metric-meta">Based on recent checks</div>
-        </article>
+          <article class="pb-card" id="card-latency">
+            <h2>Average latency (ms)</h2>
+            <p id="avg-latency">—</p>
+            <small>Based on recent checks</small>
+          </article>
 
-        <article class="metric-card" id="card-availability">
-          <h2>Availability</h2>
-          <div class="metric-value" id="availability">—</div>
-          <div class="metric-meta">% of recent checks marked “up”</div>
-        </article>
+          <article class="pb-card" id="card-availability">
+            <h2>Availability</h2>
+            <p id="availability">—</p>
+            <small>% of recent checks marked “up”</small>
+          </article>
+        </div>
       </section>
 
-      <section class="table-section">
-        <div class="section-header">
+      <!-- Recent checks table -->
+      <section class="pb-section">
+        <div class="pb-section-header">
           <h2>Recent checks</h2>
-          <p class="section-subtitle">
+          <p class="pb-section-note">
             These entries are read directly from
             <code>data/logs/pinetbeacon.log.jsonl</code>.
           </p>
         </div>
 
-        <div class="table-wrapper">
-          <table class="checks-table" id="checks-table">
+        <div class="pb-table-wrapper">
+          <table class="pb-table" id="checks-table">
             <thead>
               <tr>
                 <th>Time (UTC)</th>
@@ -61,7 +66,7 @@
             </thead>
             <tbody id="checks-tbody">
               <tr>
-                <td colspan="6" class="empty-state">
+                <td colspan="6">
                   Waiting for data from <code>/api/logs/latest</code>…
                 </td>
               </tr>
@@ -70,22 +75,23 @@
         </div>
       </section>
 
-      <section class="health-section">
-        <div class="section-header">
+      <!-- Dashboard health -->
+      <section class="pb-section">
+        <div class="pb-section-header">
           <h2>Dashboard health</h2>
-          <p class="section-subtitle">
+          <p class="pb-section-note">
             Useful if something looks off. This is a small JSON snapshot from
             <code>/api/health</code>.
           </p>
         </div>
 
-        <pre class="health-json" id="health-json">
+        <pre class="pb-health" id="health-json">
 No data yet. Click “Refresh now” once the server is running.
         </pre>
       </section>
     </main>
 
-    <footer class="page-footer">
+    <footer class="pb-footer">
       PiNetBeacon · Raspberry Pi network monitoring for curious hobbyists.
     </footer>
 
