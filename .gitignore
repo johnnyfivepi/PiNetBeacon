@@ -224,3 +224,6 @@ venv/
 # macOS files
 .DS_Store
 **/.DS_Store
+
+# PiNetBeacon local config (user-specific, do not commit)
+scripts/config.json
