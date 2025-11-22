@@ -152,30 +152,30 @@ PiNetBeacon includes a small dashboard so you can see recent checks in your brow
    - a table of recent log entries
    - a small “Dashboard health” JSON box at the bottom
 
-  If the dashboard says there is no data yet, run a few manual checks on the Pi:
+   If the dashboard says there is no data yet, run a few manual checks on the Pi:
 
-  ```bash
-  cd ~/PiNetBeacon/scripts
-  python3 pinetbeacon_check.py
-  python3 pinetbeacon_check.py
-  python3 pinetbeacon_check.py
-  ```
+   ```bash
+   cd ~/PiNetBeacon/scripts
+   python3 pinetbeacon_check.py
+   python3 pinetbeacon_check.py
+   python3 pinetbeacon_check.py
+   ```
 
-  Then, refresh the dashboard again.
+   Then, refresh the dashboard again.
 
-> **Note:**  
-> The dashboard only updates while the dashboard server is actively running on your Pi. This is because it reads live data from:
->
-> - `/api/logs/latest`
-> - `/api/health`
->
-> Running one-off checks *does* add entries to:
->
-> ```
-> data/logs/pinetbeacon.log.jsonl
-> ```
->
-> ...but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
+   > **Note:**  
+   > The dashboard only updates while the dashboard server is actively running on your Pi. This is because it reads live data from:
+   >
+   > - `/api/logs/latest`
+   > - `/api/health`
+   >
+   > Running one-off checks *does* add entries to:
+   >
+   > ```
+   > data/logs/pinetbeacon.log.jsonl
+   > ```
+   >
+   > ...but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
 
 ---
 
