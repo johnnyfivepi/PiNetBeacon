@@ -131,11 +131,11 @@ PiNetBeacon includes a small dashboard so you can see recent checks in your brow
    python3 server.py
    ```
 
-  You should see something like:
+   You should see something like:
 
-  `PiNetBeacon dashboard running on http://0.0.0.0:8080/
-  Serving logs from: /home/pnb/PiNetBeacon/data/logs/pinetbeacon.log.jsonl
-  Press Ctrl+C to stop.`
+   `PiNetBeacon dashboard running on http://0.0.0.0:8080/  
+   Serving logs from: /home/pnb/PiNetBeacon/data/logs/pinetbeacon.log.jsonl  
+   Press Ctrl+C to stop.`
 
 2. On your computer, open a browser and visit one of:
 
@@ -163,19 +163,19 @@ PiNetBeacon includes a small dashboard so you can see recent checks in your brow
 
    Then, refresh the dashboard again.
 
-   > **Note:**  
-   > The dashboard only updates while the dashboard server is actively running on your Pi. This is because it reads live data from:
-   >
-   > - `/api/logs/latest`
-   > - `/api/health`
-   >
-   > Running one-off checks *does* add entries to:
-   >
-   > ```
-   > data/logs/pinetbeacon.log.jsonl
-   > ```
-   >
-   > ...but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
+> **Note:**  
+> The dashboard only updates while the dashboard server is actively running on your Pi. This is because it reads live data from:
+>
+> - `/api/logs/latest`
+> - `/api/health`
+>
+> Running one-off checks *does* add entries to:
+>
+> ```
+> data/logs/pinetbeacon.log.jsonl
+> ```
+>
+> ...but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
 
 ---
 
