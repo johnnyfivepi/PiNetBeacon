@@ -122,15 +122,49 @@ You can use cron or a systemd timer to run the check every minute or every few m
 
 ### 7. Optional: View the dashboard
 
-Open the file `dashboard/index.html` in a web browser.
+PiNetBeacon includes a small dashboard so you can see recent checks in your browser.
 
-This will show your most recent log information in a simple visual format.
+1. On your Pi, start the dashboard server:
 
-You can also serve it with a tiny Python server if you want to view it from another device.
+   ```bash
+   cd ~/PiNetBeacon/dashboard
+   python3 server.py
+   ```
+
+You should see something like:
+
+`PiNetBeacon dashboard running on http://0.0.0.0:8080/
+Serving logs from: /home/pnb/PiNetBeacon/data/logs/pinetbeacon.log.jsonl
+Press Ctrl+C to stop.`
+
+2. On your computer, open a browser and visit one of:
+
+   - `http://pinetbeacon.local:8080/`
+   - `http://YOUR-PI-IP:8080/` (for example `http://192.168.1.96:8080/`)
+
+3. Click **Refresh now** in the dashboard.
+
+   This will show your most recent log information in a simple visual format. You should see:  
+
+   - the latest status (up / down)
+   - average latency across recent checks
+   - availability as a percentage
+   - a table of recent log entries
+   - a small “Dashboard health” JSON box at the bottom
+
+If the dashboard says there is no data yet, run a few manual checks on the Pi:
+
+```bash
+cd ~/PiNetBeacon/scripts
+python3 pinetbeacon_check.py
+python3 pinetbeacon_check.py
+python3 pinetbeacon_check.py
+```
+
+Then, refresh the dashboard again.
 
 > **Note:**  
-> The dashboard only updates while the dashboard server is actively running on your Pi.  
-> It reads live data from:
+> The dashboard only updates while the dashboard server is actively running on your Pi. This is because it reads live data from:
 >
 > - `/api/logs/latest`
 > - `/api/health`
@@ -141,31 +175,7 @@ You can also serve it with a tiny Python server if you want to view it from anot
 > data/logs/pinetbeacon.log.jsonl
 > ```
 >
-> …but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
-
-To run the dashboard server:
-
-```bash
-cd ~/PiNetBeacon/dashboard
-python3 server.py
-```
-
-Then, open your browser (on your laptop or another device on the same network) to:
-
-- `http://<your-pi-ip-address>:8080`
-
-For example, if your Pi’s IP address is `192.168.1.96`, you would use:
-
-- `http://192.168.1.96:8080`
-
-If you set a hostname in Raspberry Pi Imager and your network supports `.local` names, you may also be able to use:
-
-- `http://<your-hostname>.local:8080`  
-  (for example, `http://PiNetBeacon.local:8080`)
-
-> 💡 **Tip**  
-> The dashboard is not yet a background service.  
-> You'll need to start it manually whenever you want to view it.
+> ...but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
 
 ---
 
@@ -180,7 +190,6 @@ For example:
   "target_host": "1.1.1.1",
   "avg_latency_ms": 26.4,
   "packet_loss_percent": 0.0,
-  "dns_ok": true,
   "status": "up",
   "notes": "baseline check"
 }
