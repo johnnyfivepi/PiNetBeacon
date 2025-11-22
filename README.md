@@ -133,9 +133,11 @@ PiNetBeacon includes a small dashboard so you can see recent checks in your brow
 
    You should see something like:
 
-   `PiNetBeacon dashboard running on http://0.0.0.0:8080/  
+   ```bash
+   PiNetBeacon dashboard running on http://0.0.0.0:8080/  
    Serving logs from: /home/pnb/PiNetBeacon/data/logs/pinetbeacon.log.jsonl  
-   Press Ctrl+C to stop.`
+   Press Ctrl+C to stop.
+   ```
 
 2. On your computer, open a browser and visit one of:
 
