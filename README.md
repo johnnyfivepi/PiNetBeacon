@@ -187,7 +187,7 @@ PiNetBeacon writes logs as one JSON object per line. This is called **JSON Lines
 
 For example:
 
-```json
+```jsonl
 {"timestamp": "2025-01-17T14:32:10Z", "target_host": "1.1.1.1", "avg_latency_ms": 26.4, "packet_loss_percent": 0.0, "status": "up", "notes": "baseline check"}
 {"timestamp": "2025-01-17T14:33:11Z", "target_host": "1.1.1.1", "avg_latency_ms": 27.8, "packet_loss_percent": 0.0, "status": "up", "notes": "baseline check"}
 ```
