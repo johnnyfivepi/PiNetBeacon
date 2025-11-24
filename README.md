@@ -183,7 +183,7 @@ PiNetBeacon includes a small dashboard so you can see recent checks in your brow
 
 ## Example Log Entry
 
-PiNetBeacon writes logs as one JSON object per line. This is called **JSON Lines**.
+PiNetBeacon writes logs as **one complete JSON object per line**. This format is called **JSON Lines (JSONL)**. Each line represents **one network check**, fully self-contained and easy for tools to parse.
 
 For example:
 
@@ -193,7 +193,10 @@ For example:
 ```
 
 > 💡 **Why JSON Lines?**  
-> It's human-readable, easy to append to, and plays nicely with command-line tools and log analyzers.
+> - Easy for humans to skim
+> - Easy to append to without rewriting the whole file
+> - Plays nicely with Unix tools (grep, tail -f, jq)
+> - Works well with log processors and data pipelines
 
 ---
 
