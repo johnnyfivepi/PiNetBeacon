@@ -13,17 +13,17 @@ If this is your first time SSHing into a Raspberry Pi or installing a tool like 
 
 ## Contents (choose your own adventure)
 
-- 📦 [What you'll need](#what-youll-need)
-- 💿 [Install Raspberry Pi OS Lite](#install-raspberry-pi-os-lite)
-- 🔧 [Install dependencies](#install-dependencies)
-- 📥 [Clone the repository](#clone-the-repository)
-- 📝 [Configure PiNetBeacon](#configure-pinetbeacon)
-- 🏃‍♂️ [Run your first check](#run-your-first-check)
-- ✨ [Next steps](#next-steps)
+- 📦 [What you'll need](#-what-youll-need)
+- 💿 [Install Raspberry Pi OS Lite](#-install-raspberry-pi-os-lite)
+- 🔧 [Install dependencies](#-install-dependencies)
+- 📥 [Clone the repository](#-clone-the-repository)
+- 📝 [Configure PiNetBeacon](#-configure-pinetbeacon)
+- 🏃‍♂️ [Run your first check](#️-run-your-first-check)
+- ✨ [Next steps](#-next-steps)
 
 ---
 
-## What you'll need
+## 📦 What you'll need
 
 Here’s the short list of things you need before starting:
 
@@ -42,7 +42,7 @@ Here’s the short list of things you need before starting:
 
 ---
 
-## Install Raspberry Pi OS Lite
+## 💿 Install Raspberry Pi OS Lite
 
 PiNetBeacon runs well on Raspberry Pi OS Lite, the streamlined version of the operating system without a graphical desktop. It keeps everything lightweight and responsive, which is exactly what we want for a tiny network watcher.
 
@@ -124,7 +124,7 @@ At this point, your Raspberry Pi is ready for updates, dependencies, and - soon 
 
 ---
 
-## Install dependencies
+## 🔧 Install dependencies
 
 PiNetBeacon uses Python, which is already included on Raspberry Pi OS Lite. To make sure everything is up to date, install Python and pip with:
 
@@ -146,7 +146,7 @@ Once Python and pip are ready, your Pi has everything it needs to run PiNetBeaco
 
 ---
 
-## Clone the repository
+## 📥 Clone the repository
 
 Now that your Raspberry Pi is running and you can connect to it over SSH, you’re ready to download PiNetBeacon.
 
@@ -163,7 +163,7 @@ This creates a new folder containing all of PiNetBeacon’s files, and it keeps 
 
 ---
 
-## Configure PiNetBeacon
+## 📝 Configure PiNetBeacon
 
 Now you’ll tell PiNetBeacon what to watch and how often to check things.
 
@@ -196,7 +196,7 @@ If you are using `nano`, you can save with:
 
 ---
 
-## Run your first check
+## 🏃‍♂️ Run your first check
 
 You're ready to see PiNetBeacon in action. From inside the `scripts` directory, run:
 
@@ -225,7 +225,7 @@ If you don’t see a log entry or something looks unusual, don’t worry. The FA
 
 ---
 
-## Next steps
+## ✨ Next steps
 
 Once your first check is running, you're in great shape. PiNetBeacon is already collecting useful information about your network, and you can build on that in a few different ways.
 

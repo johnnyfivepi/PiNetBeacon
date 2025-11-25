@@ -13,16 +13,16 @@ This page walks you through the modules that PiNetBeacon supports, why each one 
 
 ## Contents (choose your own adventure)
 
-- 🏓 [Ping module: latency and packet loss](#ping-module-latency-and-packet-loss)
-- 🌐 [DNS module: testing name lookups](#dns-module-testing-name-lookups)
-- 🔍 [HTTP module: checking website reachability](#http-module-checking-website-reachability)
-- 🚪 [Gateway module: is your router awake](#gateway-module-is-your-router-awake)
-- 🛠️ [Optional future modules](#optional-future-modules)
-- ✨ [Wrapping up](#wrapping-up)
+- 🏓 [Ping module: latency and packet loss](#-ping-module-latency-and-packet-loss)
+- 🌐 [DNS module: testing name lookups](#-dns-module-testing-name-lookups)
+- 🔍 [HTTP module: checking website reachability](#-http-module-checking-website-reachability)
+- 🚪 [Gateway module: is your router awake](#-gateway-module-is-your-router-awake)
+- 🛠️ [Optional future modules](#️-optional-future-modules)
+- ✨ [Wrapping up](#-wrapping-up)
 
 ---
 
-## Ping module: latency and packet loss
+## 🏓 Ping module: latency and packet loss
 
 The Ping module is the core of PiNetBeacon. It’s the one that checks how fast your network responds and whether anything goes missing along the way.
 
@@ -48,7 +48,7 @@ Most home internet issues show up in the Ping module first. It’s the simplest,
 
 ---
 
-## DNS module: testing name lookups
+## 🌐 DNS module: testing name lookups
 
 The DNS module checks whether your network can turn names into addresses. When you type `example.com` into a browser, your device has to ask a DNS server, “Hi, what is the actual IP for this name?” If DNS is unhappy, almost everything feels broken.
 
@@ -79,7 +79,7 @@ The DNS module logs a clear success or failure result so you do not have to read
 
 ---
 
-## HTTP module: checking website reachability
+## 🔍 HTTP module: checking website reachability
 
 The HTTP module answers a very normal, very human question:
 
@@ -117,7 +117,7 @@ The module logs the result in clear yes/no terms so you don’t have to interpre
 
 ---
 
-## Gateway module: is your router awake
+## 🚪 Gateway module: is your router awake
 
 Your gateway (usually your router) is the first stop for all your internet traffic. If it’s slow, overloaded, overheating, or quietly having an existential crisis, everything else feels broken.
 
@@ -153,7 +153,7 @@ The Gateway module helps you separate “my house is on fire” from “the inte
 
 ---
 
-## Optional future modules
+## 🛠️ Optional future modules
 
 PiNetBeacon is designed to grow over time. The core modules keep things lightweight and beginner friendly, but there's room for expansion if you want to explore deeper network behavior.
 
@@ -183,7 +183,7 @@ If you decide to build one of these, PiNetBeacon’s structure should make it ea
 
 ---
 
-## Wrapping up
+## ✨ Wrapping up
 
 PiNetBeacon's modules are intentionally small and easy to understand. Each one focuses on a specific part of your network and writes down what it sees in clear, human-friendly terms. When you combine a few modules together, you get a surprisingly good snapshot of your network’s habits.
 

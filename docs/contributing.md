@@ -13,17 +13,17 @@ This page explains how to participate, what kinds of contributions are welcome, 
 
 ## Contents (choose your own adventure)
 
-- 🙋 [Ways you can contribute](#ways-you-can-contribute)
-- 🔧 [Improving code or adding modules](#improving-code-or-adding-modules)
-- 📝 [Improving documentation](#improving-documentation)
-- 🐞 [Reporting issues or bugs](#reporting-issues-or-bugs)
-- 🔀 [How to open a pull request](#how-to-open-a-pull-request)
-- 🤝 [Community guidelines](#community-guidelines)
-- ✨ [Thank you](#thank-you)
+- 🙋 [Ways you can contribute](#-ways-you-can-contribute)
+- 🔧 [Improving code or adding modules](#-improving-code-or-adding-modules)
+- 📝 [Improving documentation](#-improving-documentation)
+- 🐞 [Reporting issues or bugs](#-reporting-issues-or-bugs)
+- 🔀 [How to open a pull request](#-how-to-open-a-pull-request)
+- 🤝 [Community guidelines](#-community-guidelines)
+- ✨ [Thank you](#-thank-you)
 
 ---
 
-## Ways you can contribute
+## 🙋 Ways you can contribute
 
 There are many ways to help PiNetBeacon grow, and you don’t need deep networking or programming experience to make a meaningful impact.
 
@@ -44,7 +44,7 @@ Even small improvements help make PiNetBeacon a friendlier place for the next pe
 
 ---
 
-## Improving code or adding modules
+## 🔧 Improving code or adding modules
 
 If you’re interested in contributing code, that’s fantastic. PiNetBeacon is intentionally built to be approachable for hobbyists, so the codebase is small, readable, and not packed with framework magic.
 
@@ -62,7 +62,7 @@ If you’re not sure whether your idea fits, feel free to open an issue first. A
 
 ---
 
-## Improving documentation
+## 📝 Improving documentation
 
 Clear documentation is one of the most valuable parts of any open source project, and contributions here are always appreciated. You don’t need to write code to make a real difference.
 
@@ -84,7 +84,7 @@ Documentation lives in the `docs/` folder and is written in Markdown, so it’s 
 
 ---
 
-## Reporting issues or bugs
+## 🐞 Reporting issues or bugs
 
 If something isn’t working the way you expect, opening an issue is a huge help. A good issue doesn’t need to be long or complicated. The goal is simply to describe what happened so others can understand and reproduce it.
 
@@ -104,7 +104,7 @@ You don’t need to troubleshoot everything yourself. If the issue is enough to 
 
 ---
 
-## How to open a pull request
+## 🔀 How to open a pull request
 
 Pull requests (PRs) are the main way to contribute code or documentation changes to PiNetBeacon. If you’ve never opened one before, don’t worry — GitHub makes the process straightforward.
 
@@ -134,7 +134,7 @@ You don’t need to be an expert to contribute. PRs that improve clarity, reliab
 
 ---
 
-## Community guidelines
+## 🤝 Community guidelines
 
 PiNetBeacon is a small project built with curiosity, patience, and a sense of kindness. Everyone is welcome here, including beginners who are still learning the basics.
 
@@ -153,7 +153,7 @@ It’s okay if your idea isn’t fully formed or your first PR isn’t perfect. 
 
 ---
 
-## Thank you
+## ✨ Thank you
 
 Whether you contribute code, ideas, bug reports, documentation, or encouragement, we genuinely appreciate it. PiNetBeacon exists because people are curious, patient, and willing to share what they know.
 

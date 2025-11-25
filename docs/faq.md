@@ -11,20 +11,20 @@ Here are answers to the questions people tend to ask while setting up or using P
 
 ## Contents (choose your own adventure)
 
-- ❓ [Does PiNetBeacon work on the Raspberry Pi Zero 2 W?](#does-pinetbeacon-work-on-the-raspberry-pi-zero-2-w)
-- 🌐 [Do I need fast internet for this to work?](#do-i-need-fast-internet-for-this-to-work)
-- 📡 [What host should I ping?](#what-host-should-i-ping)
-- 🧪 [How often should PiNetBeacon run checks?](#how-often-should-pinetbeacon-run-checks)
-- 🗂️ [Will this wear out my SD card?](#will-this-wear-out-my-sd-card)
-- 🛜 [My internet feels slow but PiNetBeacon says it's fine. Why?](#my-internet-feels-slow-but-pinetbeacon-says-its-fine-why)
-- 🔧 [A module shows an error. What do I do?](#a-module-shows-an-error-what-do-i-do)
-- 🔍 [Where do I find the logs?](#where-do-i-find-the-logs)
-- 📊 [Do I need the dashboard?](#do-i-need-the-dashboard)
-- 🤝 [Can I contribute or add my own module?](#can-i-contribute-or-add-my-own-module)
+- ❓ [Does PiNetBeacon work on the Raspberry Pi Zero 2 W?](#-does-pinetbeacon-work-on-the-raspberry-pi-zero-2-w)
+- 🌐 [Do I need fast internet for this to work?](#-do-i-need-fast-internet-for-this-to-work)
+- 📡 [What host should I ping?](#-what-host-should-i-ping)
+- 🧪 [How often should PiNetBeacon run checks?](#-how-often-should-pinetbeacon-run-checks)
+- 🗂️ [Will this wear out my SD card?](#️-will-this-wear-out-my-sd-card)
+- 🛜 [My internet feels slow but PiNetBeacon says it's fine. Why?](#-my-internet-feels-slow-but-pinetbeacon-says-its-fine-why)
+- 🔧 [A module shows an error. What do I do?](#-a-module-shows-an-error-what-do-i-do)
+- 🔍 [Where do I find the logs?](#-where-do-i-find-the-logs)
+- 📊 [Do I need the dashboard?](#-do-i-need-the-dashboard)
+- 🤝 [Can I contribute or add my own module?](#-can-i-contribute-or-add-my-own-module)
 
 ---
 
-## Does PiNetBeacon work on the Raspberry Pi Zero 2 W?
+## ❓ Does PiNetBeacon work on the Raspberry Pi Zero 2 W?
 
 Yes, absolutely. PiNetBeacon is lightweight and runs comfortably on the Raspberry Pi Zero 2 W. In fact, many people use it as a background “network narrator” for their home setup.
 
@@ -34,7 +34,7 @@ It also works on the original Pi Zero W, Pi 3, Pi 4, Pi 5, and anything newer. I
 
 ---
 
-## Do I need fast internet for this to work?
+## 🌐 Do I need fast internet for this to work?
 
 No. PiNetBeacon isn’t measuring how *fast* your internet is. It cares more about how *responsive* and *reliable* it feels.
 
@@ -58,7 +58,7 @@ So whether you have gigabit fiber or something more humble, PiNetBeacon can help
 
 ---
 
-## What host should I ping?
+## 📡 What host should I ping?
 
 Most people start with **1.1.1.1** (Cloudflare) or **8.8.8.8** (Google). Both are reliable, well-maintained, and respond quickly.
 
@@ -75,7 +75,7 @@ If you ever notice a target behaving oddly, try switching to a different one and
 
 ---
 
-## How often should PiNetBeacon run checks?
+## 🧪 How often should PiNetBeacon run checks?
 
 Most people schedule PiNetBeacon to run:
 
@@ -92,7 +92,7 @@ If you’re trying to diagnose something in real time, feel free to shorten the 
 
 ---
 
-## Will this wear out my SD card?
+## 🗂️ Will this wear out my SD card?
 
 Not under normal use. PiNetBeacon writes small log entries, and they’re lightweight enough that the impact on your SD card is minimal.
 
@@ -108,7 +108,7 @@ But for most hobbyists, PiNetBeacon’s logging style is well within what SD car
 
 ---
 
-## My internet feels slow but PiNetBeacon says it's fine. Why?
+## 🛜 My internet feels slow but PiNetBeacon says it's fine. Why?
 
 This happens more often than you might think. PiNetBeacon focuses on *responsiveness* and *stability* (latency and packet loss), but many real-world slowdowns happen for other reasons like:
 
@@ -131,7 +131,7 @@ The **How it works** page explains these scenarios in more detail if you want a 
 
 ---
 
-## A module shows an error. What do I do?
+## 🔧 A module shows an error. What do I do?
 
 Don’t panic — most module errors are straightforward and usually mean something in the network path didn’t respond the way the Pi expected.
 
@@ -156,7 +156,7 @@ If you continue seeing the same error, feel free to open an issue on GitHub. PiN
 
 ---
 
-## Where do I find the logs?
+## 🔍 Where do I find the logs?
 
 PiNetBeacon stores log entries in:
 
@@ -177,9 +177,9 @@ Logs grow over time, but they’re plain text and very manageable. If you ever w
 
 ---
 
-## Do I need the dashboard?
+## 📊 Do I need the dashboard?
 
-No — PiNetBeacon works perfectly well without it. The dashboard is an optional layer that turns your log data into clear visuals, which can help you spot patterns more easily.
+No, PiNetBeacon works perfectly well without it. The dashboard is an optional layer that turns your log data into clear visuals, which can help you spot patterns more easily.
 
 You might find the dashboard helpful if you want to see:
 
@@ -194,7 +194,7 @@ If you prefer reading logs directly, that’s totally fine. PiNetBeacon is desig
 
 ---
 
-## Can I contribute or add my own module?
+## 🤝 Can I contribute or add my own module?
 
 Absolutely. PiNetBeacon is open source and designed to be understandable even if you’re new to scripting or networking.
 

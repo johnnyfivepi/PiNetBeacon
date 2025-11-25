@@ -24,16 +24,16 @@ Let’s start simple and build from there.
 
 ## Contents (choose your own adventure)
 
-- 🚶‍♀️ [Your network, from Pi to the internet](#your-network-from-pi-to-the-internet)
-- 🏃‍♂️ [What latency really is](#what-latency-really-is)
-- 🕳️ [What packet loss means](#what-packet-loss-means)
-- 🛠️ [How PiNetBeacon actually checks your connection](#how-pinetbeacon-actually-checks-your-connection)
-- 📊 [Why checking over time matters](#why-checking-over-time-matters)
-- ✨ [What's next](#whats-next)
+- 🚶‍♀️ [Your network, from Pi to the internet](#️-your-network-from-pi-to-the-internet)
+- 🏃‍♂️ [What latency really is](#️-what-latency-really-is)
+- 🕳️ [What packet loss means](#️-what-packet-loss-means)
+- 🛠️ [How PiNetBeacon actually checks your connection](#️-how-pinetbeacon-actually-checks-your-connection)
+- 📊 [Why checking over time matters](#-why-checking-over-time-matters)
+- ✨ [What's next](#-whats-next)
 
 ---
 
-## Your network, from Pi to the internet
+## 🚶‍♀️ Your network, from Pi to the internet
 
 Before we dig into what PiNetBeacon checks, it helps to know the basic path your Raspberry Pi takes when it talks to the internet. This is the 30-second version, and it's all you really need.
 
@@ -61,7 +61,7 @@ But for PiNetBeacon, the simple model above is all you need.
 
 ---
 
-## What latency really is
+## 🏃‍♂️ What latency really is
 
 One of the first things PiNetBeacon measures is latency, which is a fancy word for “how long it takes your request to go out into the world and come back.” Think of it like sending your Raspberry Pi on a tiny errand.
 
@@ -91,7 +91,7 @@ If you want to dig a little deeper, Cloudflare has a great explanation of latenc
 
 ---
 
-## What packet loss means
+## 🕳️ What packet loss means
 
 Next up is packet loss. If latency is about how long the trip takes, packet loss is about whether your Pi’s tiny envelope even makes it back at all.
 
@@ -124,7 +124,7 @@ Fortinet has a nice explanation of packet loss:
 
 ---
 
-## How PiNetBeacon actually checks your connection
+## 🛠️ How PiNetBeacon actually checks your connection
 
 Now that you know the basic ideas behind latency and packet loss, here’s how PiNetBeacon measures them:
 
@@ -157,7 +157,7 @@ Here’s a detailed guide from Bunny.net about how `ping` works:
 
 ---
 
-## Why checking over time matters
+## 📊 Why checking over time matters
 
 A single check is useful, but the real magic happens when you collect dozens or hundreds of them. One ping result can be a fluke. Ten results start to form a pattern. A whole day of results can tell you a story.
 
@@ -188,7 +188,7 @@ Data makes guesswork less.... guessy.
 
 ---
 
-## What’s next
+## ✨ What’s next
 
 Now that you know what PiNetBeacon checks and how it thinks, you can explore the rest of the docs:
 

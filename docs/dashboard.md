@@ -26,14 +26,14 @@ live status → recent checks → quick health info → all in one place.
 
 ## Contents (choose your own adventure)
 
-- 🎛 [Understand what the dashboard shows](#what-the-dashboard-shows)
-- 🚀 [Start the dashboard server](#starting-the-dashboard-server)
-- 🐛 [Troubleshoot an empty dashboard](#troubleshooting-the-dashboard)
-- 🔧 [Next steps and ideas](#next-steps-and-ideas)
+- 🎛 [Understand what the dashboard shows](#-what-the-dashboard-shows)
+- 🚀 [Start the dashboard server](#-starting-the-dashboard-server)
+- 🐛 [Troubleshoot an empty dashboard](#-troubleshooting-the-dashboard)
+- 🔧 [Next steps and ideas](#-next-steps-and-ideas)
 
 ---
 
-## What the dashboard shows
+## 🎛 What the dashboard shows
 
 At a glance, the dashboard gives you:
 
@@ -113,7 +113,7 @@ This is incredibly helpful when something looks “off” or you enjoy staring a
 
 ---
 
-## Starting the dashboard server
+## 🚀 Starting the dashboard server
 
 The dashboard is powered by a small Python web server that runs on your Raspberry Pi. Once it’s running, you can open the dashboard on **any device** on your network — your phone, your laptop, your toaster (okay, maybe not the toaster).
 
@@ -190,7 +190,7 @@ This cleanly shuts down the dashboard server (no drama, no corruption, just good
 
 ---
 
-## Troubleshooting the Dashboard
+## 🐛 Troubleshooting the Dashboard
 
 Sometimes the dashboard loads... and shows absolutely nothing. Don’t panic, this usually means something small isn’t running yet.
 
@@ -288,7 +288,7 @@ python3 server.py
 
 ---
 
-## Next steps and ideas
+## 🔧 Next steps and ideas
 
 If your dashboard is up and running, congratulations — you’ve officially given your Raspberry Pi a tiny job and it’s doing its best.
 
