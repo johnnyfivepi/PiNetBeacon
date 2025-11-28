@@ -14,7 +14,7 @@ If this is your first time SSHing into a Raspberry Pi or installing a tool like 
 ## Contents (choose your own adventure)
 
 - 📦 [What you'll need](#-what-youll-need)
-- 💿 [Install Raspberry Pi OS Lite](#-install-raspberry-pi-os-lite)
+- 💿 [Flash Raspberry Pi OS Lite with Raspberry Pi Imager (v2.0)](#-flash-raspberry-pi-os-lite-with-raspberry-pi-imager-v20)
 - 🔧 [Install dependencies](#-install-dependencies)
 - 📥 [Clone the repository](#-clone-the-repository)
 - 📝 [Configure PiNetBeacon](#-configure-pinetbeacon)
@@ -42,79 +42,128 @@ Here’s the short list of things you need before starting:
 
 ---
 
-## 💿 Install Raspberry Pi OS Lite
+## 💿 Flash Raspberry Pi OS Lite with Raspberry Pi Imager (v2.0)
 
-PiNetBeacon runs well on Raspberry Pi OS Lite, the streamlined version of the operating system without a graphical desktop. It keeps everything lightweight and responsive, which is exactly what we want for a tiny network watcher.
+PiNetBeacon runs best on **Raspberry Pi OS Lite (64-bit)** — the fast, minimal version without a desktop environment. With Raspberry Pi Imager v2.0, flashing the OS and pre-configuring Wi-Fi + SSH is easier than ever.
 
-Here’s how to get the OS onto your microSD card:
+Here’s how to get your microSD card fully prepared:
 
-1. Install [Raspberry Pi Imager - Official ](https://www.raspberrypi.com/software) on your computer and **insert your microSD card**.
+### **1. Install and open Raspberry Pi Imager**
 
-2. Open Imager and choose:
+Download the official Imager (now 2.0) from:  
+[https://www.raspberrypi.com/software/](https://www.raspberrypi.com/software/)
 
-   - **Device**: your Raspberry Pi model
-   - **Operating System**: Raspberry Pi OS Lite (64-bit) which is under `Operating System > Raspberry Pi OS (other)`
-   - **Storage**: your microSD card
-   
-   Once those three fields are all selected, the **Next** button becomes available:
+Insert your microSD card and launch the app.
 
-   ![Set all three fields](../assets/images/imager.png)
+### **2. Select your device**
 
-3. Click **Next** and Imager will ask if you want to apply OS customisation. (We do!)
-    
-    ![Apply OS customization prompt](../assets/images/imager-apply-settings.png)
+Click **Device**, then choose your Pi model (e.g., Raspberry Pi Zero 2 W):
 
-    > 📝 **Note:**  
-    > This is where all the good stuff lives.
-    {: .note}
+![Select device](../assets/images/imager-device.png)
 
-4. Choose **Edit Settings**. This opens a configuration window with three tabs:
+### **3. Select the operating system**
 
-   - **General**: hostname, username, password, Wi-Fi, and locale  
-   - **Services**: SSH settings  
-   - **Options**: a few optional Imager behaviors
- 
-5. In the **General** tab, set the basics:
+Go to:
 
-   - **Hostname** (for example, `pinetbeacon`)
-   - **Username and password** (this is what you’ll use to log in over SSH)
-   - **Wireless LAN** network name and password
-   - **Wireless LAN country** (important for enabling Wi-Fi)
-   - **Time zone** and **keyboard layout**
+**Operating System → Raspberry Pi OS (other)**  
 
-   ![Raspberry Pi Imager — General tab](../assets/images/imager-general-tab.png)
+Then select:
 
-   > 💡 **Password tip:**  
-   > Make sure the password you choose here is something you can remember, or save it somewhere secure (like 1Password or Bitwarden). This is the password you’ll use every time you connect to your Pi over SSH, so if you forget it, you'll likely need to rewrite the SD card.
-   {: .tip}
+**Raspberry Pi OS Lite (64-bit)**
 
-6. Switch to the **Services** tab and enable SSH:
+![Choose OS Lite](../assets/images/imager-os2.png)
 
-   - Check **Enable SSH**
-   - Choose **Use password authentication**
-   
-   ![Raspberry Pi Imager — Services tab](../assets/images/imager-services-tab.png)
+### **4. Select your storage**
 
-   > 📝 **Note:**  
-   > PiNetBeacon needs SSH enabled so you can connect without a monitor or keyboard.
-   {: .note}
+Choose your microSD card from the storage list:
 
-7. You can usually leave the **Options** tab as-is, but enabling **Eject media when finished** is handy.
+![Select storage](../assets/images/imager-storage.png)
 
-   ![Raspberry Pi Imager — Options tab](../assets/images/imager-options-tab.png)
+Once **Device**, **OS**, and **Storage** are all filled in, the **Next** button becomes available.
 
-8. Click **Save**, then let the Imager write the OS to your microSD card. When it finishes, eject the card and insert it into your Raspberry Pi.
+### **5. Apply OS customisation**
 
-9. Power on your Pi and give it a minute or two to start up. It will connect to your Wi-Fi using the details you entered earlier.
+Customisation is where we set Wi-Fi, SSH, username, password, and more.
 
-10. Once it’s online, you can connect to it from your computer using SSH:
+### **6. Customisation — hostname, localisation, username, Wi-Fi**
 
-    ```bash
-    ssh username@pinetbeacon.local
-    ```
-If that doesn’t work right away, you can SSH using the Pi’s IP address instead. Your router’s device list will usually show the Pi by its hostname.
+Set your **hostname**, something like:
 
-At this point, your Raspberry Pi is ready for updates, dependencies, and - soon - PiNetBeacon!
+`PiNetBeacon`
+
+![Hostname](../assets/images/imager-customisation1.png)
+
+Then set your **localisation** (capital city, time zone, keyboard layout):
+
+![Localisation](../assets/images/imager-localisation.png)
+
+Next, create the username + password you’ll use to log in via SSH:
+
+![User settings](../assets/images/imager-user.png)
+
+Finally, configure Wi-Fi:
+
+![Wi-Fi settings](../assets/images/imager-wifi.png)
+
+> 💡 **Password tip:**  
+> Make sure the password you choose here is something you can remember, or save it somewhere secure (like 1Password or Bitwarden). This is the password you’ll use every time you connect to your Pi over SSH, so if you forget it, you'll likely need to rewrite the SD card.
+{: .tip}
+
+### **7. Remote access — enable SSH**
+
+Go to the **Remote Access / SSH** section (Imager 2.0’s layout varies slightly by OS type).
+
+Enable SSH → choose **Use password authentication**.
+
+![SSH settings](../assets/images/imager-ssh.png)
+
+> PiNetBeacon requires SSH so you can set everything up headlessly.
+
+### **8. Raspberry Pi Connect (leave disabled)**
+
+Imager may offer "Raspberry Pi Connect" — leave this turned **off** for now.
+
+![Pi Connect disabled](../assets/images/imager-raspberrypiconnect.png)
+
+### **9. App Options — optional but useful**
+
+Click the **App Options** button at the bottom left and enable **Eject media when finished** to avoid file-system warnings later.
+
+![App options](../assets/images/imager-appoptions.png)
+
+### **10. Review your settings**
+
+Imager shows a summary before writing:
+
+![Write summary](../assets/images/imager-write.png)
+
+- Hostname configured  
+- Localisation configured  
+- User account configured  
+- Wi-Fi configured  
+- SSH enabled  
+
+Click **Write** and wait for the image to finish flashing.
+
+### **11. Insert the microSD card and power on your Pi**
+
+Give it about **60–90 seconds** to boot and join your Wi-Fi.
+
+### **12. SSH into your Raspberry Pi**
+
+Try connecting by hostname:
+
+```bash
+ssh <your-username>@pinetbeacon.local
+```
+
+If that doesn’t work, use your router’s device list to find the Pi’s IP address:
+
+```bash
+ssh <your-username>@<pi-ip-address>
+```
+
+Once you're in, your Pi is officially alive, online, and ready for PiNetBeacon.
 
 > 📘 **More info:**  
 > The Raspberry Pi Foundation maintains full documentation for the Imager, including all OS customization options: [Official Raspberry Pi Imager documentation](https://www.raspberrypi.com/documentation/computers/getting-started.html#getting-started-imaging-your-raspberry-pi)
