@@ -331,8 +331,6 @@ If you want to view the PiNetBeacon dashboard while you're away from home, youâ€
 
 Here are the two safest, beginner-friendly options:
 
-Here are the two safest, beginner-friendly options:
-
 ### Option 1: Tailscale (easiest + strongly recommended)
 
 Tailscale creates a tiny, private VPN between your devices. Your dashboard becomes reachable anywhere, safely, without touching your router.

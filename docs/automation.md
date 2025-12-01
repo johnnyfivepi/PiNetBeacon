@@ -38,7 +38,8 @@ If you want PiNetBeacon to quietly take care of itself in the background, you’
 PiNetBeacon’s check script (`pinetbeacon_check.py`) is designed to be run over and over — like a tiny digital heartbeat for your network.
 
 You *could* SSH into your Pi every 10 minutes and run it manually, but that’s extremely “Victorian-era computing.”  
-Let’s make the Pi do it for you.
+
+Let’s have the Pi do it for you.
 
 ### Step 1 — Open your crontab
 
@@ -58,12 +59,15 @@ To run the check every 5 minutes, add:
 */5 * * * * /usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py >> /home/pnb/PiNetBeacon/data/logs/cron.log 2>&1
 ```
 
-Breakdown (because knowledge is power):
+> 💡 **What does `>> cron.log 2>&1` do?**  
+> `>> cron.log` means “append all normal output (stdout) to `cron.log`.”  
+> `2>&1` means “also send error messages (stderr) to the same place.”  
+> Bundled together like a happy little family, they make sure *everything* your script prints ends up in one log file instead of disappearing into the void.
+{: .note}
 
-- `*/5` → every 5 minutes  
-- `/usr/bin/python3` → full path to Python on most Pis  
-- `>> cron.log` → saves errors instead of hiding them in a void  
-- `2>&1` → bundles stderr + stdout together like a happy little family
+> 💡 **Tip**  
+> Always use absolute paths.
+{: .tip}
 
 ### Step 3 — Save your crontab
 
@@ -80,16 +84,18 @@ Cron will automatically pick up the change.
 Run:
 
 ```bash
-grep CRON /var/log/syslog
+journalctl -u cron.service --since "15 minutes ago"
 ```
+
+If you don’t see anything for your user or your command in the last few minutes, cron isn’t actually running your job yet.
 
 If you see entries like:
 
 ```
-CRON[1234]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py ...)
+CRON[8999]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py >> /home/pnb/PiNetBeacon/data/logs/cron.log 2>&1)
 ```
 
-Congrats — you’ve created a Pi that checks your network *on its own*, like a responsible adult.
+Congrats! You’ve created a Pi that checks your network *on its own*, like a responsible adult.
 
 [↑ Back to safety](#contents-choose-your-own-adventure)
 
@@ -125,6 +131,7 @@ StandardOutput=journal
 StandardError=journal
 Restart=always
 RestartSec=5
+User=pnb
 
 [Install]
 WantedBy=multi-user.target
@@ -368,11 +375,13 @@ This shows:
 - the exact command systemd ran
 
 #### **View logs (journal)**
+
 ```bash
-journalctl -u pinetbeacon.service --since "10 minutes ago"
+journalctl -u pinetbeacon.service --since "15 minutes ago"
 ```
 
 Or follow logs in real time:
+
 ```bash
 journalctl -u pinetbeacon.service -f
 ```
@@ -403,8 +412,9 @@ If you’ve never set up any jobs before, this might say:
 
 ```
 no crontab for pi
-```
-(That's normal — it just means you’re fresh and unscheduled.)
+```  
+
+That's normal — it just means you’re fresh and unscheduled.
 
 ### **Edit your cron jobs**
 
@@ -454,25 +464,25 @@ Hit `Ctrl + X` → `Y` → `Enter` to save.
 
 Cron doesn’t show output in the terminal — it quietly logs things like a raccoon behind a dumpster.
 
-View the logs with:
+On Raspberry Pi OS (with `systemd`), cron logs go into the journal. View them with:
 
 ```bash
-grep CRON /var/log/syslog
+journalctl -u cron.service -f
 ```
 
-Or follow them live:
+Or filter and tail just the recent PiNetBeacon entries:
 
 ```bash
-tail -f /var/log/syslog
+journalctl -u cron.service --since "15 minutes ago" | grep pinetbeacon
 ```
 
 You'll see entries like:
 
 ```
-CRON[1234]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py)
+CRON[8999]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py >> /home/pnb/PiNetBeacon/data/logs/cron.log 2>&1)
 ```
 
-If you *don’t* see these, cron probably never executed your command.
+If you don’t see your command in there, cron probably never executed your line.
 
 > 💡 **Tip:**  
 > Cron needs **absolute paths** — no shortcuts, no assumptions, no `~/scripts/whatever`.  
@@ -568,16 +578,16 @@ If you set up cron but nothing is happening, check whether cron is even executin
 Run:
 
 ```bash
-grep CRON /var/log/syslog
+journalctl -u cron.service --since "15 minutes ago"
 ```
 
-If you *don't* see lines like:
+You're looking for lines like:
 
 ```bash
-CRON[1234]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py ...)
+CRON[8999]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py ...)
 ```
 
-then cron never ran your script.
+If you don't see that, then cron never ran your script.
 
 **Common causes:**
 
@@ -721,7 +731,7 @@ If you’re the “skim the summary first” type — same — here’s the ever
 
 | Problem | What it *usually* means | Quick Fix |
 |--------|---------------------------|-----------|
-| ❌ Cron isn’t running the check script | Wrong paths, no permissions, or cron doesn’t know who you are | Use absolute paths; check with `grep CRON /var/log/syslog` |
+| ❌ Cron isn’t running the check script | Wrong paths, no permissions, or cron doesn’t know who you are | Use absolute paths; check with `journalctl -u cron.service --since "15 minutes ago"` |
 | ❌ Dashboard empty even though scripts are running | Log file missing or empty | Run a manual check; verify log file exists and has entries |
 | ❌ Dashboard server won’t start on boot | systemd service file issue | Check with `systemctl status` and reread logs |
 | ❌ Dashboard loads but shows old UI | Browser cached old JS/CSS | Hard refresh or incognito window |
@@ -787,16 +797,16 @@ If you see a fresh timestamp within the last few minutes → 🎉 cron is alive.
 
 If the timestamps are old (or the file is empty), cron isn’t running your script.
 
-#### 3. Check cron activity directly in syslog
+#### 3. Check cron activity directly in the journal
 
 ```bash
-grep CRON /var/log/syslog | tail
+journalctl -u cron.service --since "15 minutes ago"
 ```
 
 You want to see something like:
 
 ```
-CRON[1234]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py)
+CRON[8999]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py)
 ```
 
 If you don't see entries like that, cron may not be executing the line — usually due to:
@@ -920,13 +930,15 @@ wc -l ~/PiNetBeacon/data/logs/pinetbeacon.log.jsonl
 #### 4. Check Cron’s logs (if cleanup is scheduled)
 
 ```bash
-grep CRON /var/log/syslog | grep cleanup
+journalctl -u cron.service --since "1 hour ago" | grep cleanup_logs.py
 ```
 
-Or follow it live:
+(or whatever your cleanup script is called)
+
+Or, follow it live:
 
 ```bash
-tail -f /var/log/syslog
+journalctl -u cron.service -f
 ```
 
 You should see entries that look like:
@@ -956,7 +968,7 @@ If you can check off every item here, you’ve achieved **Pi Enlightenment**.
 ### ✅ Network checks (cron)
 
 - [ ] `crontab -l` shows your check job  
-- [ ] `grep CRON /var/log/syslog` shows the job actually running  
+- [ ] `journalctl -u cron.service --since "15 minutes ago"` shows the job actually running  
 - [ ] `tail ~/PiNetBeacon/data/logs/pinetbeacon.log.jsonl` shows **new entries** appearing over time  
 - [ ] Log entries contain:
   - [ ] timestamp  
