@@ -327,44 +327,39 @@ Think of this as your Pi’s “remote control” — very official, totally non
 
 If you set up PiNetBeacon using `systemd`, then congratulations: you’ve unlocked the *grown-up* way Linux likes to run things.
 
-Here are the commands you’ll use most often.
+Here are the commands you’ll use most often for the dashboard service.
 
 #### **Start a service manually**
 ```bash
-sudo systemctl start pinetbeacon.service
 sudo systemctl start pinetbeacon-dashboard.service
 ```
 
 #### **Stop a service**
 ```bash
-sudo systemctl stop pinetbeacon.service
 sudo systemctl stop pinetbeacon-dashboard.service
 ```
 
 #### **Restart a service**
 (Useful after making changes to scripts.)
 ```bash
-sudo systemctl restart pinetbeacon.service
 sudo systemctl restart pinetbeacon-dashboard.service
 ```
 
 #### **Enable a service on boot**
 (If you forgot earlier or want to re-enable it.)
 ```bash
-sudo systemctl enable pinetbeacon.service
 sudo systemctl enable pinetbeacon-dashboard.service
 ```
 
 #### **Disable a service on boot**
 ```bash
-sudo systemctl disable pinetbeacon.service
 sudo systemctl disable pinetbeacon-dashboard.service
 ```
 
 #### **See service status**
 (This one’s your best friend.)
 ```bash
-systemctl status pinetbeacon.service
+systemctl status pinetbeacon-dashboard.service
 ```
 
 This shows:  
@@ -377,13 +372,13 @@ This shows:
 #### **View logs (journal)**
 
 ```bash
-journalctl -u pinetbeacon.service --since "15 minutes ago"
+journalctl -u pinetbeacon-dashboard.service --since "15 minutes ago"
 ```
 
 Or follow logs in real time:
 
 ```bash
-journalctl -u pinetbeacon.service -f
+journalctl -u pinetbeacon-dashboard.service -f
 ```
 
 > 💡 **Tip**  
@@ -781,8 +776,8 @@ crontab -l
 You should see your scheduled entry, something like:
 
 ```cron
-*/5 * * * * /usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py
-```
+*/5 * * * * /usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeacon_check.py >> /home/pnb/PiNetBeacon/data/logs/cron.log 2>&1
+``` 
 
 If it’s there → great.  
 If not → cron has ghosted you (fix by re-adding it).
