@@ -14,6 +14,8 @@
   <!-- Audience + Status -->
   <img src="https://img.shields.io/badge/Audience-Hobbyists%20%7C%20Beginners%20%7C%20Homelabbers-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" />
+  <img src="https://img.shields.io/github/stars/johnnyfivepi/PiNetBeacon?style=for-the-badge&label=Stars&color=brightgreen" alt="GitHub stars">
+  </a>
 
   <!-- Tech -->
   <img src="https://img.shields.io/badge/Built%20With-Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
