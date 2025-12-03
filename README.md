@@ -1,4 +1,4 @@
-<h1 align="center">🕊📡  PiNetBeacon  📡🕊</h1>
+<h1 align="center">📡🕊  PiNetBeacon  🕊📡</h1>
 
 <p align="center">
   <em>Lightweight Raspberry Pi network monitor for curious hobbyists.</em>
