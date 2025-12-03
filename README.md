@@ -19,9 +19,9 @@
   <!-- Audience + Status -->
   <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Audience-Hobbyists%20%7C%20Beginners%20%7C%20Homelabbers-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/github/stars/johnnyfivepi/PiNetBeacon?style=for-the-badge&label=Stars&color=brightgreen">
-
-  <!-- Open source + License -->
+  <img src="https://img.shields.io/github/stars/johnnyfivepi/PiNetBeacon?style=for-the-badge&label=Stars&color=brightgreen">  
+  <br>
+  <!-- Open source + License -->  
   <img src="https://img.shields.io/badge/Open%20Source-Yes-1E90FF?style=for-the-badge" />
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" />
 
