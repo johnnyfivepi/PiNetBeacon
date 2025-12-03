@@ -1,4 +1,4 @@
-<h1 align="center">🕊📡  PiNetBeacon  🕊📡</h1>
+<h1 align="center">🕊📡  PiNetBeacon  📡🕊</h1>
 
 <p align="center">
   <em>Lightweight Raspberry Pi network monitor for curious hobbyists.</em>
@@ -729,8 +729,6 @@ You’re free to:
 ...as long as you include the original license text.
 
 The full license can be found in `License`.
-
-[↑ Back to top](#-table-of-contents)
 
 ### 🎭 Code of Conduct
 
