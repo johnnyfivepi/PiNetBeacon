@@ -165,7 +165,7 @@ PiNetBeacon includes a small dashboard so you can see recent checks in your brow
 
    Then, refresh the dashboard again.
 
-> **Note:**  
+> 📝 **Note:**  
 > The dashboard only updates while the dashboard server is actively running on your Pi. This is because it reads live data from:
 >
 > - `/api/logs/latest`
@@ -178,6 +178,7 @@ PiNetBeacon includes a small dashboard so you can see recent checks in your brow
 > ```
 >
 > ...but those entries won’t appear in the dashboard until the server is running **and** you click **Refresh now**.
+{: .note}
 
 ---
 

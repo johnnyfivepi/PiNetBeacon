@@ -109,7 +109,7 @@ At the bottom of the dashboard, there’s a little JSON readout that shows:
 
 This is incredibly helpful when something looks “off” or you enjoy staring at JSON as a personality trait.
 
-[↑ Back to safety](#dashboard-overview)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -186,7 +186,7 @@ Whenever you’re done watching the dashboard:
 
 This cleanly shuts down the dashboard server (no drama, no corruption, just good manners).
 
-[↑ Back to safety](#dashboard-overview)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -197,6 +197,7 @@ Sometimes the dashboard loads... and shows absolutely nothing. Don’t panic, th
 Here are the most common causes and how to fix each one.
 
 ### 1. `server.py` isn’t running  
+
 The dashboard only updates while the server is alive. Check if it’s running:
 
 ```bash
@@ -265,7 +266,6 @@ If not:
 sudo systemctl restart systemd-timesyncd
 ```
 
-
 ### 5. Your browser is caching old JS/HTML
  
 Browsers sometimes cling to old versions of `app.js` like it's sentimental.
@@ -284,7 +284,7 @@ cd ~/PiNetBeacon/dashboard
 python3 server.py
 ```
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -361,4 +361,4 @@ PiNetBeacon is a small, friendly project. If you have ideas:
 
 Your Pi will thank you for the attention.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}

@@ -15,7 +15,7 @@ If you've ever wondered:
 - “What does *latency* really mean for me?”
 - “How often is my connection dropping when I'm not looking?”
 
-…you’re in the right place.
+...you’re in the right place.
 
 ---
 

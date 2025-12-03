@@ -40,7 +40,7 @@ Here are some contributions that are always welcome:
 
 Even small improvements help make PiNetBeacon a friendlier place for the next person.
 
-[↑ Back to safety](#contributing-to-pinetbeacon)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -58,7 +58,7 @@ A few tips before diving in:
 
 If you’re not sure whether your idea fits, feel free to open an issue first. A quick discussion can help shape your idea into something the whole project can use.
 
-[↑ Back to safety](#contributing-to-pinetbeacon)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -80,7 +80,7 @@ If you spot something that made you pause or double-check, chances are someone e
 
 Documentation lives in the `docs/` folder and is written in Markdown, so it’s easy to edit or extend.
 
-[↑ Back to safety](#contributing-to-pinetbeacon)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -100,7 +100,7 @@ Helpful details include:
 
 You don’t need to troubleshoot everything yourself. If the issue is enough to get a conversation started, that’s perfect.
 
-[↑ Back to safety](#contributing-to-pinetbeacon)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -130,7 +130,7 @@ Here’s the typical flow:
 
 You don’t need to be an expert to contribute. PRs that improve clarity, reliability, or accessibility are always appreciated.
 
-[↑ Back to safety](#contributing-to-pinetbeacon)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -149,7 +149,7 @@ To keep things comfortable for contributors and maintainers, we ask that you:
 
 It’s okay if your idea isn’t fully formed or your first PR isn’t perfect. The goal is to support a community where people feel comfortable exploring and contributing at their own pace.
 
-[↑ Back to safety](#contributing-to-pinetbeacon)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -159,5 +159,5 @@ Whether you contribute code, ideas, bug reports, documentation, or encouragement
 
 Thanks for taking the time to help make this project better for everyone.
 
-[↑ Back to safety](#contributing-to-pinetbeacon)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 

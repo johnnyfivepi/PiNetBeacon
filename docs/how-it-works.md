@@ -57,7 +57,7 @@ https://www.cloudflare.com/en-gb/learning/network-layer/what-is-a-home-network/
 
 But for PiNetBeacon, the simple model above is all you need.
 
-[↑ Back to safety](#how-it-works)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -87,7 +87,7 @@ If you want to dig a little deeper, Cloudflare has a great explanation of latenc
 
 - [What is latency (Cloudflare)](https://www.cloudflare.com/learning/performance/what-is-latency/)
 
-[↑ Back to safety](#how-it-works)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -120,7 +120,7 @@ Fortinet has a nice explanation of packet loss:
 
 - [What Is Packet Loss - Fortinet](https://www.fortinet.com/resources/cyberglossary/what-is-packet-loss)
 
-[↑ Back to safety](#how-it-works)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -153,7 +153,7 @@ Here’s a detailed guide from Bunny.net about how `ping` works:
 
 - [What Is Ping? - Bunny.net](https://bunny.net/academy/network/what-is-ping-how-does-it-work-and-what-it-does/)
 
-[↑ Back to safety](#how-it-works)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -184,7 +184,7 @@ PiNetBeacon doesn’t try to predict or fix anything. It just collects small tru
 
 Data makes guesswork less.... guessy.
 
-[↑ Back to safety](#how-it-works)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -198,4 +198,4 @@ Now that you know what PiNetBeacon checks and how it thinks, you can explore the
 
 If you enjoy learning how networks behave in the real world, PiNetBeacon gives you just enough visibility to feel confident without drowning you in jargon. You might even start spotting patterns your ISP would rather you didn’t notice.
 
-[↑ Back to safety](#how-it-works)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}

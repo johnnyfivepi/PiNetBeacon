@@ -30,7 +30,7 @@ Yes, absolutely. PiNetBeacon is lightweight and runs comfortably on the Raspberr
 
 It also works on the original Pi Zero W, Pi 3, Pi 4, Pi 5, and anything newer. If your Pi can run Raspberry Pi OS Lite and has a network connection, you’re set.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -54,7 +54,7 @@ PiNetBeacon focuses on latency and packet loss, which matter for things like:
 
 So whether you have gigabit fiber or something more humble, PiNetBeacon can help you understand how your connection behaves.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -71,7 +71,7 @@ You can also ping:
 
 If you ever notice a target behaving oddly, try switching to a different one and compare. Sometimes a single service has a temporary mood, and PiNetBeacon makes that easy to spot.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -88,7 +88,7 @@ A good starting point is every 2 to 3 minutes. That gives you a clear picture of
 
 If you’re trying to diagnose something in real time, feel free to shorten the interval temporarily.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -104,7 +104,7 @@ If you want to be extra cautious, you can:
 
 But for most hobbyists, PiNetBeacon’s logging style is well within what SD cards handle every day without issue.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -127,7 +127,7 @@ Think of PiNetBeacon as the “is the network actually misbehaving?” tool. If 
 
 The **How it works** page explains these scenarios in more detail if you want a deeper look.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -152,7 +152,7 @@ Each module includes a short note in the log entry to help you figure out what h
 
 If you continue seeing the same error, feel free to open an issue on GitHub. PiNetBeacon is meant to be understandable, not mysterious.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -173,7 +173,7 @@ Each line is a single JSON object. This makes it easy to:
 
 Logs grow over time, but they’re plain text and very manageable. If you ever want to rotate or archive them, you can rename the file and PiNetBeacon will create a fresh one automatically.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -190,7 +190,7 @@ You might find the dashboard helpful if you want to see:
 
 If you prefer reading logs directly, that’s totally fine. PiNetBeacon is designed to let you use whichever approach feels most natural.
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -212,6 +212,6 @@ Contributions of all sizes are welcome. You can read more about contributing her
 
 👉 [Contributing to PiNetBeacon]({{ site.baseurl }}/contributing/)
 
-[↑ Back to safety](#frequently-asked-questions)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 

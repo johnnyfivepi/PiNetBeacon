@@ -20,16 +20,16 @@ If Tailscale is the “super easy private VPN,” Cloudflare Tunnel is the “br
 
 ## Contents (choose your own adventure)
 
-- [🚀 Step 1: Install cloudflared](#-step-1-install-cloudflared)
-- [🔑 Step 2: Authenticate your Pi](#-step-2-authenticate-your-pi)
-- [🛠 Step 3: Create your tunnel](#-step-3-create-your-tunnel)
-- [⚙️ Step 4: Configure ingress rules](#️-step-4-configure-ingress-rules)
-- [🌐 Step 5: Expose the dashboard](#-step-5-expose-the-dashboard-a-tiny-bit-of-magic)
-- [💾 Optional: Make it start automatically](#-optional-make-the-tunnel-start-automatically)
-- [🌱 Optional: Use your own subdomain](#-optional-use-your-own-subdomain)
-- [🧪 Testing your tunnel](#-testing-your-tunnel)
-- [🐛 Troubleshooting](#-troubleshooting-cloudflare-tunnel)
-- [🔒 Security Notes & Best Practices](#-security-notes--best-practices)
+- 🚀 [Step 1: Install cloudflared](#-step-1-install-cloudflared)
+- 🔑 [Step 2: Authenticate your Pi](#-step-2-authenticate-your-pi)
+- 🛠 [Step 3: Create your tunnel](#-step-3-create-your-tunnel)
+- ⚙️ [Step 4: Configure ingress rules](#️-step-4-configure-ingress-rules)
+- 🌐 [Step 5: Expose the dashboard](#-step-5-expose-the-dashboard-a-tiny-bit-of-magic)
+- 💾 [Optional: Make it start automatically](#-optional-make-the-tunnel-start-automatically)
+- 🌱 [Optional: Use your own subdomain](#-optional-use-your-own-subdomain)
+- 🧪 [Testing your tunnel](#-testing-your-tunnel)
+- 🐛 [Troubleshooting](#-troubleshooting-cloudflare-tunnel)
+- 🔒 [Security Notes & Best Practices](#-security-notes--best-practices)
 
 ---
 
@@ -63,7 +63,7 @@ cloudflared version 2024.X.X (built YYYY-MM-DD)
 If you see that —  
 🎉 **You now have a tunnel-capable Pi**.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -98,7 +98,7 @@ Your certificates have been saved to: /home/pi/.cloudflared/cert.pem
 
 🎉 **Your Pi is officially Cloudflare-verified.**
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -131,7 +131,7 @@ Keep that tunnel ID safe because you’ll need it in the config file.
 > You can name the tunnel anything, like `pnb`, `mydashboard`, or `beacon-tunnel`, but `pinetbeacon` keeps it tidy.
 {: .tip}
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -190,7 +190,7 @@ Save and exit:
 - **Ctrl + O** → Enter  
 - **Ctrl + X** to close `nano`
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -254,7 +254,7 @@ Open that URL and, if the stars align, you’re now viewing your PiNetBeacon das
 > (PiNetBeacon isn’t a mind reader. Yet.)
 {: .tip}
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -335,7 +335,7 @@ sudo reboot
 
 Once the Pi comes back online, your tunnel should be running without you lifting a finger.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -418,7 +418,7 @@ https://beacon.yourdomain.com
 
 If you see the PiNetBeacon dashboard, you’ve just given your Raspberry Pi its own tiny corner of the internet.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -491,7 +491,7 @@ If:
 
 ...then your tunnel is officially doing its job.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -632,7 +632,7 @@ If none of this works and you’re giving your Pi the side-eye: It’s okay. We�
 
 Open an Issue on GitHub and we’ll take a look together.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -696,7 +696,7 @@ Never upload it.
 Never email it.  
 Never back it up to “random cloud folder #14”.
 
-If someone gets these files, they *own your tunnel*.
+If someone gets these files, they *own your tunnel* like trolls own & place a toll on bridges.
 
 ### 🧱 4. Do not port-forward your Pi manually
 
@@ -733,4 +733,4 @@ Open an issue on GitHub or reach out.
 
 PiNetBeacon is friendly — the documentation should be too.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}

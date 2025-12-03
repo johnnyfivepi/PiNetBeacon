@@ -19,17 +19,41 @@ If you want PiNetBeacon to quietly take care of itself in the background, you’
 
 ## Contents (choose your own adventure)
 
-- [⏱ Automate network checks with cron](#-automate-network-checks-with-cron)
-- [🖥 Run the dashboard automatically with systemd](#-automatically-start-the-dashboard-with-systemd)
-- [🧹 (Optional) Automatically clean up old logs](#-optional-automatically-clean-up-old-logs)
-- [🛠 Managing your services](#-managing-your-services)
-- [🕒 Using Cron (lightweight scheduling)](#-using-cron-lightweight-scheduling)
-- [🤔 systemd vs cron — which should *you* use?](#-systemd-vs-cron--which-should-you-use)
-- [🐛 Troubleshooting automation](#-troubleshooting-automation)
-- [🧩 Troubleshooting Summary (Quick Reference)](#-troubleshooting-summary-quick-reference)
-- [📋 Testing your automation](#-testing-your-automation)
-- [🧪 Automation Testing Checklist](#-automation-testing-checklist)
-- [🎉 Recap](#-recap-what-youve-set-up-or-are-about-to)
+- 👋 [Before we dive in: cron, systemd, and the journal](#-before-we-dive-in-cron-systemd-and-the-journal)
+- ⏱ [Automate network checks with cron](#-automate-network-checks-with-cron)
+- 🖥 [Run the dashboard automatically with systemd](#-automatically-start-the-dashboard-with-systemd)
+- 🧹 [(Optional) Automatically clean up old logs](#-optional-automatically-clean-up-old-logs)
+- 🛠 [Managing your services](#-managing-your-services)
+- 🕒 [Using cron (lightweight scheduling)](#-using-cron-lightweight-scheduling)
+- 🤔 [systemd vs cron — which should *you* use?](#-systemd-vs-cron--which-should-you-use)
+- 🐛 [Troubleshooting automation](#-troubleshooting-automation)
+- 🧩 [Troubleshooting summary (Quick reference)](#-troubleshooting-summary-quick-reference)
+- 📋 [Testing your automation](#-testing-your-automation)
+- 🧪 [Automation Testing Checklist](#-automation-testing-checklist)
+- 🎉 [Recap](#-recap-what-youve-set-up-or-are-about-to)
+
+---
+
+## 👋 Before we dive in: cron, systemd, and the journal
+
+If your brain is quietly asking “wait, what's the difference between `cron`, `systemd`, and `journal` again?”, here’s the short version:  
+
+- **cron** → “_When_ should this command run?”  
+Think: “run this script every 5 minutes” or “run cleanup at 3 AM.”
+
+- **systemd** → “_How_ should this long-running thing behave?”  
+Think: “start this server at boot and restart it if it dies.”
+
+- **journal** (`journalctl`) → “_What happened?_ Show me the logs.”  
+Think: “did cron actually run that line?” or “why did the service fail?”
+
+PiNetBeacon uses:
+
+- **cron** to schedule `pinetbeacon_check.py`  
+- **systemd** to keep the dashboard (`server.py`) running  
+- **journal** to help you see what both of them have been up to.
+
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -97,7 +121,7 @@ CRON[8999]: (pnb) CMD (/usr/bin/python3 /home/pnb/PiNetBeacon/scripts/pinetbeaco
 
 Congrats! You’ve created a Pi that checks your network *on its own*, like a responsible adult.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -202,7 +226,7 @@ sudo systemctl restart pinetbeacon-dashboard.service
 🎉 **Your Pi now boots up with the dashboard already running.**  
 You can plug it in across the room, across the house, or behind your couch forever — and the dashboard will still be there.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -306,7 +330,7 @@ It’s blunt... but it works.
 > If you ever want to archive logs instead of deleting them, you can rotate them with a single cron line.
 {: .tip}
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -385,7 +409,7 @@ journalctl -u pinetbeacon-dashboard.service -f
 > If something looks weird on the dashboard, checking the service logs is usually the fastest way to find out why.
 {: .tip}
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -484,9 +508,26 @@ If you don’t see your command in there, cron probably never executed your line
 > Always use full paths in cron jobs.
 {: .tip}
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
+
+> 🗺️ **Quick reminder: cron, systemd, and the journal**
+>
+> - **cron** → “_When_ should this command run?”  
+>   Think: “run this script every 5 minutes” or “run cleanup at 3 AM.”
+>
+> - **systemd** → “_How_ should this long-running thing behave?”  
+>   Think: “start this server at boot and restart it if it dies.”
+>
+> - **journal** (`journalctl`) → “_What happened?_ Show me the logs.”  
+>   Think: “did cron actually run that line?” or “why did the service fail?”
+>
+> PiNetBeacon uses:
+> - **cron** to schedule `pinetbeacon_check.py`  
+> - **systemd** to keep the dashboard (`server.py`) running  
+> - **journal** to help you see what both of them have been up to.
+{: .note}
 
 ## 🤔 systemd vs cron — which should *you* use?
 
@@ -554,7 +595,7 @@ PiNetBeacon works with either tool, and you can switch at any time.
 Just pick whichever feels less intimidating — or whichever makes you whisper  
 “oh nice, that’s pretty cool” while setting it up.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -716,11 +757,11 @@ Or open an incognito/private window.
 
 If that fixes it, clear your cache or add `?v=1.0` to script tags (done in the repo already).
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
-## 🧩 Troubleshooting Summary (Quick Reference)
+## 🧩 Troubleshooting summary (Quick reference)
 
 If you’re the “skim the summary first” type — same — here’s the everything-is-on-fire table.
 
@@ -745,7 +786,7 @@ If you’re the “skim the summary first” type — same — here’s the ever
 > **“Your Pi thinks it’s 1970.”**
 {: .note}
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -949,7 +990,7 @@ If you don’t see them, cron may not be firing.
 > A single missing directory in the path → cron silently refuses to run it.
 {: .tip}
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -1027,13 +1068,13 @@ If *both* come back → you’ve achieved automation greatness.
 - [ ] Your Pi isn’t overheating (it probably isn’t, but still nice to check)  
 - [ ] You can unplug the Pi, move it across the room, plug it back in — and everything still works  
 
-### 🎉 If everything above is checked off…
+### 🎉 If everything above is checked off...
 
 You now have a **self-running, self-healing, auto-starting, low-maintenance network monitor** powered by a $20 computer that fits in your hand.
 
 Most people never get their Pi this organized. You should feel extremely proud. Your Pi certainly does.
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -1116,6 +1157,6 @@ ignore it for weeks...
 
 That's the magic of automation. 🪄
 
-[↑ Back to safety](#contents-choose-your-own-adventure)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 

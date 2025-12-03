@@ -40,6 +40,8 @@ Here’s the short list of things you need before starting:
 > SSH lets you open a command line on your Raspberry Pi from your computer. It’s like a long-distance keyboard for your Pi. If you’ve never used SSH before, don’t worry. The commands here are simple, and we’ll point out exactly where to type them.
 {: .tip}
 
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
+
 ---
 
 ## 💿 Flash Raspberry Pi OS Lite with Raspberry Pi Imager (v2.0)
@@ -169,7 +171,7 @@ Once you're in, your Pi is officially alive, online, and ready for PiNetBeacon.
 > The Raspberry Pi Foundation maintains full documentation for the Imager, including all OS customization options: [Official Raspberry Pi Imager documentation](https://www.raspberrypi.com/documentation/computers/getting-started.html#getting-started-imaging-your-raspberry-pi)
 {: .note}
 
-[↑ Back to safety](#getting-started)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -191,7 +193,7 @@ pip3 install -r requirements.txt
 
 Once Python and pip are ready, your Pi has everything it needs to run PiNetBeacon’s modules and log data.
 
-[↑ Back to safety](#getting-started)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -208,7 +210,7 @@ cd PiNetBeacon
 
 This creates a new folder containing all of PiNetBeacon’s files, and it keeps everything organized in one place. You’ll run commands from inside this directory throughout the rest of the setup.
 
-[↑ Back to safety](#getting-started)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -241,7 +243,7 @@ If you are using `nano`, you can save with:
 - `Enter` to confirm  
 - `Ctrl + X` to exit
 
-[↑ Back to safety](#getting-started)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -270,7 +272,7 @@ If that file appears and the new entry looks reasonable, congratulations. PiNetB
 
 If you don’t see a log entry or something looks unusual, don’t worry. The FAQ page covers common issues, and you can always run the check again while adjusting your config.
 
-[↑ Back to safety](#getting-started)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -294,4 +296,4 @@ Here are good places to go next:
 
 As you get comfortable, feel free to fork the project, customize modules, or suggest ideas. PiNetBeacon is meant to be approachable for newcomers and interesting for hobbyists who want to explore how their network behaves over time.
 
-[↑ Back to safety](#getting-started)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}

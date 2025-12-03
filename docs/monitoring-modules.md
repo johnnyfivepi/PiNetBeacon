@@ -44,7 +44,7 @@ If something odd happened (host unreachable, timed out, permission error), the m
 
 Most home internet issues show up in the Ping module first. It’s the simplest, most reliable way to spot slowdowns or flaky behavior.
 
-[↑ Back to safety](#monitoring-modules)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -75,7 +75,7 @@ You can pick a simple, stable hostname to test, such as:
 
 The DNS module logs a clear success or failure result so you do not have to read raw resolver output.
 
-[↑ Back to safety](#monitoring-modules)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -113,7 +113,7 @@ You can monitor:
 
 The module logs the result in clear yes/no terms so you don’t have to interpret cryptic status codes.
 
-[↑ Back to safety](#monitoring-modules)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -149,7 +149,7 @@ If the gateway check is fine but everything else is a mess, the problem is more 
 
 The Gateway module helps you separate “my house is on fire” from “the internet is on fire,” which is a surprisingly useful distinction.
 
-[↑ Back to safety](#monitoring-modules)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -179,7 +179,7 @@ Verify that your resolver is returning the same answers over time, and detect wh
 
 If you decide to build one of these, PiNetBeacon’s structure should make it easy to drop in a module, log its results, and add it to the dashboard. PRs are always welcome.
 
-[↑ Back to safety](#monitoring-modules)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
 ---
 
@@ -199,4 +199,4 @@ You can keep exploring with:
 
 Thanks for checking out PiNetBeacon. Your router may not always be awake, but we’re glad you are.
 
-[↑ Back to safety](#monitoring-modules)
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
