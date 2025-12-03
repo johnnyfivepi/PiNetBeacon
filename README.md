@@ -22,7 +22,7 @@
   <img src="https://img.shields.io/github/stars/johnnyfivepi/PiNetBeacon?style=for-the-badge&label=Stars&color=brightgreen">  
   <br>
   <!-- Open source + License -->  
-  <img src="https://img.shields.io/badge/Open%20Source-Yes-1E90FF?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Open%20Source-Yes-1572B6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" />
 
 </p>
