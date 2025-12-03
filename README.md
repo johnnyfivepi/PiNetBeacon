@@ -11,16 +11,15 @@
   <img src="https://img.shields.io/badge/Platform-Raspberry%20Pi-lightgrey?style=for-the-badge&logo=raspberrypi&logoColor=white" />
   <img src="https://img.shields.io/badge/OS-Raspberry%20Pi%20OS%20Lite-red?style=for-the-badge&logo=raspberrypi&logoColor=white" />
 
-  <!-- Audience + Status -->
-  <img src="https://img.shields.io/badge/Audience-Hobbyists%20%7C%20Beginners%20%7C%20Homelabbers-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" />
-  <img src="https://img.shields.io/github/stars/johnnyfivepi/PiNetBeacon?style=for-the-badge&label=Stars&color=brightgreen" alt="GitHub stars">
-  </a>
-
   <!-- Tech -->
   <img src="https://img.shields.io/badge/Built%20With-Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Interface-CLI%20%2B%20Web%20UI-ff69b4?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Scope-Lightweight%20Monitoring-yellow?style=for-the-badge" />
+
+  <!-- Audience + Status -->
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Audience-Hobbyists%20%7C%20Beginners%20%7C%20Homelabbers-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/github/stars/johnnyfivepi/PiNetBeacon?style=for-the-badge&label=Stars&color=brightgreen">
 
 </p>
 
