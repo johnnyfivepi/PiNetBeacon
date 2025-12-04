@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Automation
+nav_order: 5
 ---
 
 # Automating PiNetBeacon

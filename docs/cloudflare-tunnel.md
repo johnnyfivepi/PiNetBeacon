@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Secure Remote Access
+nav_order: 6
 ---
 
 # Secure Remote Access (Cloudflare Tunnel)

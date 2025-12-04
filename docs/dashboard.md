@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Dashboard
+nav_order: 4
 ---
 
 # PiNetBeacon Dashboard

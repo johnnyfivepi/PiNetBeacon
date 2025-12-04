@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Monitoring modules
+nav_order: 3
 ---
 
 # Monitoring modules

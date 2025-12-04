@@ -1,6 +1,7 @@
 ---
 layout: page
 title: FAQ
+nav_order: 7
 ---
 
 # Frequently asked questions

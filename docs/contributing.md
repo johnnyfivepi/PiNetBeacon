@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Contributing
+nav_order: 8
 ---
 
 # Contributing to PiNetBeacon
