@@ -8,7 +8,7 @@
 
   <!-- Core Info -->
   <img src="https://img.shields.io/badge/Project%20Type-CLI%20Tool%20%2B%20Dashboard-8A2BE2?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Platform-Raspberry%20Pi-lightgrey?style=for-the-badge&logo=raspberrypi&logoColor=C51A4A" />
+  <img src="https://img.shields.io/badge/Platform-Raspberry%20Pi-C51A4A?style=for-the-badge&logo=raspberrypi&logoColor=white" />
   <img src="https://img.shields.io/badge/OS-Raspberry%20Pi%20OS%20Lite-red?style=for-the-badge&logo=raspberrypi&logoColor=white" />
 
   <!-- Tech -->
