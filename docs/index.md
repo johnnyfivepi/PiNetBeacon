@@ -5,10 +5,11 @@ description: Lightweight Raspberry Pi network monitor for curious hobbyists.
 ---
 
 <p align="left">
-  <img alt="Platform" src="https://img.shields.io/badge/platform-Raspberry%20Pi-orange">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Raspberry%20Pi-C51A4A">
   <img alt="Built with" src="https://img.shields.io/badge/built%20with-Python-3670A0">
   <img alt="Interface" src="https://img.shields.io/badge/interface-CLI%20%2B%20web%20UI-ff69b4">
   <img alt="Status" src="https://img.shields.io/badge/status-active-brightgreen">
+  <img alt="Open Source" src="https://img.shields.io/badge/open%20source-yes-1ab0ff">
 </p>
 
 Welcome! 👋
