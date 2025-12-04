@@ -1,12 +1,11 @@
 ---
 layout: page
 title: FAQ
-nav_order: 7
 ---
 
-# Frequently asked questions
+Here are answers to the questions people tend to ask while setting up or using PiNetBeacon. Everything here is beginner-friendly, and nothing assumes you already know how networking works. 
 
-Here are answers to the questions people tend to ask while setting up or using PiNetBeacon. Everything here is beginner-friendly, and nothing assumes you already know how networking works. If something feels confusing, you're not alone, and part of the point of PiNetBeacon is to make this stuff easier to understand. (In fact, I tend to learn by doing, so I tackled this for my own knowledge first!)
+If something feels confusing, you're not alone, and part of the point of PiNetBeacon is to make this stuff easier to understand.
 
 ---
 

@@ -1,10 +1,7 @@
 ---
 layout: page
 title: Dashboard
-nav_order: 4
 ---
-
-# PiNetBeacon Dashboard
 
 The PiNetBeacon dashboard gives you a clean, friendly way to watch your network checks in real time: no log files, no scrolling, and no pretending you’re in a hacker movie.
 

@@ -1,10 +1,7 @@
 ---
 layout: page
 title: Automation
-nav_order: 5
 ---
-
-# Automating PiNetBeacon
 
 So you’ve got PiNetBeacon running, the dashboard looks great, and your Raspberry Pi is doing a tiny but noble job. Now, let’s make it do that job *without you having to remember anything*.
 

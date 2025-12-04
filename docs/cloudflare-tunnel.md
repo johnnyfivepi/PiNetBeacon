@@ -1,10 +1,7 @@
 ---
 layout: page
 title: Secure Remote Access
-nav_order: 6
 ---
-
-# Secure Remote Access (Cloudflare Tunnel)
 
 Cloudflare Tunnel lets you access your PiNetBeacon dashboard **from anywhere**, securely, with no VPN, and *without opening ports* on your home router.
 

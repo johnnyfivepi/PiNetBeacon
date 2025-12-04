@@ -1,10 +1,7 @@
 ---
 layout: page
 title: Contributing
-nav_order: 8
 ---
-
-# Contributing to PiNetBeacon
 
 Thanks for your interest in contributing. PiNetBeacon is designed to be welcoming to hobbyists, learners, and curious tinkerers, not only seasoned developers. Whether you want to fix a typo, suggest an idea, or build a whole new module, we’re glad to have you here.
 

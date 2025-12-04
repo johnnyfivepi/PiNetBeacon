@@ -1,10 +1,7 @@
 ---
 layout: page
 title: Monitoring modules
-nav_order: 3
 ---
-
-# Monitoring modules
 
 PiNetBeacon is built around small, focused “modules” that check different parts of your network. Think of each module as a tiny sensor that reports how things are going. None of them try to fix anything, they just collect honest little facts about your connection.
 

@@ -1,12 +1,9 @@
 ---
 layout: page
 title: Getting started
-nav_order: 1
 ---
 
-# Getting started
-
-Welcome! This page walks you through setting up PiNetBeacon on your Raspberry Pi. You don’t need any networking background to follow along. We’ll take things step by step and explain some details as we go so nothing feels mysterious.
+This page walks you through setting up PiNetBeacon on your Raspberry Pi. You don’t need any networking background to follow along. We’ll take things step by step and explain some details as we go so nothing feels mysterious.
 
 If this is your first time SSHing into a Raspberry Pi or installing a tool like this, you’re in the right place. Think of this page as a friendly guide standing beside you saying, “Yep, this is normal, you’re doing great.”
 

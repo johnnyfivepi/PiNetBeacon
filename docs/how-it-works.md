@@ -1,10 +1,7 @@
 ---
 layout: page
 title: How it works
-nav_order: 2
 ---
-
-# How it works
 
 PiNetBeacon is a tiny helper that sits on your Raspberry Pi and quietly watches your home internet.  
 
