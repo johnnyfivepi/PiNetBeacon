@@ -61,7 +61,7 @@ function computeSummary(entries) {
   let dnsLatencySamples = 0;
 
   for (const e of entries) {
-    if (e.dns_status) {
+    if (e.dns_status && e.dns_status !== "skipped") {
       dnsTotal += 1;
       if (e.dns_status === "ok") {
         dnsOkCount += 1;
@@ -125,8 +125,8 @@ function renderSummary(summary) {
       : "–";
 
   // 🌐 DNS summary card
-  const dnsStatusEl = document.getElementById("dns-status-value");
-  const dnsLatencySummaryEl = document.getElementById("dns-latency-summary");
+  const dnsStatusEl = document.getElementById("dns-health-value");
+  const dnsLatencySummaryEl = document.getElementById("dns-health-sub");
 
   if (dnsStatusEl && dnsLatencySummaryEl) {
     if (summary.dnsHealthPct === null) {
