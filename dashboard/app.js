@@ -40,6 +40,7 @@ function computeSummary(entries) {
 
   const last = entries[entries.length - 1];
 
+  // ping summary
   const latencies = entries
     .map((e) => e.avg_latency_ms)
     .filter((v) => typeof v === "number");
@@ -54,29 +55,24 @@ function computeSummary(entries) {
   const availability =
     entries.length > 0 ? Math.round((upCount / entries.length) * 100) : null;
 
-  // DNS summary
-  let dnsOkCount = 0;
-  let dnsTotal = 0;
-  let dnsLatencySum = 0;
-  let dnsLatencySamples = 0;
+  // --- DNS summary (clean + robust) ---
+  const dnsEntries = entries.filter(
+    (e) => typeof e.dns_status === "string" && e.dns_status.length > 0
+  );
 
-  for (const e of entries) {
-    if (e.dns_status && e.dns_status !== "skipped") {
-      dnsTotal += 1;
-      if (e.dns_status === "ok") {
-        dnsOkCount += 1;
-      }
-    }
-    if (typeof e.dns_latency_ms === "number") {
-      dnsLatencySum += e.dns_latency_ms;
-      dnsLatencySamples += 1;
-    }
-  }
+  const dnsOkCount = dnsEntries.filter((e) => e.dns_status === "ok").length;
 
-  const dnsHealthPct =
-    dnsTotal > 0 ? (dnsOkCount / dnsTotal) * 100 : null;
-  const dnsAvgLatency =
-    dnsLatencySamples > 0 ? dnsLatencySum / dnsLatencySamples : null;
+  const dnsHealthPct = dnsEntries.length
+    ? (dnsOkCount / dnsEntries.length) * 100
+    : null;
+
+  const dnsLatencySamples = entries.filter(
+    (e) => typeof e.dns_latency_ms === "number"
+  );
+  const dnsAvgLatency = dnsLatencySamples.length
+    ? dnsLatencySamples.reduce((sum, e) => sum + e.dns_latency_ms, 0) /
+      dnsLatencySamples.length
+    : null;
 
   return {
     lastStatus: last.status || "unknown",
