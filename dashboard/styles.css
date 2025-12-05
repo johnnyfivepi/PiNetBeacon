@@ -187,6 +187,36 @@ body {
   color: var(--pb-danger);
 }
 
+/* DNS health badge */
+
+.pb-dns-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* All good */
+.pb-dns-badge--ok {
+  background-color: #e5f6eb; /* soft green */
+  color: #137333;
+}
+
+/* Mostly fine, but some failures */
+.pb-dns-badge--warn {
+  background-color: #fff4e5; /* soft amber */
+  color: #a66300;
+}
+
+/* DNS is sad */
+.pb-dns-badge--bad {
+  background-color: #fde8e7; /* soft red */
+  color: #b3261e;
+}
+
 /* Health block */
 
 .pb-health {

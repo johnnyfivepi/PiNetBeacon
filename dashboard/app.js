@@ -125,18 +125,33 @@ function renderSummary(summary) {
       : "–";
 
   // 🌐 DNS summary card
-  const dnsStatusEl = document.getElementById("dns-health-value");
-  const dnsLatencySummaryEl = document.getElementById("dns-health-sub");
+  const dnsStatusEl = document.getElementById("dns-status-value");
+  const dnsLatencySummaryEl = document.getElementById("dns-latency-summary");
 
   if (dnsStatusEl && dnsLatencySummaryEl) {
     if (summary.dnsHealthPct === null) {
       dnsStatusEl.textContent = "—";
+      dnsStatusEl.className = ""; // no badge when we have no data yet
       dnsLatencySummaryEl.textContent = "No DNS data yet";
     } else {
       const pct = summary.dnsHealthPct.toFixed(1);
-      dnsStatusEl.textContent =
-        pct === "100.0" ? "ok" : `${pct}% ok`;
 
+      // Base badge class
+      dnsStatusEl.className = "pb-dns-badge";
+
+      // Text
+      dnsStatusEl.textContent = pct === "100.0" ? "ok" : `${pct}% ok`;
+
+      // Color tiers
+      if (summary.dnsHealthPct >= 99) {
+        dnsStatusEl.classList.add("pb-dns-badge--ok");
+      } else if (summary.dnsHealthPct >= 80) {
+        dnsStatusEl.classList.add("pb-dns-badge--warn");
+      } else {
+        dnsStatusEl.classList.add("pb-dns-badge--bad");
+      }
+
+      // Latency subtext
       if (typeof summary.dnsAvgLatency === "number") {
         dnsLatencySummaryEl.textContent = `Avg DNS latency: ${summary.dnsAvgLatency.toFixed(
           2
