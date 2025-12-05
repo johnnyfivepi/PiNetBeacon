@@ -33,6 +33,8 @@ function computeSummary(entries) {
       lastTimestamp: null,
       avgLatency: null,
       availability: null,
+      dnsHealthPct: null,
+      dnsAvgLatency: null,
     };
   }
 
@@ -52,16 +54,41 @@ function computeSummary(entries) {
   const availability =
     entries.length > 0 ? Math.round((upCount / entries.length) * 100) : null;
 
+  // DNS summary
+  let dnsOkCount = 0;
+  let dnsTotal = 0;
+  let dnsLatencySum = 0;
+  let dnsLatencySamples = 0;
+
+  for (const e of entries) {
+    if (e.dns_status) {
+      dnsTotal += 1;
+      if (e.dns_status === "ok") {
+        dnsOkCount += 1;
+      }
+    }
+    if (typeof e.dns_latency_ms === "number") {
+      dnsLatencySum += e.dns_latency_ms;
+      dnsLatencySamples += 1;
+    }
+  }
+
+  const dnsHealthPct =
+    dnsTotal > 0 ? (dnsOkCount / dnsTotal) * 100 : null;
+  const dnsAvgLatency =
+    dnsLatencySamples > 0 ? dnsLatencySum / dnsLatencySamples : null;
+
   return {
     lastStatus: last.status || "unknown",
     lastTimestamp: last.timestamp || null,
     avgLatency,
     availability,
+    dnsHealthPct,
+    dnsAvgLatency,
   };
 }
 
 function renderSummary(summary) {
-  // 🔁 Updated IDs to match your HTML
   const lastStatusEl = document.getElementById("last-status-value");
   const lastStatusTimeEl = document.getElementById("last-status-time");
   const avgLatencyEl = document.getElementById("avg-latency");
@@ -96,10 +123,32 @@ function renderSummary(summary) {
     typeof summary.availability === "number"
       ? summary.availability.toString() + "%"
       : "–";
+
+  // 🌐 DNS summary card
+  const dnsStatusEl = document.getElementById("dns-status-value");
+  const dnsLatencySummaryEl = document.getElementById("dns-latency-summary");
+
+  if (dnsStatusEl && dnsLatencySummaryEl) {
+    if (summary.dnsHealthPct === null) {
+      dnsStatusEl.textContent = "—";
+      dnsLatencySummaryEl.textContent = "No DNS data yet";
+    } else {
+      const pct = summary.dnsHealthPct.toFixed(1);
+      dnsStatusEl.textContent =
+        pct === "100.0" ? "ok" : `${pct}% ok`;
+
+      if (typeof summary.dnsAvgLatency === "number") {
+        dnsLatencySummaryEl.textContent = `Avg DNS latency: ${summary.dnsAvgLatency.toFixed(
+          2
+        )} ms`;
+      } else {
+        dnsLatencySummaryEl.textContent = "No DNS latency samples yet";
+      }
+    }
+  }
 }
 
 function renderTable(entries) {
-  // 🔁 Updated ID to match your HTML
   const tbody = document.getElementById("checks-tbody");
   if (!tbody) {
     console.error("Table body element #checks-tbody not found.");
@@ -111,7 +160,7 @@ function renderTable(entries) {
   if (!entries.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 6;
+    td.colSpan = 8; // matches the 8 columns in the table header
     td.textContent =
       "No log entries found yet. Try running pinetbeacon_check.py.";
     tr.appendChild(td);
@@ -159,6 +208,19 @@ function renderTable(entries) {
         : "–";
     tr.appendChild(tdLoss);
 
+    // DNS status
+    const tdDnsStatus = document.createElement("td");
+    tdDnsStatus.textContent = entry.dns_status || "—";
+    tr.appendChild(tdDnsStatus);
+
+    // DNS latency
+    const tdDnsLatency = document.createElement("td");
+    tdDnsLatency.textContent =
+      typeof entry.dns_latency_ms === "number"
+        ? entry.dns_latency_ms.toFixed(2)
+        : "–";
+    tr.appendChild(tdDnsLatency);
+
     const tdNotes = document.createElement("td");
     tdNotes.textContent = entry.notes || "";
     tr.appendChild(tdNotes);
@@ -168,7 +230,6 @@ function renderTable(entries) {
 }
 
 async function updateDashboard() {
-  // 🔁 Updated ID to match your HTML
   const healthEl = document.getElementById("health-json");
 
   try {
@@ -199,7 +260,7 @@ async function updateDashboard() {
       tbody.innerHTML = "";
       const tr = document.createElement("tr");
       const td = document.createElement("td");
-      td.colSpan = 6;
+      td.colSpan = 8; // keep in sync with table header
       td.textContent = "Error loading data. See the debug section below.";
       tr.appendChild(td);
       tbody.appendChild(tr);
@@ -211,7 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial load
   updateDashboard();
 
-  // 🔁 Updated refresh button ID to match your HTML
   const refreshButton = document.getElementById("refresh-btn");
   if (refreshButton) {
     refreshButton.addEventListener("click", () => {

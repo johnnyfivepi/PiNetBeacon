@@ -39,6 +39,12 @@
             <p id="availability">—</p>
             <small>% of recent checks marked “up”</small>
           </article>
+
+          <article class="pb-card" id="card-dns">
+            <h2>DNS health</h2>
+            <p id="dns-status-value">—</p>
+            <small id="dns-latency-summary">No DNS data yet</small>
+          </article>
         </div>
       </section>
 
@@ -61,12 +67,14 @@
                 <th>Status</th>
                 <th>Latency (ms)</th>
                 <th>Packet loss (%)</th>
+                <th>DNS status</th>
+                <th>DNS latency (ms)</th>
                 <th>Notes</th>
               </tr>
             </thead>
             <tbody id="checks-tbody">
               <tr>
-                <td colspan="6">
+                <td colspan="8">
                   Waiting for data from <code>/api/logs/latest</code>…
                 </td>
               </tr>
