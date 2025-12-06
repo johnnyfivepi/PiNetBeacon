@@ -219,9 +219,27 @@ function renderTable(entries) {
         : "–";
     tr.appendChild(tdLoss);
 
-    // DNS status
+    // DNS status badge (same style family as Last status)
     const tdDnsStatus = document.createElement("td");
-    tdDnsStatus.textContent = entry.dns_status || "—";
+    const dnsBadge = document.createElement("span");
+    const dnsStatus = entry.dns_status || "—";
+
+    dnsBadge.textContent = dnsStatus;
+    dnsBadge.className = "pb-status-badge";
+
+    if (dnsStatus === "ok") {
+      dnsBadge.classList.add("pb-status-badge--up");
+    } else if (
+      dnsStatus === "fail" ||
+      dnsStatus === "error" ||
+      dnsStatus === "timeout" ||
+      dnsStatus === "down"
+    ) {
+      dnsBadge.classList.add("pb-status-badge--down");
+    }
+    // any other string just stays neutral
+
+    tdDnsStatus.appendChild(dnsBadge);
     tr.appendChild(tdDnsStatus);
 
     // DNS latency
