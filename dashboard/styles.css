@@ -169,15 +169,15 @@ body {
 
 /* DNS-based row highlighting (overrides zebra striping) */
 .pb-table tbody tr.pb-row-dns-ok td {
-  background-color: #f0fdf4; /* soft green */
+  background-color: #bbf7d0; /* MUCH brighter green for testing */
 }
 
 .pb-table tbody tr.pb-row-dns-warn td {
-  background-color: #fffbeb; /* soft amber */
+  background-color: #fed7aa; /* brighter amber */
 }
 
 .pb-table tbody tr.pb-row-dns-bad td {
-  background-color: #fef2f2; /* soft red */
+  background-color: #fecaca; /* brighter red */
 }
 
 /* Status badges */
