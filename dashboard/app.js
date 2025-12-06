@@ -184,6 +184,23 @@ function renderTable(entries) {
   for (const entry of reversed) {
     const tr = document.createElement("tr");
 
+    // 🔹 NEW: color the row based on DNS status
+    const dnsStatus = entry.dns_status;
+    if (dnsStatus === "ok") {
+      tr.classList.add("pb-row-dns-ok");
+    } else if (
+      dnsStatus === "fail" ||
+      dnsStatus === "error" ||
+      dnsStatus === "timeout" ||
+      dnsStatus === "down"
+    ) {
+      tr.classList.add("pb-row-dns-bad");
+    } else if (typeof dnsStatus === "string" && dnsStatus.length > 0) {
+      // anything that's not clearly ok/bad but still a string
+      tr.classList.add("pb-row-dns-warn");
+    }
+    // 🔹 END NEW
+
     const tdTime = document.createElement("td");
     tdTime.textContent = formatTimestamp(entry.timestamp);
     tr.appendChild(tdTime);
@@ -221,18 +238,18 @@ function renderTable(entries) {
     // DNS status badge (same style family as Last status)
     const tdDnsStatus = document.createElement("td");
     const dnsBadge = document.createElement("span");
-    const dnsStatus = entry.dns_status || "—";
+    const dnsStatusText = entry.dns_status || "—";
 
-    dnsBadge.textContent = dnsStatus;
+    dnsBadge.textContent = dnsStatusText;
     dnsBadge.className = "pb-status-badge";
 
-    if (dnsStatus === "ok") {
+    if (dnsStatusText === "ok") {
       dnsBadge.classList.add("pb-status-badge--up");
     } else if (
-      dnsStatus === "fail" ||
-      dnsStatus === "error" ||
-      dnsStatus === "timeout" ||
-      dnsStatus === "down"
+      dnsStatusText === "fail" ||
+      dnsStatusText === "error" ||
+      dnsStatusText === "timeout" ||
+      dnsStatusText === "down"
     ) {
       dnsBadge.classList.add("pb-status-badge--down");
     }

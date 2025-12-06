@@ -167,6 +167,19 @@ body {
   border-bottom: none;
 }
 
+/* DNS-based row highlighting (overrides zebra striping) */
+.pb-table tbody tr.pb-row-dns-ok td {
+  background-color: #f0fdf4; /* soft green */
+}
+
+.pb-table tbody tr.pb-row-dns-warn td {
+  background-color: #fffbeb; /* soft amber */
+}
+
+.pb-table tbody tr.pb-row-dns-bad td {
+  background-color: #fef2f2; /* soft red */
+}
+
 /* Status badges */
 
 .pb-status-badge {
