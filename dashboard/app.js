@@ -95,6 +95,7 @@ function renderSummary(summary) {
     return;
   }
 
+  // ----- Last status card -----
   lastStatusEl.textContent = summary.lastStatus;
 
   // Reset classes first
@@ -120,7 +121,7 @@ function renderSummary(summary) {
       ? summary.availability.toString() + "%"
       : "–";
 
-  // 🌐 DNS summary card
+  // ----- DNS summary card -----
   const dnsStatusEl = document.getElementById("dns-status-value");
   const dnsLatencySummaryEl = document.getElementById("dns-latency-summary");
 
@@ -132,22 +133,20 @@ function renderSummary(summary) {
     } else {
       const pct = summary.dnsHealthPct.toFixed(1);
 
-      // Base badge class
-      dnsStatusEl.className = "pb-dns-badge";
+      // Base badge class: reuse the same pill style as Last status
+      dnsStatusEl.className = "pb-status-badge";
 
-      // Text
       dnsStatusEl.textContent = pct === "100.0" ? "ok" : `${pct}% ok`;
 
-      // Color tiers
+      // Color tiers (you already have --up and --down in CSS)
       if (summary.dnsHealthPct >= 99) {
-        dnsStatusEl.classList.add("pb-dns-badge--ok");
+        dnsStatusEl.classList.add("pb-status-badge--up");
       } else if (summary.dnsHealthPct >= 80) {
-        dnsStatusEl.classList.add("pb-dns-badge--warn");
+        dnsStatusEl.classList.add("pb-status-badge--warn");
       } else {
-        dnsStatusEl.classList.add("pb-dns-badge--bad");
+        dnsStatusEl.classList.add("pb-status-badge--down");
       }
 
-      // Latency subtext
       if (typeof summary.dnsAvgLatency === "number") {
         dnsLatencySummaryEl.textContent = `Avg DNS latency: ${summary.dnsAvgLatency.toFixed(
           2

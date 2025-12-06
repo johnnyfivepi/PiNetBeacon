@@ -205,10 +205,10 @@ body {
   color: #137333;
 }
 
-/* Mostly fine, but some failures */
-.pb-dns-badge--warn {
-  background-color: #fff4e5; /* soft amber */
-  color: #a66300;
+/* Optional mid-tier for “not perfect but okay” DNS */
+.pb-status-badge--warn {
+  background: #fef3c7;   /* soft amber */
+  color: #92400e;
 }
 
 /* DNS is sad */
