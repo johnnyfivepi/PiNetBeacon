@@ -478,6 +478,7 @@ async function updateDashboard() {
 
     const entries = logs.entries || [];
     currentEntries = entries; // save for re-sorting
+
     if (!sortState.column) {
       updateSortStatus(); // keeps bar hidden until you sort
     }
@@ -487,20 +488,17 @@ async function updateDashboard() {
     renderSummary(summary);
     renderTable(entries);
 
+    // Show raw health JSON in the debug box
     if (healthEl) {
-      // Try a few likely keys for Pi local time
-      const piTime =
-        (health && (health.local_time || health.time || health.now || health.server_time)) ||
-        null;
+      healthEl.textContent = JSON.stringify(health, null, 2);
+    }
 
-      let display = JSON.stringify(health, null, 2);
-
-      if (piTime) {
-        const formatted = formatTimestamp(piTime);
-        display = `Pi local time: ${formatted}\n\n` + display;
-      }
-
-      healthEl.textContent = display;
+    // Show Pi local time (from /api/health) under "Recent checks"
+    const piTimeEl = document.getElementById("pi-time");
+    if (piTimeEl && health && health.server_local) {
+      piTimeEl.textContent = `Pi local time: ${health.server_local}`;
+      // If later we want a fancier format, we can do:
+      // piTimeEl.textContent = "Pi local time: " + formatTimestamp(health.server_local);
     }
   } catch (err) {
     console.error(err);
