@@ -167,6 +167,34 @@ body {
   border-bottom: none;
 }
 
+/* Sortable table header (latency) */
+
+.pb-sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 1.1rem; /* space for arrow */
+}
+
+.pb-sortable::after {
+  content: "";
+  position: absolute;
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  opacity: 0.45;
+}
+
+/* Arrow directions */
+.pb-sort-asc::after {
+  content: "▲";
+}
+
+.pb-sort-desc::after {
+  content: "▼";
+}
+
 /* DNS-based row highlighting (overrides zebra striping) */
 .pb-table tbody tr.pb-row-dns-ok td {
   background-color: #f0fdf4; /* soft green */

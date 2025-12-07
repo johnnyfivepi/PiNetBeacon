@@ -84,6 +84,35 @@ function computeSummary(entries) {
   };
 }
 
+// ------- Sorting state & helper -------
+
+let currentEntries = [];
+let sortState = {
+  column: null,   // e.g. "latency"
+  direction: "asc",
+};
+
+function sortEntries(entries) {
+  // Default: same as before, newest first
+  if (!sortState.column) {
+    return entries.slice().reverse();
+  }
+
+  if (sortState.column === "latency") {
+    const dir = sortState.direction === "desc" ? -1 : 1;
+    return entries.slice().sort((a, b) => {
+      const av =
+        typeof a.avg_latency_ms === "number" ? a.avg_latency_ms : Infinity;
+      const bv =
+        typeof b.avg_latency_ms === "number" ? b.avg_latency_ms : Infinity;
+      return (av - bv) * dir;
+    });
+  }
+
+  // Fallback: no special sort, but keep newest at top
+  return entries.slice().reverse();
+}
+
 function renderSummary(summary) {
   const lastStatusEl = document.getElementById("last-status-value");
   const lastStatusTimeEl = document.getElementById("last-status-time");
@@ -208,10 +237,10 @@ function renderTable(entries) {
     return;
   }
 
-  // Show most recent entries at the top
-  const reversed = entries.slice().reverse();
+  // Order entries (newest first by default, or sorted by column)
+  const ordered = sortEntries(entries);
 
-  for (const entry of reversed) {
+  for (const entry of ordered) {
     const tr = document.createElement("tr");
 
     // Color the row based on DNS status
@@ -313,6 +342,8 @@ async function updateDashboard() {
     ]);
 
     const entries = logs.entries || [];
+    currentEntries = entries; // save for re-sorting
+
     const summary = computeSummary(entries);
 
     renderSummary(summary);
@@ -342,7 +373,35 @@ async function updateDashboard() {
   }
 }
 
+function setupLatencySorting() {
+  const latencyHeader = document.querySelector(
+    '#checks-table th[data-sort="latency"]'
+  );
+  if (!latencyHeader) return;
+
+  latencyHeader.classList.add("pb-sortable");
+
+  latencyHeader.addEventListener("click", () => {
+    if (sortState.column === "latency") {
+      // toggle direction
+      sortState.direction = sortState.direction === "asc" ? "desc" : "asc";
+    } else {
+      sortState.column = "latency";
+      sortState.direction = "asc";
+    }
+
+    // Update visual indicator on this header
+    latencyHeader.classList.toggle("pb-sort-asc", sortState.direction === "asc");
+    latencyHeader.classList.toggle("pb-sort-desc", sortState.direction === "desc");
+
+    // Re-render table with new sort
+    renderTable(currentEntries);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  setupLatencySorting();
+
   // Initial load
   updateDashboard();
 
@@ -356,3 +415,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // Auto-refresh every 30 seconds
   setInterval(updateDashboard, 30000);
 });
+
