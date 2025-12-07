@@ -26,6 +26,7 @@ import os
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from typing import List, Dict
+from datetime import datetime
 
 # Root directory for the dashboard files (this folder)
 ROOT_DIR = Path(__file__).parent
@@ -98,11 +99,19 @@ class PiNetBeaconHandler(SimpleHTTPRequestHandler):
     def handle_health(self):
         """Return a simple health object so you can sanity-check the server."""
         exists = LOG_FILE.exists()
+        entries = load_recent_entries() if exists else []
+
+        now_utc = datetime.utcnow().isoformat() + "Z"
+        now_local = datetime.now().isoformat()
+
         info = {
             "log_file_exists": exists,
             "log_file_path": str(LOG_FILE),
-            "entries_count": len(load_recent_entries()) if exists else 0,
+            "entries_count": len(entries),
+            "server_utc": now_utc,
+            "server_local": now_local,
         }
+
         body = json.dumps(info, indent=2).encode("utf-8")
 
         self.send_response(200)
