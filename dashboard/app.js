@@ -116,10 +116,15 @@ function renderSummary(summary) {
       ? summary.avgLatency.toString()
       : "–";
 
-  availabilityEl.textContent =
-    typeof summary.availability === "number"
-      ? summary.availability.toString() + "%"
-      : "–";
+  let availNumeric = null;
+  if (typeof summary.availability === "number") {
+    availNumeric = summary.availability;
+    availabilityEl.textContent = summary.availability.toString() + "%";
+  } else {
+    availabilityEl.textContent = "–";
+  }
+
+  updateAvailabilityBar(availNumeric);
 
   // ----- DNS summary card -----
   const dnsStatusEl = document.getElementById("dns-status-value");
@@ -155,6 +160,31 @@ function renderSummary(summary) {
         dnsLatencySummaryEl.textContent = "No DNS latency samples yet";
       }
     }
+  }
+}
+
+// Availability bar updater
+function updateAvailabilityBar(availPercent) {
+  const barFillEl = document.getElementById("availability-bar-fill");
+  if (!barFillEl) return;
+
+  // Reset classes
+  barFillEl.classList.remove("ok", "warn", "crit");
+
+  if (typeof availPercent !== "number" || !Number.isFinite(availPercent)) {
+    barFillEl.style.width = "0%";
+    return;
+  }
+
+  const pct = Math.max(0, Math.min(100, availPercent));
+  barFillEl.style.width = `${pct}%`;
+
+  if (pct >= 99.9) {
+    barFillEl.classList.add("ok");
+  } else if (pct >= 95) {
+    barFillEl.classList.add("warn");
+  } else {
+    barFillEl.classList.add("crit");
   }
 }
 
