@@ -133,6 +133,11 @@ body {
   color: var(--pb-muted);
 }
 
+#pi-time {
+  margin-top: 0.1rem;
+  font-size: 0.8rem;
+}
+
 /* Table */
 
 .pb-table-wrapper {

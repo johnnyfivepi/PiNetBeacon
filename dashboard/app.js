@@ -25,6 +25,28 @@ function formatTimestamp(ts) {
   }
 }
 
+// Format Pi local time in a friendlier way
+function formatLocalPiTime(ts) {
+  if (!ts) return "";
+  try {
+    const d = new Date(ts);
+    const date = d.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    });
+    const time = d.toLocaleTimeString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    return `${date} ${time}`;
+  } catch {
+    // Fall back to the raw string if parsing fails
+    return ts;
+  }
+}
+
 // Compute simple summary stats from the list of entries
 function computeSummary(entries) {
   if (!entries.length) {
@@ -496,9 +518,8 @@ async function updateDashboard() {
     // Show Pi local time (from /api/health) under "Recent checks"
     const piTimeEl = document.getElementById("pi-time");
     if (piTimeEl && health && health.server_local) {
-      piTimeEl.textContent = `Pi local time: ${health.server_local}`;
-      // If later we want a fancier format, we can do:
-      // piTimeEl.textContent = "Pi local time: " + formatTimestamp(health.server_local);
+      const pretty = formatLocalPiTime(health.server_local);
+      piTimeEl.textContent = `Pi local time: ${pretty}`;
     }
   } catch (err) {
     console.error(err);
