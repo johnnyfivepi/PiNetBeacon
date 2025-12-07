@@ -184,7 +184,7 @@ function renderTable(entries) {
   for (const entry of reversed) {
     const tr = document.createElement("tr");
 
-    // 🔹 NEW: color the row based on DNS status
+    // Color the row based on DNS status
     const dnsStatus = entry.dns_status;
     if (dnsStatus === "ok") {
       tr.classList.add("pb-row-dns-ok");
@@ -199,7 +199,6 @@ function renderTable(entries) {
       // anything that's not clearly ok/bad but still a string
       tr.classList.add("pb-row-dns-warn");
     }
-    // 🔹 END NEW
 
     const tdTime = document.createElement("td");
     tdTime.textContent = formatTimestamp(entry.timestamp);

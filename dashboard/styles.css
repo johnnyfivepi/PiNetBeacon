@@ -180,8 +180,38 @@ body {
   background-color: #fef2f2; /* soft red */
 }
 
-/* Status badges */
+/* Availability bar */
 
+.pb-availability-bar {
+  margin-top: 0.35rem;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background-color: #e5e7eb;
+  overflow: hidden;
+}
+
+.pb-availability-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  transition: width 0.25s ease-out;
+}
+
+/* Color tiers for availability */
+.pb-availability-bar-fill.ok {
+  background-color: #16a34a; /* green */
+}
+
+.pb-availability-bar-fill.warn {
+  background-color: #f97316; /* orange */
+}
+
+.pb-availability-bar-fill.crit {
+  background-color: #dc2626; /* red */
+}
+
+/* Status badges */
 .pb-status-badge {
   display: inline-block;
   padding: 0.15rem 0.6rem;
