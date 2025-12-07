@@ -92,6 +92,71 @@ let sortState = {
   direction: "asc",
 };
 
+function getSortLabel(column, direction) {
+  const dirWord = direction === "desc" ? "▼" : "▲";
+
+  switch (column) {
+    case "time":
+      return `Sorted by: Time (UTC) ${direction === "asc" ? "oldest first" : "newest first"} ${dirWord}`;
+    case "target":
+      return `Sorted by: Target ${dirWord}`;
+    case "status":
+      return `Sorted by: Status ${dirWord}`;
+    case "latency":
+      return `Sorted by: Latency (ms) ${dirWord}`;
+    case "packet_loss":
+      return `Sorted by: Packet loss (%) ${dirWord}`;
+    case "dns_status":
+      return `Sorted by: DNS status ${dirWord}`;
+    case "dns_latency":
+      return `Sorted by: DNS latency (ms) ${dirWord}`;
+    default:
+      return "";
+  }
+}
+
+function updateSortStatus() {
+  const bar = document.getElementById("sort-status");
+  const labelEl = document.getElementById("sort-status-label");
+  const resetBtn = document.getElementById("sort-reset-btn");
+
+  if (!bar || !labelEl || !resetBtn) return;
+
+  if (!sortState.column) {
+    bar.hidden = true;
+    labelEl.textContent = "";
+    return;
+  }
+
+  const label = getSortLabel(sortState.column, sortState.direction);
+
+  if (!label) {
+    bar.hidden = true;
+    labelEl.textContent = "";
+    return;
+  }
+
+  bar.hidden = false;
+  labelEl.textContent = label;
+
+  // Attach reset button only once
+  if (!resetBtn.dataset.pbResetHooked) {
+    resetBtn.addEventListener("click", () => {
+      sortState.column = null;
+      sortState.direction = "asc";
+
+      const headers = document.querySelectorAll("#checks-table th[data-sort]");
+      headers.forEach((h) => {
+        h.classList.remove("pb-sort-asc", "pb-sort-desc");
+      });
+
+      updateSortStatus();
+      renderTable(currentEntries);
+    });
+    resetBtn.dataset.pbResetHooked = "true";
+  }
+}
+
 function sortEntries(entries) {
   // Default: newest first by timestamp (reverse log order)
   if (!sortState.column) {
@@ -413,6 +478,9 @@ async function updateDashboard() {
 
     const entries = logs.entries || [];
     currentEntries = entries; // save for re-sorting
+    if (!sortState.column) {
+      updateSortStatus(); // keeps bar hidden until you sort
+    }
 
     const summary = computeSummary(entries);
 
@@ -475,6 +543,7 @@ function setupSorting() {
 
       // Re-render table using the current sort
       renderTable(currentEntries);
+      updateSortStatus();
     });
   });
 }
