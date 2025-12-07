@@ -114,6 +114,11 @@ let sortState = {
   direction: "asc",
 };
 
+// ---- Pi time state ----
+let lastPiTimeDisplay = null;     // pretty formatted local time
+let lastPiFetchClientMs = null;   // when we last fetched health (in ms)
+let lastDriftSeconds = null;      // clock drift between Pi and browser
+
 function getSortLabel(column, direction) {
   const dirWord = direction === "desc" ? "▼" : "▲";
 
@@ -268,6 +273,40 @@ function sortEntries(entries) {
 
   // Fallback: default "newest first"
   return entries.slice().reverse();
+}
+
+function updatePiTimeLabel() {
+  const piTimeEl = document.getElementById("pi-time");
+  if (!piTimeEl || !lastPiTimeDisplay || lastPiFetchClientMs === null) return;
+
+  const diffMs = Date.now() - lastPiFetchClientMs;
+  const diffSec = Math.max(0, Math.floor(diffMs / 1000));
+
+  let ageLabel;
+  if (diffSec <= 1) {
+    ageLabel = "updated just now";
+  } else if (diffSec < 60) {
+    ageLabel = `updated ${diffSec}s ago`;
+  } else {
+    const mins = Math.floor(diffSec / 60);
+    ageLabel = `updated ${mins}m ago`;
+  }
+
+  let driftText = "";
+  let warn = false;
+
+  if (typeof lastDriftSeconds === "number") {
+    const driftRounded = Math.round(lastDriftSeconds);
+    if (driftRounded > 3) {
+      warn = true;
+      driftText = ` · ⚠️ clock differs by ~${driftRounded}s`;
+    }
+  }
+
+  // Mark whether we’re in a warning state (CSS can use this)
+  piTimeEl.dataset.pbWarn = warn ? "true" : "false";
+
+  piTimeEl.textContent = `🕒 Pi local time: ${lastPiTimeDisplay} · ${ageLabel}${driftText}`;
 }
 
 function renderSummary(summary) {
@@ -518,9 +557,31 @@ async function updateDashboard() {
     // Show Pi local time (from /api/health) under "Recent checks"
     const piTimeEl = document.getElementById("pi-time");
     if (piTimeEl && health && health.server_local) {
-      const pretty = formatLocalPiTime(health.server_local);
-      piTimeEl.textContent = `Pi local time: ${pretty}`;
+      // Nice human-readable local time
+      lastPiTimeDisplay = formatLocalPiTime(health.server_local);
+      lastPiFetchClientMs = Date.now();
+      lastDriftSeconds = null;
+
+      // Estimate clock drift using server_utc if available
+      if (health.server_utc) {
+        const piUtcMs = Date.parse(health.server_utc);
+        if (!Number.isNaN(piUtcMs)) {
+          const browserUtcMs = Date.now(); // ms since epoch, already UTC-based
+          lastDriftSeconds = Math.abs(browserUtcMs - piUtcMs) / 1000;
+        }
+      }
+
+      // Tooltip with the raw timestamps
+      let tooltip = `Pi local: ${health.server_local}`;
+      if (health.server_utc) {
+        tooltip += ` | Pi UTC: ${health.server_utc}`;
+      }
+      piTimeEl.title = tooltip;
+
+      // Render the label once now; it’ll keep updating via a 1s timer
+      updatePiTimeLabel();
     }
+
   } catch (err) {
     console.error(err);
     if (healthEl) {
@@ -594,5 +655,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Auto-refresh every 30 seconds
   setInterval(updateDashboard, 30000);
+
+  // Keep the "updated Xs ago" text fresh
+  setInterval(updatePiTimeLabel, 1000);
 });
 

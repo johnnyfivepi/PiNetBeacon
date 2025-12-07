@@ -138,6 +138,11 @@ body {
   font-size: 0.8rem;
 }
 
+/* If the Pi clock seems off, tint the line slightly warm */
+#pi-time[data-pb-warn="true"] {
+  color: #b45309;  /* soft amber */
+}
+
 /* Table */
 
 .pb-table-wrapper {
