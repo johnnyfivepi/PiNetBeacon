@@ -140,7 +140,7 @@ body {
 
 /* If the Pi clock seems off, tint the line slightly warm */
 #pi-time[data-pb-warn="true"] {
-  color: #b45309;  /* soft amber */
+  color: #b91c1c; /* soft red */
 }
 
 /* Table */

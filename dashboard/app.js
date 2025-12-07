@@ -296,7 +296,7 @@ function updatePiTimeLabel() {
   let warn = false;
 
   if (typeof lastDriftSeconds === "number") {
-    const driftRounded = Math.round(lastDriftSeconds);
+    const driftRounded = Math.round(Math.abs(lastDriftSeconds));
     if (driftRounded > 3) {
       warn = true;
       driftText = ` · ⚠️ clock differs by ~${driftRounded}s`;
@@ -557,28 +557,24 @@ async function updateDashboard() {
     // Show Pi local time (from /api/health) under "Recent checks"
     const piTimeEl = document.getElementById("pi-time");
     if (piTimeEl && health && health.server_local) {
-      // Nice human-readable local time
-      lastPiTimeDisplay = formatLocalPiTime(health.server_local);
-      lastPiFetchClientMs = Date.now();
-      lastDriftSeconds = null;
+      const formatted = formatLocalPiTime(health.server_local);
 
-      // Estimate clock drift using server_utc if available
+      lastPiTimeDisplay = formatted;
+      lastPiFetchClientMs = Date.now();
+
+      // Compute drift vs client clock using server_utc if available
+      lastDriftSeconds = null;
       if (health.server_utc) {
-        const piUtcMs = Date.parse(health.server_utc);
-        if (!Number.isNaN(piUtcMs)) {
-          const browserUtcMs = Date.now(); // ms since epoch, already UTC-based
-          lastDriftSeconds = Math.abs(browserUtcMs - piUtcMs) / 1000;
+        const serverMs = Date.parse(health.server_utc);
+        if (!Number.isNaN(serverMs)) {
+          lastDriftSeconds = (serverMs - Date.now()) / 1000;
         }
       }
 
-      // Tooltip with the raw timestamps
-      let tooltip = `Pi local: ${health.server_local}`;
-      if (health.server_utc) {
-        tooltip += ` | Pi UTC: ${health.server_utc}`;
-      }
-      piTimeEl.title = tooltip;
+      // Tooltip with raw timestamp
+      piTimeEl.title = `Raw Pi local: ${health.server_local}\nRaw Pi UTC: ${health.server_utc || "n/a"}`;
 
-      // Render the label once now; it’ll keep updating via a 1s timer
+      // Immediately render a nice label; the 1-second timer will keep it fresh
       updatePiTimeLabel();
     }
 
@@ -646,6 +642,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial load
   updateDashboard();
 
+  // Keep the “updated Xs ago” label fresh
+  setInterval(updatePiTimeLabel, 1000);
+
   const refreshButton = document.getElementById("refresh-btn");
   if (refreshButton) {
     refreshButton.addEventListener("click", () => {
@@ -653,10 +652,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Auto-refresh every 30 seconds
   setInterval(updateDashboard, 30000);
-
-  // Keep the "updated Xs ago" text fresh
-  setInterval(updatePiTimeLabel, 1000);
 });
 
