@@ -5,7 +5,7 @@
     <title>PiNetBeacon dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Cache-busting query param is fine -->
-    <link rel="stylesheet" href="styles.css?v=1.0.4" />
+    <link rel="stylesheet" href="styles.css?v=1.0.5" />
   </head>
   <body>
     <header class="pb-header">
@@ -68,7 +68,7 @@
           <table class="pb-table" id="checks-table">
             <thead>
               <tr>
-                <th>Time (UTC)</th>
+                <th data-sort="time">Time (UTC)</th>
                 <th>Target</th>
                 <th>Status</th>
                 <th data-sort="latency">Latency (ms)</th>
@@ -109,6 +109,6 @@ No data yet. Click “Refresh now” once the server is running.
       PiNetBeacon · Raspberry Pi network monitoring for curious hobbyists.
     </footer>
 
-    <script src="app.js?v=1.0.4"></script>
+    <script src="app.js?v=1.0.5"></script>
   </body>
 </html>

@@ -55,7 +55,7 @@ function computeSummary(entries) {
   const availability =
     entries.length > 0 ? Math.round((upCount / entries.length) * 100) : null;
 
-  // --- DNS summary (clean + robust) ---
+  // DNS summary (clean + robust)
   const dnsEntries = entries.filter(
     (e) => typeof e.dns_status === "string" && e.dns_status.length > 0
   );
@@ -84,22 +84,23 @@ function computeSummary(entries) {
   };
 }
 
-// ------- Sorting state & helper -------
+// Sorting state & helper
 
 let currentEntries = [];
 let sortState = {
-  column: null,   // e.g. "latency"
+  column: null,   // "time" or "latency"
   direction: "asc",
 };
 
 function sortEntries(entries) {
-  // Default: same as before, newest first
+  // Default: newest first by timestamp (reverse log order)
   if (!sortState.column) {
     return entries.slice().reverse();
   }
 
+  const dir = sortState.direction === "desc" ? -1 : 1;
+
   if (sortState.column === "latency") {
-    const dir = sortState.direction === "desc" ? -1 : 1;
     return entries.slice().sort((a, b) => {
       const av =
         typeof a.avg_latency_ms === "number" ? a.avg_latency_ms : Infinity;
@@ -109,7 +110,15 @@ function sortEntries(entries) {
     });
   }
 
-  // Fallback: no special sort, but keep newest at top
+  if (sortState.column === "time") {
+    return entries.slice().sort((a, b) => {
+      const at = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+      const bt = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+      return (at - bt) * dir; // asc = oldest→newest, desc = newest→oldest
+    });
+  }
+
+  // Fallback
   return entries.slice().reverse();
 }
 
@@ -124,7 +133,7 @@ function renderSummary(summary) {
     return;
   }
 
-  // ----- Last status card -----
+  // Last status card
   lastStatusEl.textContent = summary.lastStatus;
 
   // Reset classes first
@@ -373,34 +382,44 @@ async function updateDashboard() {
   }
 }
 
-function setupLatencySorting() {
-  const latencyHeader = document.querySelector(
-    '#checks-table th[data-sort="latency"]'
-  );
-  if (!latencyHeader) return;
+function setupSorting() {
+  const headers = document.querySelectorAll('#checks-table th[data-sort]');
+  if (!headers.length) return;
 
-  latencyHeader.classList.add("pb-sortable");
+  headers.forEach((th) => {
+    th.classList.add("pb-sortable");
 
-  latencyHeader.addEventListener("click", () => {
-    if (sortState.column === "latency") {
-      // toggle direction
-      sortState.direction = sortState.direction === "asc" ? "desc" : "asc";
-    } else {
-      sortState.column = "latency";
-      sortState.direction = "asc";
-    }
+    th.addEventListener("click", () => {
+      const column = th.getAttribute("data-sort");
+      if (!column) return;
 
-    // Update visual indicator on this header
-    latencyHeader.classList.toggle("pb-sort-asc", sortState.direction === "asc");
-    latencyHeader.classList.toggle("pb-sort-desc", sortState.direction === "desc");
+      if (sortState.column === column) {
+        // Toggle direction if clicking the same column
+        sortState.direction = sortState.direction === "asc" ? "desc" : "asc";
+      } else {
+        // Switch to a new column, start with ascending
+        sortState.column = column;
+        sortState.direction = "asc";
+      }
 
-    // Re-render table with new sort
-    renderTable(currentEntries);
+      // Clear arrows from all sortable headers
+      headers.forEach((h) => {
+        h.classList.remove("pb-sort-asc", "pb-sort-desc");
+      });
+
+      // Add arrow to the active header
+      th.classList.add(
+        sortState.direction === "asc" ? "pb-sort-asc" : "pb-sort-desc"
+      );
+
+      // Re-render table using the current sort
+      renderTable(currentEntries);
+    });
   });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupLatencySorting();
+  setupSorting();
 
   // Initial load
   updateDashboard();
