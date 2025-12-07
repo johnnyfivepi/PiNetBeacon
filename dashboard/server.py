@@ -26,7 +26,7 @@ import os
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from typing import List, Dict
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Root directory for the dashboard files (this folder)
 ROOT_DIR = Path(__file__).parent
@@ -101,7 +101,7 @@ class PiNetBeaconHandler(SimpleHTTPRequestHandler):
         exists = LOG_FILE.exists()
         entries = load_recent_entries() if exists else []
 
-        now_utc = datetime.utcnow().isoformat() + "Z"
+        now_utc = datetime.now(timezone.utc).isoformat()
         now_local = datetime.now().isoformat()
 
         info = {
