@@ -100,6 +100,7 @@ function sortEntries(entries) {
 
   const dir = sortState.direction === "desc" ? -1 : 1;
 
+  // Latency (ms) — numeric, missing values go to bottom
   if (sortState.column === "latency") {
     return entries.slice().sort((a, b) => {
       const av =
@@ -110,6 +111,7 @@ function sortEntries(entries) {
     });
   }
 
+  // Time (UTC) — by timestamp
   if (sortState.column === "time") {
     return entries.slice().sort((a, b) => {
       const at = a.timestamp ? new Date(a.timestamp).getTime() : 0;
@@ -118,7 +120,66 @@ function sortEntries(entries) {
     });
   }
 
-  // Fallback
+  // Target — string (target_host)
+  if (sortState.column === "target") {
+    return entries.slice().sort((a, b) => {
+      const at = (a.target_host || "").toString().toLowerCase();
+      const bt = (b.target_host || "").toString().toLowerCase();
+      if (at < bt) return -1 * dir;
+      if (at > bt) return 1 * dir;
+      return 0;
+    });
+  }
+
+  // Status — string ("up"/"down")
+  if (sortState.column === "status") {
+    return entries.slice().sort((a, b) => {
+      const at = (a.status || "").toString().toLowerCase();
+      const bt = (b.status || "").toString().toLowerCase();
+      if (at < bt) return -1 * dir;
+      if (at > bt) return 1 * dir;
+      return 0;
+    });
+  }
+
+  // Packet loss (%) — numeric
+  if (sortState.column === "packet_loss") {
+    return entries.slice().sort((a, b) => {
+      const av =
+        typeof a.packet_loss_percent === "number"
+          ? a.packet_loss_percent
+          : Infinity;
+      const bv =
+        typeof b.packet_loss_percent === "number"
+          ? b.packet_loss_percent
+          : Infinity;
+      return (av - bv) * dir;
+    });
+  }
+
+  // DNS status — string
+  if (sortState.column === "dns_status") {
+    return entries.slice().sort((a, b) => {
+      const at = (a.dns_status || "").toString().toLowerCase();
+      const bt = (b.dns_status || "").toString().toLowerCase();
+      if (at < bt) return -1 * dir;
+      if (at > bt) return 1 * dir;
+      return 0;
+    });
+  }
+
+  // DNS latency (ms) — numeric
+  if (sortState.column === "dns_latency") {
+    return entries.slice().sort((a, b) => {
+      const av =
+        typeof a.dns_latency_ms === "number" ? a.dns_latency_ms : Infinity;
+      const bv =
+        typeof b.dns_latency_ms === "number" ? b.dns_latency_ms : Infinity;
+      return (av - bv) * dir;
+    });
+  }
+
+  // Fallback: default "newest first"
   return entries.slice().reverse();
 }
 
