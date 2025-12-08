@@ -132,6 +132,10 @@ body {
   color: var(--pb-muted);
 }
 
+#config-status { 
+  margin-top: 0.25rem; /* or 0.35rem if you prefer a bit more */ 
+}
+
 #pi-time {
   margin-top: 0.1rem;
   font-size: 0.8rem;
@@ -143,6 +147,7 @@ body {
 }
 
 /* Table */
+
 .pb-table-wrapper {
   border-radius: var(--pb-radius-lg);
   border: 1px solid var(--pb-border);
