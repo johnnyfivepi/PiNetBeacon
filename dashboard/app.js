@@ -698,7 +698,8 @@ function renderTable(entries) {
     // Optional notes text after the icon
     if (entry.notes) {
       const notesSpan = document.createElement("span");
-      notesSpan.textContent = " " + entry.notes;
+      notesSpan.className = "pb-notes-text";
+      notesSpan.textContent = entry.notes;
       tdNotes.appendChild(notesSpan);
     }
 
