@@ -133,7 +133,8 @@ body {
 }
 
 #config-status { 
-  margin-top: 0.25rem; /* or 0.35rem if you prefer a bit more */ 
+  margin-top: 0.3rem; /* or 0.35rem if you prefer a bit more */ 
+  font-size: 0.8rem;
 }
 
 #pi-time {
@@ -144,6 +145,11 @@ body {
 /* If the Pi clock seems off, tint the line slightly warm */
 #pi-time[data-pb-warn="true"] {
   color: #b91c1c; /* soft red */
+}
+
+.pb-emoji {
+  font-size: 0.9em;
+  vertical-align: -0.05em;
 }
 
 /* Table */
@@ -181,14 +187,12 @@ body {
 }
 
 /* Keep the Time (UTC) column on a single line */
-
 .pb-table th:first-child,
 .pb-table td:first-child {
   white-space: nowrap;
 }
 
 /* Sparkline cells */
-
 .pb-spark-cell {
   padding: 0.35rem 0.5rem;
   min-width: 60px;

@@ -306,7 +306,8 @@ function updatePiTimeLabel() {
   // Mark whether we’re in a warning state (CSS can use this)
   piTimeEl.dataset.pbWarn = warn ? "true" : "false";
 
-  piTimeEl.textContent = `🕒 Pi local time: ${lastPiTimeDisplay} · ${ageLabel}${driftText}`;
+  piTimeEl.innerHTML =
+  `<span class="pb-emoji">🕒</span> Pi local time: ${lastPiTimeDisplay} · ${ageLabel}${driftText}`;
 }
 
 function renderSummary(summary) {
@@ -708,7 +709,8 @@ async function updateDashboard() {
         ageLabel = `${mins}m ago`;
       }
 
-      configEl.textContent = `🔄 Config loaded ${ageLabel}`;
+      configEl.innerHTML =
+        `<span class="pb-emoji">🔄</span> Config loaded ${ageLabel}`;
       configEl.title = `Raw timestamp: ${loadedTs}`;
     }
 
