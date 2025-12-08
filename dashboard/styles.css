@@ -214,6 +214,25 @@ body {
   stroke: var(--pb-success);
 }
 
+/* Copy-as-JSON button inside the Notes column */
+.pb-copy-btn {
+  border: none;
+  background: transparent;
+  color: var(--pb-muted);
+  cursor: pointer;
+  padding: 0.05rem 0.25rem;
+  font-size: 0.85rem;
+}
+
+.pb-copy-btn:hover {
+  opacity: 0.8;
+}
+
+.pb-copy-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 /* Sort status bar above table */
 
 .pb-sort-status {

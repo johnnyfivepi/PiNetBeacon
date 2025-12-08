@@ -481,6 +481,54 @@ function createSparklineSvg(values, extraClass) {
   return svg;
 }
 
+// Copy a single log entry as pretty JSON to the clipboard
+async function copyEntryAsJson(entry, button) {
+  if (!entry) return;
+
+  const json = JSON.stringify(entry, null, 2);
+  let success = false;
+
+  // Modern clipboard API (may require secure context)
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(json);
+      success = true;
+    } catch (err) {
+      console.warn("Clipboard write failed, falling back:", err);
+    }
+  }
+
+  // Fallback for older / non-secure contexts
+  if (!success) {
+    const textarea = document.createElement("textarea");
+    textarea.value = json;
+    textarea.style.position = "fixed";
+    textarea.style.top = "-9999px";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand("copy");
+      success = true;
+    } catch (err) {
+      console.warn("execCommand copy failed:", err);
+    } finally {
+      document.body.removeChild(textarea);
+    }
+  }
+
+  // Tiny visual confirmation on the button
+  if (success && button) {
+    const originalText = button.textContent;
+    button.textContent = "Copied";
+    button.disabled = true;
+
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.disabled = false;
+    }, 900);
+  }
+}
+
 function renderTable(entries) {
   const tbody = document.getElementById("checks-tbody");
   if (!tbody) {
@@ -631,12 +679,30 @@ function renderTable(entries) {
     }
     tr.appendChild(tdDnsSpark);
 
-    // Notes
+    // Notes + "copy as JSON" action
     const tdNotes = document.createElement("td");
-    tdNotes.textContent = entry.notes || "";
-    tr.appendChild(tdNotes);
 
-    tbody.appendChild(tr);
+    // Tiny copy button
+    const copyBtn = document.createElement("button");
+    copyBtn.type = "button";
+    copyBtn.className = "pb-copy-btn";
+    copyBtn.textContent = "📋";
+    copyBtn.title = "Copy this row as JSON";
+
+    copyBtn.addEventListener("click", () => {
+      copyEntryAsJson(entry, copyBtn);
+    });
+
+    tdNotes.appendChild(copyBtn);
+
+    // Optional notes text after the icon
+    if (entry.notes) {
+      const notesSpan = document.createElement("span");
+      notesSpan.textContent = " " + entry.notes;
+      tdNotes.appendChild(notesSpan);
+    }
+
+    tr.appendChild(tdNotes);
   }
 }
 
