@@ -703,6 +703,7 @@ function renderTable(entries) {
     }
 
     tr.appendChild(tdNotes);
+    tbody.appendChild(tr);
   }
 }
 
