@@ -68,18 +68,19 @@
         <div id="user-time" class="pb-section-note"></div>
         <div id="config-status" class="pb-section-note"></div>
 
-        <div class="pb-sort-status" id="sort-status" hidden>
-          <span id="sort-status-label"></span>
-          <button
-            type="button"
-            id="sort-reset-btn"
-            title="Reset table sorting to newest-first order"
-          >
-            Reset sorting
-          </button>
-        </div>
-
         <div class="pb-table-wrapper">
+          <!-- Table sort status & reset button now live here, above the table -->
+          <div class="pb-sort-status" id="sort-status" hidden>
+            <span id="sort-status-label"></span>
+            <button
+              type="button"
+              id="sort-reset-btn"
+              title="Reset table sorting to newest-first order"
+            >
+              Reset sorting
+            </button>
+          </div>
+
           <table class="pb-table" id="checks-table">
             <thead>
               <tr>
