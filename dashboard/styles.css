@@ -132,13 +132,10 @@ body {
   color: var(--pb-muted);
 }
 
-#config-status { 
-  margin-top: 0.3rem; /* or 0.35rem if you prefer a bit more */ 
-  font-size: 0.8rem;
-}
-
-#pi-time {
-  margin-top: 0.1rem;
+#pi-time,
+#config-status {
+  margin: 0;
+  margin-bottom: 0.35rem;  /* space under each line */
   font-size: 0.8rem;
 }
 
@@ -224,7 +221,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   gap: 0.5rem;
-  margin: 0.25rem 0 0.5rem;
+  margin: 0.4rem 0 0.5rem;
   font-size: 0.8rem;
   color: var(--pb-muted);
 }
