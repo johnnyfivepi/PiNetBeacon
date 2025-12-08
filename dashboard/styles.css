@@ -269,6 +269,13 @@ body {
   margin: 0.4rem 0 0.5rem;
   font-size: 0.8rem;
   color: var(--pb-muted);
+  /* New: start hidden but space-reserving so it can animate */
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease-out,
+    transform 0.18s ease-out;
 }
 
 .pb-sort-status button {
@@ -313,6 +320,13 @@ body {
 
 .pb-sort-desc::after {
   content: "▼";
+}
+
+/* Visible state for the sort bar */
+.pb-sort-status.pb-sort-status--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* DNS-based row highlighting (overrides zebra striping) */
