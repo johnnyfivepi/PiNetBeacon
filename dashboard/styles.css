@@ -154,7 +154,7 @@ body {
 .pb-table-wrapper {
   border-radius: var(--pb-radius-lg);
   border: 1px solid var(--pb-border);
-  padding: 0.4rem 0;   /* keep a little vertical space, no left/right padding */
+  padding: 0.25rem 0.75rem 0.75rem;
   background: var(--pb-surface);
   overflow: hidden;
 }
@@ -264,16 +264,24 @@ body {
   align-items: center;
   justify-content: flex-start;
   gap: 0.5rem;
-  margin: 0.4rem 0 0.5rem;
-  padding: 0 0.75rem;   /* ← NEW: restores left/right padding just for this bar */
+  margin: 0.25rem 0 0.5rem;   /* small, consistent gap above the table */
   font-size: 0.8rem;
   color: var(--pb-muted);
+
+  /* animation + initial hidden state */
   opacity: 0;
   transform: translateY(-4px);
   pointer-events: none;
   transition:
     opacity 0.18s ease-out,
     transform 0.18s ease-out;
+}
+
+/* When active, fade/slide in */
+.pb-sort-status.pb-sort-status--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .pb-sort-status button {

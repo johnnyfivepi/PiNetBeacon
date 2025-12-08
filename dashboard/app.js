@@ -149,24 +149,18 @@ function updateSortStatus() {
 
   if (!bar || !labelEl || !resetBtn) return;
 
-  // No active sort → fade out
-  if (!sortState.column) {
+  const hasSort = !!sortState.column;
+  const label = hasSort ? getSortLabel(sortState.column, sortState.direction) : "";
+
+  if (!hasSort || !label) {
+    // No active sort: hide the bar (no space used except its margin)
     bar.classList.remove("pb-sort-status--visible");
     labelEl.textContent = "";
-    return;
+  } else {
+    // Active sort: show + animate
+    labelEl.textContent = label;
+    bar.classList.add("pb-sort-status--visible");
   }
-
-  const label = getSortLabel(sortState.column, sortState.direction);
-
-  if (!label) {
-    bar.classList.remove("pb-sort-status--visible");
-    labelEl.textContent = "";
-    return;
-  }
-
-  // Set label, fade in
-  labelEl.textContent = label;
-  bar.classList.add("pb-sort-status--visible");
 
   // Attach reset button only once
   if (!resetBtn.dataset.pbResetHooked) {
@@ -182,7 +176,6 @@ function updateSortStatus() {
       updateSortStatus();
       renderTable(currentEntries);
     });
-
     resetBtn.dataset.pbResetHooked = "true";
   }
 }
