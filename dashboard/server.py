@@ -28,6 +28,8 @@ from pathlib import Path
 from typing import List, Dict
 from datetime import datetime, timezone
 
+CONFIG_LAST_LOADED = datetime.now(timezone.utc).isoformat()
+
 # Root directory for the dashboard files (this folder)
 ROOT_DIR = Path(__file__).parent
 
@@ -110,6 +112,9 @@ class PiNetBeaconHandler(SimpleHTTPRequestHandler):
             "entries_count": len(entries),
             "server_utc": now_utc,
             "server_local": now_local,
+
+            # New: when config was last loaded (placeholder for now)
+            "config_last_loaded": CONFIG_LAST_LOADED,
         }
 
         body = json.dumps(info, indent=2).encode("utf-8")

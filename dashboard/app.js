@@ -689,6 +689,29 @@ async function updateDashboard() {
       updatePiTimeLabel();
     }
 
+    // Config autoload indicator  
+    const configEl = document.getElementById("config-status");
+    if (configEl && health && health.config_last_loaded) {
+      const loadedTs = health.config_last_loaded;
+
+      const loadedDate = new Date(loadedTs);
+      const now = Date.now();
+      const diffSec = Math.floor((now - loadedDate.getTime()) / 1000);
+
+      let ageLabel;
+      if (diffSec < 1) {
+        ageLabel = "just now";
+      } else if (diffSec < 60) {
+        ageLabel = `${diffSec}s ago`;
+      } else {
+        const mins = Math.floor(diffSec / 60);
+        ageLabel = `${mins}m ago`;
+      }
+
+      configEl.textContent = `🔄 Config loaded ${ageLabel}`;
+      configEl.title = `Raw timestamp: ${loadedTs}`;
+    }
+
   } catch (err) {
     console.error(err);
     if (healthEl) {
