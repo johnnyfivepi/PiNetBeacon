@@ -140,7 +140,7 @@ body {
 }
 
 #config-status {
-  margin-bottom: 0.5rem;   /* final breathing room before the table wrapper */
+  margin-bottom: 0.8rem;   /* final breathing room before the table wrapper */
 }
 
 /* If the Pi clock seems off, tint the line slightly warm */
