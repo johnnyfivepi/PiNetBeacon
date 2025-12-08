@@ -260,22 +260,27 @@ body {
 }
 
 /* Sort status bar above table */
-
 .pb-sort-status {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 0.5rem;
-  margin: 0.4rem 0 0.5rem;
   font-size: 0.8rem;
   color: var(--pb-muted);
-  /* New: start hidden but space-reserving so it can animate */
+
+  /* Hidden state: no height, no top margin, not clickable */
+  max-height: 0;
+  margin: 0;
   opacity: 0;
   transform: translateY(-4px);
   pointer-events: none;
+  overflow: hidden;
+
   transition:
     opacity 0.18s ease-out,
-    transform 0.18s ease-out;
+    transform 0.18s ease-out,
+    max-height 0.18s ease-out,
+    margin-top 0.18s ease-out;
 }
 
 .pb-sort-status button {
@@ -327,6 +332,11 @@ body {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+
+  /* Give it space + room for the content when shown */
+  max-height: 40px;      /* just needs to be taller than one line + button */
+  margin-top: 0.35rem;
+  margin-bottom: 0.5rem;
 }
 
 /* DNS-based row highlighting (overrides zebra striping) */
