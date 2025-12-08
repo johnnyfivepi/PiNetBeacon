@@ -175,6 +175,13 @@ body {
   border-bottom: none;
 }
 
+/* Keep the Time (UTC) column on a single line */
+
+.pb-table th:first-child,
+.pb-table td:first-child {
+  white-space: nowrap;
+}
+
 /* Sparkline cells */
 
 .pb-spark-cell {
