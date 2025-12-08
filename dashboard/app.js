@@ -413,6 +413,73 @@ function updateAvailabilityBar(availPercent) {
   }
 }
 
+// Build a small history of numeric metric values for a given target_host
+function buildMetricHistory(allEntries, targetHost, metricKey, maxPoints) {
+  if (!targetHost) return [];
+
+  const filtered = allEntries
+    .filter(
+      (e) =>
+        e.target_host === targetHost &&
+        typeof e[metricKey] === "number" &&
+        e.timestamp
+    )
+    .slice();
+
+  if (!filtered.length) return [];
+
+  // Sort by timestamp ascending to get a proper time series
+  filtered.sort((a, b) => {
+    const at = new Date(a.timestamp).getTime() || 0;
+    const bt = new Date(b.timestamp).getTime() || 0;
+    return at - bt;
+  });
+
+  const tail = filtered.slice(-maxPoints);
+  return tail.map((e) => e[metricKey]);
+}
+
+// Create a tiny SVG sparkline for a list of numeric values
+function createSparklineSvg(values, extraClass) {
+  if (!values.length) return null;
+
+  const svgNS = "http://www.w3.org/2000/svg";
+  const width = 60;
+  const height = 20;
+
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("preserveAspectRatio", "none");
+  svg.classList.add("pb-sparkline");
+  if (extraClass) {
+    svg.classList.add(extraClass);
+  }
+
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = max - min || 1; // avoid divide by zero
+
+  const points = values
+    .map((v, idx) => {
+      const x =
+        values.length === 1
+          ? width / 2
+          : (idx / (values.length - 1)) * width;
+
+      const norm = (v - min) / span;
+      const y = height - norm * (height - 2) - 1; // 1px padding top/bottom
+
+      return `${x},${y}`;
+    })
+    .join(" ");
+
+  const polyline = document.createElementNS(svgNS, "polyline");
+  polyline.setAttribute("points", points);
+  svg.appendChild(polyline);
+
+  return svg;
+}
+
 function renderTable(entries) {
   const tbody = document.getElementById("checks-tbody");
   if (!tbody) {
@@ -425,7 +492,7 @@ function renderTable(entries) {
   if (!entries.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 8; // matches the 8 columns in the table header
+    td.colSpan = 10; // matches the 10 columns in the table header
     td.textContent =
       "No log entries found yet. Try running pinetbeacon_check.py.";
     tr.appendChild(td);
@@ -455,14 +522,17 @@ function renderTable(entries) {
       tr.classList.add("pb-row-dns-warn");
     }
 
+    // Time
     const tdTime = document.createElement("td");
     tdTime.textContent = formatTimestamp(entry.timestamp);
     tr.appendChild(tdTime);
 
+    // Target
     const tdTarget = document.createElement("td");
     tdTarget.textContent = entry.target_host || "–";
     tr.appendChild(tdTarget);
 
+    // Status
     const tdStatus = document.createElement("td");
     const badge = document.createElement("span");
     badge.textContent = entry.status || "unknown";
@@ -475,6 +545,7 @@ function renderTable(entries) {
     tdStatus.appendChild(badge);
     tr.appendChild(tdStatus);
 
+    // Latency (numeric)
     const tdLatency = document.createElement("td");
     tdLatency.textContent =
       typeof entry.avg_latency_ms === "number"
@@ -482,6 +553,26 @@ function renderTable(entries) {
         : "–";
     tr.appendChild(tdLatency);
 
+    // Latency trend (sparkline)
+    const tdLatencySpark = document.createElement("td");
+    tdLatencySpark.className = "pb-spark-cell";
+
+    const latencyHistory = buildMetricHistory(
+      entries,
+      entry.target_host,
+      "avg_latency_ms",
+      20
+    );
+
+    if (latencyHistory.length >= 2) {
+      const svg = createSparklineSvg(latencyHistory, null);
+      if (svg) tdLatencySpark.appendChild(svg);
+    } else {
+      tdLatencySpark.textContent = "—";
+    }
+    tr.appendChild(tdLatencySpark);
+
+    // Packet loss
     const tdLoss = document.createElement("td");
     tdLoss.textContent =
       typeof entry.packet_loss_percent === "number"
@@ -512,7 +603,7 @@ function renderTable(entries) {
     tdDnsStatus.appendChild(dnsBadge);
     tr.appendChild(tdDnsStatus);
 
-    // DNS latency
+    // DNS latency (numeric)
     const tdDnsLatency = document.createElement("td");
     tdDnsLatency.textContent =
       typeof entry.dns_latency_ms === "number"
@@ -520,6 +611,26 @@ function renderTable(entries) {
         : "–";
     tr.appendChild(tdDnsLatency);
 
+    // DNS latency trend (sparkline)
+    const tdDnsSpark = document.createElement("td");
+    tdDnsSpark.className = "pb-spark-cell";
+
+    const dnsLatencyHistory = buildMetricHistory(
+      entries,
+      entry.target_host,
+      "dns_latency_ms",
+      20
+    );
+
+    if (dnsLatencyHistory.length >= 2) {
+      const svgDns = createSparklineSvg(dnsLatencyHistory, "pb-sparkline--dns");
+      if (svgDns) tdDnsSpark.appendChild(svgDns);
+    } else {
+      tdDnsSpark.textContent = "—";
+    }
+    tr.appendChild(tdDnsSpark);
+
+    // Notes
     const tdNotes = document.createElement("td");
     tdNotes.textContent = entry.notes || "";
     tr.appendChild(tdNotes);
@@ -591,7 +702,7 @@ async function updateDashboard() {
       tbody.innerHTML = "";
       const tr = document.createElement("tr");
       const td = document.createElement("td");
-      td.colSpan = 8; // keep in sync with table header
+      td.colSpan = 10; // keep in sync with table header
       td.textContent = "Error loading data. See the debug section below.";
       tr.appendChild(td);
       tbody.appendChild(tr);
