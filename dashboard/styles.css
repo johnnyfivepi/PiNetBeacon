@@ -170,6 +170,23 @@ body {
   background: var(--pb-accent-soft);
 }
 
+/* Round the table corners to match the wrapper */
+.pb-table thead th:first-child {
+  border-top-left-radius: var(--pb-radius-lg);
+}
+
+.pb-table thead th:last-child {
+  border-top-right-radius: var(--pb-radius-lg);
+}
+
+.pb-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: var(--pb-radius-lg);
+}
+
+.pb-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: var(--pb-radius-lg);
+}
+
 .pb-table th,
 .pb-table td {
   padding: 0.5rem 0.75rem;
