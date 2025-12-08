@@ -135,8 +135,12 @@ body {
 #pi-time,
 #config-status {
   margin: 0;
-  margin-bottom: 0.35rem;  /* space under each line */
+  margin-bottom: 0.25rem;  /* space under each line */
   font-size: 0.8rem;
+}
+
+#config-status {
+  margin-bottom: 0.5rem;   /* final breathing room before the table wrapper */
 }
 
 /* If the Pi clock seems off, tint the line slightly warm */
