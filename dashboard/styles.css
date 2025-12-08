@@ -264,22 +264,16 @@ body {
   align-items: center;
   justify-content: flex-start;
   gap: 0.5rem;
+  margin: 0.4rem 0 0.5rem;
+  padding: 0 0.75rem;   /* ← NEW: restores left/right padding just for this bar */
   font-size: 0.8rem;
   color: var(--pb-muted);
-
-  /* Hidden state: no height, no top margin, not clickable */
-  max-height: 0;
-  margin: 0;
   opacity: 0;
   transform: translateY(-4px);
   pointer-events: none;
-  overflow: hidden;
-
   transition:
     opacity 0.18s ease-out,
-    transform 0.18s ease-out,
-    max-height 0.18s ease-out,
-    margin-top 0.18s ease-out;
+    transform 0.18s ease-out;
 }
 
 .pb-sort-status button {
