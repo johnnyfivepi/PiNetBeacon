@@ -236,24 +236,39 @@ body {
 }
 
 .pb-sparkline-tooltip {
-  position: relative;             /* no absolute positioning */
-  left: auto;
-  bottom: auto;
-  transform: none;
-  background: rgba(15, 23, 42, 0.95);
-  color: #f9fafb;
-  padding: 0.25rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%) translateY(-4px);
+
+  /* Softer background */
+  background: rgba(30, 41, 59, 0.75); /* slate-800 at 75% */
+
+  /* Subtle blur */
+  backdrop-filter: blur(4px);
+
+  color: #f1f5f9; /* soft text */
+  padding: 0.25rem 0.55rem;
+  border-radius: 8px;   /* no more giant pill */
+
+  font-size: 0.68rem;
   white-space: nowrap;
-  opacity: 1;                     /* <-- always visible */
-  pointer-events: auto;
-  box-shadow: 0 0 0 rgba(0,0,0,0);
+
+  opacity: 0;
+  pointer-events: none;
+
+  /* softer shadow */
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
+  z-index: 20;
 }
 
 .pb-sparkline-wrapper:hover .pb-sparkline-tooltip {
   opacity: 1;
-  transform: none;
+  transform: translateX(-50%) translateY(-7px); /* softer pop */
 }
 
 /* Copy-as-JSON icon button in Notes column */
