@@ -229,6 +229,37 @@ body {
   stroke: var(--pb-success);
 }
 
+/* Sparkline hover wrapper + tooltip */
+.pb-sparkline-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.pb-sparkline-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%) translateY(-4px);
+  background: rgba(15, 23, 42, 0.95);
+  color: #f9fafb;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+  transition:
+    opacity 0.12s ease-out,
+    transform 0.12s ease-out;
+  z-index: 20;
+}
+
+.pb-sparkline-wrapper:hover .pb-sparkline-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
 /* Copy-as-JSON icon button in Notes column */
 .pb-copy-btn {
   border: none;

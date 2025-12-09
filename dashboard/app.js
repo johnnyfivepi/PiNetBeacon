@@ -611,7 +611,18 @@ function renderTable(entries) {
 
     if (latencyHistory.length >= 2) {
       const svg = createSparklineSvg(latencyHistory, null);
-      if (svg) tdLatencySpark.appendChild(svg);
+      if (svg) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "pb-sparkline-wrapper";
+
+        const tooltip = document.createElement("div");
+        tooltip.className = "pb-sparkline-tooltip";
+        tooltip.textContent = buildSparklineSummary(latencyHistory, "ms");
+
+        wrapper.appendChild(svg);
+        wrapper.appendChild(tooltip);
+        tdLatencySpark.appendChild(wrapper);
+      }
     } else {
       tdLatencySpark.textContent = "—";
     }
@@ -669,11 +680,35 @@ function renderTable(entries) {
 
     if (dnsLatencyHistory.length >= 2) {
       const svgDns = createSparklineSvg(dnsLatencyHistory, "pb-sparkline--dns");
-      if (svgDns) tdDnsSpark.appendChild(svgDns);
+      if (svgDns) {
+        const wrapperDns = document.createElement("div");
+        wrapperDns.className = "pb-sparkline-wrapper";
+
+        const tooltipDns = document.createElement("div");
+        tooltipDns.className = "pb-sparkline-tooltip";
+        tooltipDns.textContent = buildSparklineSummary(
+          dnsLatencyHistory,
+          "ms DNS"
+        );
+
+        wrapperDns.appendChild(svgDns);
+        wrapperDns.appendChild(tooltipDns);
+        tdDnsSpark.appendChild(wrapperDns);
+      }
     } else {
       tdDnsSpark.textContent = "—";
     }
     tr.appendChild(tdDnsSpark);
+
+    function buildSparklineSummary(values, unitsLabel) {
+      if (!values.length) return "";
+      const last = values[values.length - 1];
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      return `Last ${last.toFixed(1)} ${unitsLabel} · range ${min.toFixed(
+        1
+      )}–${max.toFixed(1)} ${unitsLabel}`;
+    }
 
     // Notes + "copy as JSON" action
     const tdNotes = document.createElement("td");
