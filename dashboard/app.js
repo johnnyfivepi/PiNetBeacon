@@ -633,7 +633,6 @@ function renderTable(entries) {
         tooltip.textContent = summaryText;
 
         // Native browser tooltip as a fallback
-        tdLatencySpark.title = summaryText;
 
         wrapper.appendChild(svg);
         wrapper.appendChild(tooltip);
@@ -710,7 +709,6 @@ function renderTable(entries) {
         tooltipDns.textContent = summaryTextDns;
 
         // Native browser tooltip fallback
-        tdDnsSpark.title = summaryTextDns;
 
         wrapperDns.appendChild(svgDns);
         wrapperDns.appendChild(tooltipDns);
