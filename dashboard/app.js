@@ -477,6 +477,17 @@ function createSparklineSvg(values, extraClass) {
   return svg;
 }
 
+// Build a one-line summary for sparkline tooltips
+function buildSparklineSummary(values, unitsLabel) {
+  if (!values.length) return "";
+  const last = values[values.length - 1];
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  return `Last ${last.toFixed(1)} ${unitsLabel} · range ${min.toFixed(
+    1
+  )}–${max.toFixed(1)} ${unitsLabel}`;
+}
+
 // Copy a single log entry as pretty JSON to the clipboard
 async function copyEntryAsJson(entry, button) {
   if (!entry) return;
@@ -617,7 +628,12 @@ function renderTable(entries) {
 
         const tooltip = document.createElement("div");
         tooltip.className = "pb-sparkline-tooltip";
-        tooltip.textContent = buildSparklineSummary(latencyHistory, "ms");
+
+        const summaryText = buildSparklineSummary(latencyHistory, "ms");
+        tooltip.textContent = summaryText;
+
+        // Native browser tooltip as a fallback
+        tdLatencySpark.title = summaryText;
 
         wrapper.appendChild(svg);
         wrapper.appendChild(tooltip);
@@ -686,10 +702,15 @@ function renderTable(entries) {
 
         const tooltipDns = document.createElement("div");
         tooltipDns.className = "pb-sparkline-tooltip";
-        tooltipDns.textContent = buildSparklineSummary(
+
+        const summaryTextDns = buildSparklineSummary(
           dnsLatencyHistory,
           "ms DNS"
         );
+        tooltipDns.textContent = summaryTextDns;
+
+        // Native browser tooltip fallback
+        tdDnsSpark.title = summaryTextDns;
 
         wrapperDns.appendChild(svgDns);
         wrapperDns.appendChild(tooltipDns);
@@ -699,16 +720,6 @@ function renderTable(entries) {
       tdDnsSpark.textContent = "—";
     }
     tr.appendChild(tdDnsSpark);
-
-    function buildSparklineSummary(values, unitsLabel) {
-      if (!values.length) return "";
-      const last = values[values.length - 1];
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      return `Last ${last.toFixed(1)} ${unitsLabel} · range ${min.toFixed(
-        1
-      )}–${max.toFixed(1)} ${unitsLabel}`;
-    }
 
     // Notes + "copy as JSON" action
     const tdNotes = document.createElement("td");
