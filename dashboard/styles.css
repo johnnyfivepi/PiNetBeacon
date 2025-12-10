@@ -5,6 +5,7 @@
  */
 
 :root {
+  /* Light theme (default) */
   --pb-bg: #f5f7fb;
   --pb-surface: #ffffff;
   --pb-border: #dde1f0;
@@ -17,17 +18,17 @@
   --pb-radius-lg: 16px;
 }
 
-/* Dark theme overrides – applied when body[data-theme="dark"] is set */
+/* 🌙 Dark theme overrides */
 body[data-theme="dark"] {
-  --pb-bg: #020617;
-  --pb-surface: #020617;
+  --pb-bg: #020617;          /* page background */
+  --pb-surface: #020617;     /* cards / table wrapper */
   --pb-border: #1f2937;
   --pb-accent: #4c6fff;
-  --pb-accent-soft: #111827;
+  --pb-accent-soft: #020617; /* table header etc */
   --pb-text: #e5e7eb;
   --pb-muted: #9ca3af;
-  --pb-danger: #fca5a5;
-  --pb-success: #4ade80;
+  --pb-danger: #fb7185;
+  --pb-success: #22c55e;
 }
 
 /* A couple of small helpers look nicer in dark */
@@ -118,6 +119,33 @@ body {
 
 .pb-refresh:hover {
   background: #3e5ad1;
+}
+
+.pb-theme-toggle {
+  border: 1px solid var(--pb-border);
+  background: #0f172a;
+  color: var(--pb-muted);
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.pb-theme-toggle:hover {
+  background: #111827;
+}
+
+/* subtle inverted look in light theme */
+body[data-theme="light"] .pb-theme-toggle {
+  background: #f9fafb;
+  color: var(--pb-muted);
+}
+
+/* bright-ish in dark theme */
+body[data-theme="dark"] .pb-theme-toggle {
+  background: #111827;
+  color: #e5e7eb;
 }
 
 /* Layout */
@@ -626,4 +654,78 @@ body {
   .pb-table {
     font-size: 0.8rem;
   }
+}
+
+/* === Dark mode specific tweaks === */
+
+/* Header bar */
+body[data-theme="dark"] .pb-header {
+  background: #020617;
+  border-bottom-color: #1f2937;
+}
+
+body[data-theme="dark"] .pb-header h1 {
+  color: var(--pb-text);
+}
+
+body[data-theme="dark"] .pb-subtitle {
+  color: var(--pb-muted);
+}
+
+/* Cards: slightly stronger shadow on dark */
+body[data-theme="dark"] .pb-card {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+}
+
+/* Table header + zebra rows */
+body[data-theme="dark"] .pb-table thead {
+  background: #020617;
+}
+
+body[data-theme="dark"] .pb-table tbody tr:nth-child(odd) td {
+  background: rgba(15, 23, 42, 0.96);
+}
+
+body[data-theme="dark"] .pb-table tbody tr:nth-child(even) td {
+  background: rgba(15, 23, 42, 0.93);
+}
+
+/* DNS row highlights — softer tints on dark */
+body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-ok td {
+  background-color: rgba(22, 163, 74, 0.15);
+}
+
+body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-warn td {
+  background-color: rgba(245, 158, 11, 0.18);
+}
+
+body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-bad td {
+  background-color: rgba(248, 113, 113, 0.2);
+}
+
+/* Availability bar background */
+body[data-theme="dark"] .pb-availability-bar {
+  background-color: #111827;
+}
+
+/* Status badges – less “chalky” on dark */
+body[data-theme="dark"] .pb-status-badge--up {
+  background: rgba(22, 163, 74, 0.15);
+  color: #6ee7b7;
+}
+
+body[data-theme="dark"] .pb-status-badge--down {
+  background: rgba(248, 113, 113, 0.18);
+  color: #fecaca;
+}
+
+body[data-theme="dark"] .pb-status-badge--warn {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fed7aa;
+}
+
+/* Health panel */
+body[data-theme="dark"] .pb-health {
+  background: #020617;
+  border-color: #1f2937;
 }
