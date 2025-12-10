@@ -9,30 +9,51 @@
 // --- Theme handling (light / dark) ---
 const PB_THEME_KEY = "pinetbeacon-theme";
 
-function applyTheme(theme) {
+function setTheme(theme) {
   const body = document.body;
-  if (theme === "dark") {
-    body.setAttribute("data-theme", "dark");
-  } else {
-    body.removeAttribute("data-theme");
+  const btn = document.getElementById("theme-toggle");
+
+  // Always set an explicit value so CSS can match [data-theme="light"/"dark"]
+  body.dataset.theme = theme;
+
+  if (btn) {
+    btn.textContent = theme === "dark" ? "☀ Light" : "☾ Dark";
+  }
+
+  try {
+    localStorage.setItem(PB_THEME_KEY, theme);
+  } catch {
+    // ignore storage errors (e.g., private mode)
   }
 }
 
-function updateThemeToggleLabel(theme) {
-  const btn = document.getElementById("theme-toggle");
-  if (!btn) return;
-  btn.textContent = theme === "dark" ? "☼ Light" : "☾ Dark";
-}
-
 function initTheme() {
-  const stored = localStorage.getItem(PB_THEME_KEY);
-  const prefersDark =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const btn = document.getElementById("theme-toggle");
 
-  const initial = stored || (prefersDark ? "dark" : "light");
-  applyTheme(initial);
-  updateThemeToggleLabel(initial);
+  let initial = "light";
+
+  try {
+    const stored = localStorage.getItem(PB_THEME_KEY);
+    if (stored === "light" || stored === "dark") {
+      initial = stored;
+    } else if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      initial = "dark";
+    }
+  } catch {
+    // ignore any localStorage issues
+  }
+
+  setTheme(initial);
+
+  if (btn) {
+    btn.addEventListener("click", () => {
+      const next = document.body.dataset.theme === "dark" ? "light" : "dark";
+      setTheme(next);
+    });
+  }
 }
 
 async function fetchJson(url) {
@@ -139,21 +160,23 @@ function computeSummary(entries) {
 
 let currentEntries = [];
 let sortState = {
-  column: null,   // "time" or "latency"
+  column: null, // "time", "latency", etc.
   direction: "asc",
 };
 
 // ---- Pi time state ----
-let lastPiTimeDisplay = null;     // pretty formatted local time
-let lastPiFetchClientMs = null;   // when we last fetched health (in ms)
-let lastDriftSeconds = null;      // clock drift between Pi and browser
+let lastPiTimeDisplay = null; // pretty formatted local time
+let lastPiFetchClientMs = null; // when we last fetched health (in ms)
+let lastDriftSeconds = null; // clock drift between Pi and browser
 
 function getSortLabel(column, direction) {
   const dirWord = direction === "desc" ? "▼" : "▲";
 
   switch (column) {
     case "time":
-      return `Sorted by: Time (UTC) ${direction === "asc" ? "oldest first" : "newest first"} ${dirWord}`;
+      return `Sorted by: Time (UTC) ${
+        direction === "asc" ? "oldest first" : "newest first"
+      } ${dirWord}`;
     case "target":
       return `Sorted by: Target ${dirWord}`;
     case "status":
@@ -179,7 +202,9 @@ function updateSortStatus() {
   if (!bar || !labelEl || !resetBtn) return;
 
   const hasSort = !!sortState.column;
-  const label = hasSort ? getSortLabel(sortState.column, sortState.direction) : "";
+  const label = hasSort
+    ? getSortLabel(sortState.column, sortState.direction)
+    : "";
 
   if (!hasSort || !label) {
     // No active sort: hide the bar (no space used except its margin)
@@ -331,8 +356,7 @@ function updatePiTimeLabel() {
   // Mark whether we’re in a warning state (CSS can use this)
   piTimeEl.dataset.pbWarn = warn ? "true" : "false";
 
-  piTimeEl.innerHTML =
-  `<span class="pb-emoji">🕒</span> Pi local time: ${lastPiTimeDisplay} · ${ageLabel}${driftText}`;
+  piTimeEl.innerHTML = `<span class="pb-emoji">🕒</span> Pi local time: ${lastPiTimeDisplay} · ${ageLabel}${driftText}`;
 }
 
 function renderSummary(summary) {
@@ -394,7 +418,7 @@ function renderSummary(summary) {
 
       dnsStatusEl.textContent = pct === "100.0" ? "ok" : `${pct}% ok`;
 
-      // Color tiers (you already have --up and --down in CSS)
+      // Color tiers
       if (summary.dnsHealthPct >= 99) {
         dnsStatusEl.classList.add("pb-status-badge--up");
       } else if (summary.dnsHealthPct >= 80) {
@@ -488,9 +512,7 @@ function createSparklineSvg(values, extraClass) {
   const points = values
     .map((v, idx) => {
       const x =
-        values.length === 1
-          ? width / 2
-          : (idx / (values.length - 1)) * width;
+        values.length === 1 ? width / 2 : (idx / (values.length - 1)) * width;
 
       const norm = (v - min) / span;
       const y = height - norm * (height - 2) - 1; // 1px padding top/bottom
@@ -850,8 +872,7 @@ async function updateDashboard() {
         ageLabel = `${mins}m ago`;
       }
 
-      configEl.innerHTML =
-        `<span class="pb-emoji">🔄</span> Config loaded ${ageLabel}`;
+      configEl.innerHTML = `<span class="pb-emoji">🔄</span> Config loaded ${ageLabel}`;
 
       // Remove native tooltip and feed our custom bubble
       configEl.removeAttribute("title");
@@ -859,7 +880,6 @@ async function updateDashboard() {
         configTooltipEl.textContent = `Raw timestamp: ${loadedTs}`;
       }
     }
-
   } catch (err) {
     console.error(err);
     if (healthEl) {
@@ -882,7 +902,7 @@ async function updateDashboard() {
 }
 
 function setupSorting() {
-  const headers = document.querySelectorAll('#checks-table th[data-sort]');
+  const headers = document.querySelectorAll("#checks-table th[data-sort]");
   if (!headers.length) return;
 
   headers.forEach((th) => {
@@ -918,53 +938,6 @@ function setupSorting() {
   });
 }
 
-function setTheme(theme) {
-  const body = document.body;
-  const btn = document.getElementById("theme-toggle");
-
-  body.dataset.theme = theme;
-
-  if (btn) {
-    if (theme === "dark") {
-      btn.textContent = "☀ Light";
-    } else {
-      btn.textContent = "☾ Dark";
-    }
-  }
-
-  try {
-    localStorage.setItem("pb-theme", theme);
-  } catch {
-    // ignore storage errors
-  }
-}
-
-function initTheme() {
-  const btn = document.getElementById("theme-toggle");
-  if (!btn) return;
-
-  let initial = "light";
-
-  try {
-    const stored = localStorage.getItem("pb-theme");
-    if (stored === "light" || stored === "dark") {
-      initial = stored;
-    } else if (window.matchMedia &&
-               window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      initial = "dark";
-    }
-  } catch {
-    // ignore
-  }
-
-  setTheme(initial);
-
-  btn.addEventListener("click", () => {
-    const next = document.body.dataset.theme === "dark" ? "light" : "dark";
-    setTheme(next);
-  });
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   setupSorting();
@@ -982,6 +955,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Periodic refresh
   setInterval(updateDashboard, 30000);
 });
-
