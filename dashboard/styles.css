@@ -17,6 +17,32 @@
   --pb-radius-lg: 16px;
 }
 
+/* Dark theme overrides – applied when body[data-theme="dark"] is set */
+body[data-theme="dark"] {
+  --pb-bg: #020617;
+  --pb-surface: #020617;
+  --pb-border: #1f2937;
+  --pb-accent: #4c6fff;
+  --pb-accent-soft: #111827;
+  --pb-text: #e5e7eb;
+  --pb-muted: #9ca3af;
+  --pb-danger: #fca5a5;
+  --pb-success: #4ade80;
+}
+
+/* A couple of small helpers look nicer in dark */
+body[data-theme="dark"] .pb-table thead {
+  background: var(--pb-accent-soft);
+}
+
+body[data-theme="dark"] .pb-refresh {
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.5);
+}
+
+body[data-theme="dark"] .pb-theme-toggle {
+  background: #020617;
+}
+
 *,
 *::before,
 *::after {
@@ -54,6 +80,28 @@ body {
   margin: 0.25rem 0 0;
   font-size: 0.9rem;
   color: var(--pb-muted);
+}
+
+.pb-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Theme toggle */
+
+.pb-theme-toggle {
+  border: 1px solid var(--pb-border);
+  background: #eef2ff;
+  color: var(--pb-text);
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.pb-theme-toggle:hover {
+  background: #e0e7ff;
 }
 
 /* Refresh button */

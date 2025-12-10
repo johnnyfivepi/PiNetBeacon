@@ -6,6 +6,35 @@
 //
 // It then updates the summary cards, table, and health box on the page.
 
+// --- Theme handling (light / dark) ---
+const PB_THEME_KEY = "pinetbeacon-theme";
+
+function applyTheme(theme) {
+  const body = document.body;
+  if (theme === "dark") {
+    body.setAttribute("data-theme", "dark");
+  } else {
+    body.removeAttribute("data-theme");
+  }
+}
+
+function updateThemeToggleLabel(theme) {
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+  btn.textContent = theme === "dark" ? "☼ Light" : "☾ Dark";
+}
+
+function initTheme() {
+  const stored = localStorage.getItem(PB_THEME_KEY);
+  const prefersDark =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const initial = stored || (prefersDark ? "dark" : "light");
+  applyTheme(initial);
+  updateThemeToggleLabel(initial);
+}
+
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) {
@@ -890,8 +919,9 @@ function setupSorting() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupSorting();
+  initTheme();          // ⬅ add this line
 
+  setupSorting();
   // Initial load
   updateDashboard();
 
@@ -902,6 +932,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (refreshButton) {
     refreshButton.addEventListener("click", () => {
       updateDashboard();
+    });
+  }
+
+  const themeToggle = document.getElementById("theme-toggle");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const isDark = document.body.getAttribute("data-theme") === "dark";
+      const next = isDark ? "light" : "dark";
+      applyTheme(next);
+      updateThemeToggleLabel(next);
+      localStorage.setItem(PB_THEME_KEY, next);
     });
   }
 
