@@ -93,51 +93,39 @@ body {
   gap: 0.5rem;
 }
 
-/* Theme toggle */
+/* Shared header buttons: Refresh + Theme toggle */
 
+.pb-refresh,
 .pb-theme-toggle {
-  border: 1px solid var(--pb-border);
-  background: #eef2ff;
-  color: var(--pb-text);
-  padding: 0.4rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  cursor: pointer;
-}
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-.pb-theme-toggle:hover {
-  background: #e0e7ff;
+  padding: 0.5rem 0.9rem;   /* same internal spacing */
+  border-radius: 999px;
+  font-size: 0.85rem;       /* same text size */
+  line-height: 1;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
 }
 
 /* Refresh button */
-
 .pb-refresh {
-  border: 1px solid var(--pb-accent);
+  border-color: var(--pb-accent);
   background: var(--pb-accent);
   color: #ffffff;
-  padding: 0.5rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  cursor: pointer;
 }
 
 .pb-refresh:hover {
   background: #3e5ad1;
 }
 
+/* Base theme toggle (will be tinted per theme) */
 .pb-theme-toggle {
-  border: 1px solid var(--pb-border);
+  border-color: var(--pb-border);
   background: #0f172a;
   color: var(--pb-muted);
-  padding: 0.45rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  margin-left: 0.5rem;
-}
-
-.pb-theme-toggle:hover {
-  background: #111827;
 }
 
 /* subtle inverted look in light theme */
@@ -146,10 +134,18 @@ body[data-theme="light"] .pb-theme-toggle {
   color: var(--pb-muted);
 }
 
-/* bright-ish in dark theme */
+/* brighter in dark theme */
 body[data-theme="dark"] .pb-theme-toggle {
   background: #111827;
   color: #e5e7eb;
+}
+
+/* Option B: gentle “pressed” feedback */
+.pb-refresh:active,
+.pb-theme-toggle:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
 }
 
 /* Layout */
@@ -705,23 +701,6 @@ body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-warn td {
 
 body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-bad td {
   background-color: rgba(248, 113, 113, 0.18);
-}
-
-/* Match Refresh + Theme Toggle button sizing */
-.pb-refresh,
-.pb-theme-toggle {
-  padding: 0.5rem 1rem;        /* same internal spacing */
-  font-size: 0.85rem;          /* unify text size */
-  border-radius: 999px;        /* same rounded pill */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.pb-refresh:active {
-  transform: scale(0.97);
-  opacity: 0.85;
-  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
 }
 
 /* Mobile */
