@@ -271,6 +271,64 @@ body {
   transform: translateX(-50%) translateY(-7px); /* softer pop */
 }
 
+/* Tooltip for lines like "Pi local time" and "Config loaded" */
+.pb-tooltip-line {
+  position: relative;
+  cursor: default;
+}
+
+.pb-tooltip-line::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  top: -0.35rem;
+  transform: translateY(-100%) translateX(0);
+  background: rgba(15, 23, 42, 0.95); /* same as sparkline */
+  color: #f9fafb;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  white-space: pre;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+  z-index: 30;
+}
+
+.pb-tooltip-line:hover::after {
+  opacity: 1;
+  transform: translateY(-120%) translateX(0);
+}
+
+.pb-tooltip {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  transform: translateY(4px);
+  background: rgba(15, 23, 42, 0.95);
+  color: #f9fafb;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  white-space: pre-line;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+  z-index: 30;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+}
+
+.pb-tooltip-parent {
+  position: relative;
+  display: inline-block;
+}
+
+.pb-tooltip-parent:hover .pb-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Copy-as-JSON icon button in Notes column */
 .pb-copy-btn {
   border: none;

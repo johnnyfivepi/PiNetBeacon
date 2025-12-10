@@ -632,8 +632,6 @@ function renderTable(entries) {
         const summaryText = buildSparklineSummary(latencyHistory, "ms");
         tooltip.textContent = summaryText;
 
-        // Native browser tooltip as a fallback
-
         wrapper.appendChild(svg);
         wrapper.appendChild(tooltip);
         tdLatencySpark.appendChild(wrapper);
@@ -708,8 +706,6 @@ function renderTable(entries) {
         );
         tooltipDns.textContent = summaryTextDns;
 
-        // Native browser tooltip fallback
-
         wrapperDns.appendChild(svgDns);
         wrapperDns.appendChild(tooltipDns);
         tdDnsSpark.appendChild(wrapperDns);
@@ -765,7 +761,6 @@ async function updateDashboard() {
     }
 
     const summary = computeSummary(entries);
-
     renderSummary(summary);
     renderTable(entries);
 
@@ -774,8 +769,10 @@ async function updateDashboard() {
       healthEl.textContent = JSON.stringify(health, null, 2);
     }
 
-    // Show Pi local time (from /api/health) under "Recent checks"
+    // ----- Pi local time + tooltip -----
     const piTimeEl = document.getElementById("pi-time");
+    const piTimeTooltipEl = document.getElementById("pi-time-tooltip");
+
     if (piTimeEl && health && health.server_local) {
       const formatted = formatLocalPiTime(health.server_local);
 
@@ -791,15 +788,22 @@ async function updateDashboard() {
         }
       }
 
-      // Tooltip with raw timestamp
-      piTimeEl.title = `Raw Pi local: ${health.server_local}\nRaw Pi UTC: ${health.server_utc || "n/a"}`;
+      // Remove native tooltip and feed our custom bubble
+      piTimeEl.removeAttribute("title");
+      if (piTimeTooltipEl) {
+        piTimeTooltipEl.textContent =
+          `Raw Pi local: ${health.server_local}\n` +
+          `Raw Pi UTC: ${health.server_utc || "n/a"}`;
+      }
 
       // Immediately render a nice label; the 1-second timer will keep it fresh
       updatePiTimeLabel();
     }
 
-    // Config autoload indicator  
+    // ----- Config autoload indicator + tooltip -----
     const configEl = document.getElementById("config-status");
+    const configTooltipEl = document.getElementById("config-tooltip");
+
     if (configEl && health && health.config_last_loaded) {
       const loadedTs = health.config_last_loaded;
 
@@ -819,7 +823,12 @@ async function updateDashboard() {
 
       configEl.innerHTML =
         `<span class="pb-emoji">🔄</span> Config loaded ${ageLabel}`;
-      configEl.title = `Raw timestamp: ${loadedTs}`;
+
+      // Remove native tooltip and feed our custom bubble
+      configEl.removeAttribute("title");
+      if (configTooltipEl) {
+        configTooltipEl.textContent = `Raw timestamp: ${loadedTs}`;
+      }
     }
 
   } catch (err) {
@@ -898,4 +907,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setInterval(updateDashboard, 30000);
 });
-
