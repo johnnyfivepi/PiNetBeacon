@@ -306,17 +306,25 @@ body {
   left: 0;
   top: 100%;
   transform: translateY(4px);
-  background: rgba(15, 23, 42, 0.95);
-  color: #f9fafb;
+
+  /* match sparkline bubble */
+  background: rgba(30, 41, 59, 0.75);
+  backdrop-filter: blur(4px);
+
+  color: #f1f5f9;
   padding: 0.25rem 0.55rem;
-  border-radius: 6px;
-  font-size: 0.7rem;
+  border-radius: 8px;      /* match sparkline bubble radius */
+  font-size: 0.68rem;      /* match sparkline text size */
   white-space: pre-line;
+
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
-  z-index: 30;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
 }
 
 .pb-tooltip-parent {
