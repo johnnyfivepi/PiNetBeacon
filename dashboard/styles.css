@@ -681,55 +681,44 @@ body[data-theme="dark"] .pb-card {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
 }
 
-/* Table header + zebra rows */
-body[data-theme="dark"] .pb-table thead {
-  background: #020617;
-}
-
-body[data-theme="dark"] .pb-table tbody tr:nth-child(odd) td {
-  background: rgba(15, 23, 42, 0.96);
-}
-
-body[data-theme="dark"] .pb-table tbody tr:nth-child(even) td {
-  background: rgba(15, 23, 42, 0.93);
-}
-
-/* DNS row highlights — softer tints on dark */
-body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-ok td {
-  background-color: rgba(22, 163, 74, 0.15);
-}
-
-body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-warn td {
-  background-color: rgba(245, 158, 11, 0.18);
-}
-
-body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-bad td {
-  background-color: rgba(248, 113, 113, 0.2);
-}
-
 /* Availability bar background */
 body[data-theme="dark"] .pb-availability-bar {
   background-color: #111827;
-}
-
-/* Status badges – less “chalky” on dark */
-body[data-theme="dark"] .pb-status-badge--up {
-  background: rgba(22, 163, 74, 0.15);
-  color: #6ee7b7;
-}
-
-body[data-theme="dark"] .pb-status-badge--down {
-  background: rgba(248, 113, 113, 0.18);
-  color: #fecaca;
-}
-
-body[data-theme="dark"] .pb-status-badge--warn {
-  background: rgba(245, 158, 11, 0.18);
-  color: #fed7aa;
 }
 
 /* Health panel */
 body[data-theme="dark"] .pb-health {
   background: #020617;
   border-color: #1f2937;
+}
+
+/* === Dark mode table backgrounds === */
+
+/* Header row */
+body[data-theme="dark"] .pb-table thead {
+  background: #020617;
+}
+
+/* Reset the light zebra striping */
+body[data-theme="dark"] .pb-table tbody tr:nth-child(even),
+body[data-theme="dark"] .pb-table tbody tr:nth-child(odd) {
+  background: transparent;
+}
+
+/* Base row background */
+body[data-theme="dark"] .pb-table tbody tr td {
+  background: rgba(15, 23, 42, 0.96);
+}
+
+/* DNS row highlights on top of dark base */
+body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-ok td {
+  background-color: rgba(22, 163, 74, 0.14);
+}
+
+body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-warn td {
+  background-color: rgba(245, 158, 11, 0.16);
+}
+
+body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-bad td {
+  background-color: rgba(248, 113, 113, 0.18);
 }
