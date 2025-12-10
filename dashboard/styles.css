@@ -307,24 +307,22 @@ body {
   top: 100%;
   transform: translateY(4px);
 
-  /* match sparkline bubble */
-  background: rgba(30, 41, 59, 0.75);
-  backdrop-filter: blur(4px);
+  /* Keep same tone but slightly more opaque */
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(6px);
 
   color: #f1f5f9;
-  padding: 0.25rem 0.55rem;
-  border-radius: 8px;      /* match sparkline bubble radius */
-  font-size: 0.68rem;      /* match sparkline text size */
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
   white-space: pre-line;
 
   opacity: 0;
   pointer-events: none;
 
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
-
-  transition:
-    opacity 0.15s ease-out,
-    transform 0.15s ease-out;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  z-index: 40;  /* ensure it sits above text */
 }
 
 .pb-tooltip-parent {
