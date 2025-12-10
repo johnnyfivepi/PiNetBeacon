@@ -31,17 +31,21 @@ body[data-theme="dark"] {
   --pb-success: #22c55e;
 }
 
-/* A couple of small helpers look nicer in dark */
-body[data-theme="dark"] .pb-table thead {
-  background: var(--pb-accent-soft);
+/* === Dark mode status badges === */
+
+body[data-theme="dark"] .pb-status-badge--up {
+  background: rgba(22, 163, 74, 0.18);
+  color: #bbf7d0; /* light emerald */
 }
 
-body[data-theme="dark"] .pb-refresh {
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.5);
+body[data-theme="dark"] .pb-status-badge--down {
+  background: rgba(248, 113, 113, 0.20);
+  color: #fecaca;
 }
 
-body[data-theme="dark"] .pb-theme-toggle {
-  background: #020617;
+body[data-theme="dark"] .pb-status-badge--warn {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fed7aa;
 }
 
 *,
