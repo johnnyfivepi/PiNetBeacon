@@ -718,6 +718,12 @@ body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-bad td {
   justify-content: center;
 }
 
+.pb-refresh:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+}
+
 /* Mobile */
 
 @media (max-width: 640px) {
