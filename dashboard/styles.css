@@ -644,22 +644,6 @@ body[data-theme="dark"] .pb-theme-toggle {
   padding: 1rem 0 1.5rem;
 }
 
-/* Mobile */
-
-@media (max-width: 640px) {
-  .pb-header {
-    padding: 1rem;
-  }
-
-  .pb-main {
-    padding: 0 1rem;
-  }
-
-  .pb-table {
-    font-size: 0.8rem;
-  }
-}
-
 /* === Dark mode specific tweaks === */
 
 /* Header bar */
@@ -721,4 +705,31 @@ body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-warn td {
 
 body[data-theme="dark"] .pb-table tbody tr.pb-row-dns-bad td {
   background-color: rgba(248, 113, 113, 0.18);
+}
+
+/* Match Refresh + Theme Toggle button sizing */
+.pb-refresh,
+.pb-theme-toggle {
+  padding: 0.5rem 1rem;        /* same internal spacing */
+  font-size: 0.85rem;          /* unify text size */
+  border-radius: 999px;        /* same rounded pill */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .pb-header {
+    padding: 1rem;
+  }
+
+  .pb-main {
+    padding: 0 1rem;
+  }
+
+  .pb-table {
+    font-size: 0.8rem;
+  }
 }
