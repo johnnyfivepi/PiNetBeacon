@@ -196,6 +196,20 @@ function getSortLabel(column, direction) {
   }
 }
 
+// Smoothly scroll to the top of the table area (used by filter buttons)
+function scrollToTableTop() {
+  const table = document.getElementById("checks-table");
+  if (!table) return;
+
+  const y = table.getBoundingClientRect().top + window.scrollY - 40; // small offset
+  window.scrollTo({ top: y, behavior: "smooth" });
+}
+
+// Smoothly scroll to the very top of the page (used by Reset View)
+function scrollToInitialView() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 function updateSortStatus() {
   const bar = document.getElementById("sort-status");
   const labelEl = document.getElementById("sort-status-label");
@@ -1025,6 +1039,13 @@ function setupSorting() {
   });
 }
 
+function scrollToTableTop() {
+  const sectionHeader = document.querySelector(".pb-section-header h2");
+  if (sectionHeader && sectionHeader.scrollIntoView) {
+    sectionHeader.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
 function resetView(options = {}) {
   const { scroll = false } = options;
 
@@ -1056,12 +1077,9 @@ function resetView(options = {}) {
   updateSortStatus();
   renderTable(currentEntries);
 
-  // Optional scroll-to-table
+  // only scroll if we asked for it
   if (scroll) {
-    const tableWrapper = document.querySelector(".pb-table-wrapper");
-    if (tableWrapper && tableWrapper.scrollIntoView) {
-      tableWrapper.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    scrollToTableTop();
   }
 }
 
@@ -1082,20 +1100,14 @@ function setupFilterBar() {
 
       // Update active styling
       buttons.forEach((b) =>
-        b.classList.toggle(
-          "pb-filter-btn--active",
-          b === btn
-        )
+        b.classList.toggle("pb-filter-btn--active", b === btn)
       );
 
       // Re-render using current entries + sort
       renderTable(currentEntries);
 
-      // Smooth scroll to table when logs are long
-      const tableWrapper = document.querySelector(".pb-table-wrapper");
-      if (tableWrapper && tableWrapper.scrollIntoView) {
-        tableWrapper.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      // Smooth scroll to table top (✔ replaced from earlier version)
+      scrollToTableTop();
     });
   });
 
@@ -1103,7 +1115,7 @@ function setupFilterBar() {
   const resetBtn = document.getElementById("reset-view-btn");
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
-      resetView({ scroll: true });
+      resetView();
     });
   }
 }
