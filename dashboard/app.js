@@ -465,6 +465,50 @@ function updateAvailabilityBar(availPercent) {
   }
 }
 
+function updateFilterCounts(entries) {
+  const bar = document.getElementById("filter-bar");
+  if (!bar) return;
+
+  const allBtn = bar.querySelector('[data-filter="all"]');
+  const problemsBtn = bar.querySelector('[data-filter="problems"]');
+  const dnsBtn = bar.querySelector('[data-filter="dns"]');
+
+  if (!allBtn && !problemsBtn && !dnsBtn) return;
+
+  const total = entries.length;
+
+  let problems = 0;
+  let dnsIssues = 0;
+
+  for (const e of entries) {
+    const hasDnsIssue =
+      e.dns_status &&
+      e.dns_status !== "ok" &&
+      e.dns_status !== "healthy";
+
+    const isDown = e.status && e.status !== "up";
+
+    if (hasDnsIssue) dnsIssues++;
+    if (isDown || hasDnsIssue) problems++;
+  }
+
+  const labelWithCount = (base, count) =>
+    count > 0 ? `${base} (${count})` : base;
+
+  if (allBtn) {
+    allBtn.textContent =
+      total > 0 ? `All checks (${total})` : "All checks";
+  }
+
+  if (problemsBtn) {
+    problemsBtn.textContent = labelWithCount("Only problems", problems);
+  }
+
+  if (dnsBtn) {
+    dnsBtn.textContent = labelWithCount("DNS issues", dnsIssues);
+  }
+}
+
 // Build a small history of numeric metric values for a given target_host
 function buildMetricHistory(allEntries, targetHost, metricKey, maxPoints) {
   if (!targetHost) return [];
@@ -848,6 +892,7 @@ async function updateDashboard() {
 
     const entries = logs.entries || [];
     currentEntries = entries; // save for re-sorting
+    updateFilterCounts(entries);
 
     if (!sortState.column) {
       updateSortStatus(); // keeps bar hidden until you sort
@@ -980,6 +1025,46 @@ function setupSorting() {
   });
 }
 
+function resetView(options = {}) {
+  const { scroll = false } = options;
+
+  // Reset sort
+  sortState.column = null;
+  sortState.direction = "asc";
+
+  const headers = document.querySelectorAll("#checks-table th[data-sort]");
+  headers.forEach((h) => {
+    h.classList.remove("pb-sort-asc", "pb-sort-desc");
+  });
+
+  // Reset filter
+  filterState = "all";
+
+  const bar = document.getElementById("filter-bar");
+  if (bar) {
+    const buttons = bar.querySelectorAll(".pb-filter-btn");
+    buttons.forEach((btn) => {
+      const value = btn.getAttribute("data-filter");
+      btn.classList.toggle(
+        "pb-filter-btn--active",
+        value === "all"
+      );
+    });
+  }
+
+  // Update UI
+  updateSortStatus();
+  renderTable(currentEntries);
+
+  // Optional scroll-to-table
+  if (scroll) {
+    const tableWrapper = document.querySelector(".pb-table-wrapper");
+    if (tableWrapper && tableWrapper.scrollIntoView) {
+      tableWrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+}
+
 function setupFilterBar() {
   const bar = document.getElementById("filter-bar");
   if (!bar) return;
@@ -987,6 +1072,7 @@ function setupFilterBar() {
   const buttons = bar.querySelectorAll(".pb-filter-btn");
   if (!buttons.length) return;
 
+  // Wire filter pills
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const value = btn.getAttribute("data-filter");
@@ -994,7 +1080,7 @@ function setupFilterBar() {
 
       filterState = value;
 
-      // update active styling
+      // Update active styling
       buttons.forEach((b) =>
         b.classList.toggle(
           "pb-filter-btn--active",
@@ -1002,10 +1088,24 @@ function setupFilterBar() {
         )
       );
 
-      // re-render using current entries + sort
+      // Re-render using current entries + sort
       renderTable(currentEntries);
+
+      // Smooth scroll to table when logs are long
+      const tableWrapper = document.querySelector(".pb-table-wrapper");
+      if (tableWrapper && tableWrapper.scrollIntoView) {
+        tableWrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   });
+
+  // Wire "Reset view" pill
+  const resetBtn = document.getElementById("reset-view-btn");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      resetView({ scroll: true });
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
