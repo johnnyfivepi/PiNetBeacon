@@ -526,6 +526,54 @@ body[data-theme="dark"] .pb-theme-toggle {
   margin-bottom: 0.5rem;
 }
 
+/* Filter bar above table */
+
+.pb-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.25rem 0 0.35rem;
+  font-size: 0.8rem;
+}
+
+.pb-filter-btn {
+  border-radius: 999px;
+  border: 1px solid var(--pb-border);
+  background: #f9fafb;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--pb-muted);
+}
+
+.pb-filter-btn:hover {
+  background: #eef2ff;
+  border-color: var(--pb-accent);
+}
+
+.pb-filter-btn--active {
+  background: var(--pb-accent);
+  border-color: var(--pb-accent);
+  color: #ffffff;
+}
+
+/* Dark mode tweaks */
+body[data-theme="dark"] .pb-filter-btn {
+  background: #020617;
+  color: var(--pb-muted);
+  border-color: #1f2937;
+}
+
+body[data-theme="dark"] .pb-filter-btn:hover {
+  background: #111827;
+}
+
+body[data-theme="dark"] .pb-filter-btn--active {
+  background: var(--pb-accent);
+  border-color: var(--pb-accent);
+  color: #f9fafb;
+}
+
 /* DNS-based row highlighting (overrides zebra striping) */
 .pb-table tbody tr.pb-row-dns-ok td {
   background-color: #f0fdf4; /* soft green */

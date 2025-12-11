@@ -157,12 +157,14 @@ function computeSummary(entries) {
 }
 
 // Sorting state & helper
-
 let currentEntries = [];
 let sortState = {
   column: null, // "time", "latency", etc.
   direction: "asc",
 };
+
+// Filter state
+let filterState = "all"; // "all" | "problems" | "dns"
 
 // ---- Pi time state ----
 let lastPiTimeDisplay = null; // pretty formatted local time
@@ -599,9 +601,19 @@ function renderTable(entries) {
   if (!entries.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 10; // matches the 10 columns in the table header
+    td.colSpan = 10;
     td.textContent =
       "No log entries found yet. Try running pinetbeacon_check.py.";
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+
+  if (!rowsToRender.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 10;
+    td.textContent = "No checks match this filter.";
     tr.appendChild(td);
     tbody.appendChild(tr);
     return;
@@ -610,7 +622,32 @@ function renderTable(entries) {
   // Order entries (newest first by default, or sorted by column)
   const ordered = sortEntries(entries);
 
-  for (const entry of ordered) {
+  // Apply filter on top of sorting
+  const filtered = ordered.filter((entry) => {
+    if (filterState === "problems") {
+      const isDown = entry.status && entry.status !== "up";
+      const hasDnsIssue =
+        entry.dns_status &&
+        entry.dns_status !== "ok" &&
+        entry.dns_status !== "healthy";
+      return isDown || hasDnsIssue;
+    }
+
+    if (filterState === "dns") {
+      return (
+        entry.dns_status &&
+        entry.dns_status !== "ok" &&
+        entry.dns_status !== "healthy"
+      );
+    }
+
+    // default: "all"
+    return true;
+  });
+
+  const rowsToRender = filtered;
+
+  for (const entry of rowsToRender) {
     const tr = document.createElement("tr");
 
     // Color the row based on DNS status
@@ -938,9 +975,38 @@ function setupSorting() {
   });
 }
 
+function setupFilterBar() {
+  const bar = document.getElementById("filter-bar");
+  if (!bar) return;
+
+  const buttons = bar.querySelectorAll(".pb-filter-btn");
+  if (!buttons.length) return;
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const value = btn.getAttribute("data-filter");
+      if (!value) return;
+
+      filterState = value;
+
+      // update active styling
+      buttons.forEach((b) =>
+        b.classList.toggle(
+          "pb-filter-btn--active",
+          b === btn
+        )
+      );
+
+      // re-render using current entries + sort
+      renderTable(currentEntries);
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   setupSorting();
+  setupFilterBar();
 
   // Initial load
   updateDashboard();

@@ -23,6 +23,7 @@
     </header>
 
     <main class="pb-main">
+
       <!-- Top metric cards -->
       <section class="pb-section">
         <div class="pb-cards">
@@ -71,6 +72,19 @@
         <div class="pb-tooltip-parent">
           <div id="pi-time" class="pb-section-note"></div>
           <div id="pi-time-tooltip" class="pb-tooltip"></div>
+        </div>
+        
+        <!-- 🔎 Filter bar -->
+        <div id="pb-filter-bar" class="pb-filter-bar">
+          <button class="pb-filter-btn pb-filter-btn--active" data-filter="all">
+            All checks
+          </button>
+          <button class="pb-filter-btn" data-filter="problems">
+            Only problems
+          </button>
+          <button class="pb-filter-btn" data-filter="dns">
+            DNS issues
+          </button>
         </div>
         <div id="user-time" class="pb-section-note"></div>
         <div class="pb-tooltip-parent">
