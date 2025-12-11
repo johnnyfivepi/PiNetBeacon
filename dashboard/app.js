@@ -196,20 +196,6 @@ function getSortLabel(column, direction) {
   }
 }
 
-// Smoothly scroll to the top of the table area (used by filter buttons)
-function scrollToTableTop() {
-  const table = document.getElementById("checks-table");
-  if (!table) return;
-
-  const y = table.getBoundingClientRect().top + window.scrollY - 40; // small offset
-  window.scrollTo({ top: y, behavior: "smooth" });
-}
-
-// Smoothly scroll to the very top of the page (used by Reset View)
-function scrollToInitialView() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
 function updateSortStatus() {
   const bar = document.getElementById("sort-status");
   const labelEl = document.getElementById("sort-status-label");
@@ -1105,17 +1091,13 @@ function setupFilterBar() {
 
       // Re-render using current entries + sort
       renderTable(currentEntries);
-
-      // Smooth scroll to table top (✔ replaced from earlier version)
-      scrollToTableTop();
     });
   });
 
-  // Wire "Reset view" pill
   const resetBtn = document.getElementById("reset-view-btn");
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
-      resetView();
+      resetView(); // no scroll
     });
   }
 }
