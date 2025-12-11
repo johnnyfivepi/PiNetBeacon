@@ -69,31 +69,48 @@
           </p>
         </div>
 
+        <!-- Pi local time line + tooltip -->
         <div class="pb-tooltip-parent">
           <div id="pi-time" class="pb-section-note"></div>
           <div id="pi-time-tooltip" class="pb-tooltip"></div>
         </div>
-        
-        <!-- 🔎 Filter bar -->
-        <div id="pb-filter-bar" class="pb-filter-bar">
-          <button class="pb-filter-btn pb-filter-btn--active" data-filter="all">
-            All checks
-          </button>
-          <button class="pb-filter-btn" data-filter="problems">
-            Only problems
-          </button>
-          <button class="pb-filter-btn" data-filter="dns">
-            DNS issues
-          </button>
-        </div>
+
+        <!-- Optional "your browser time" line -->
         <div id="user-time" class="pb-section-note"></div>
+
+        <!-- Config autoload line + tooltip -->
         <div class="pb-tooltip-parent">
           <div id="config-status" class="pb-section-note"></div>
           <div id="config-tooltip" class="pb-tooltip"></div>
         </div>
 
+        <!-- 🔍 Filter bar -->
+        <div id="filter-bar" class="pb-filter-bar">
+          <button
+            class="pb-filter-btn pb-filter-btn--active"
+            data-filter="all"
+            type="button"
+          >
+            All checks
+          </button>
+          <button
+            class="pb-filter-btn"
+            data-filter="problems"
+            type="button"
+          >
+            Only problems
+          </button>
+          <button
+            class="pb-filter-btn"
+            data-filter="dns"
+            type="button"
+          >
+            DNS issues
+          </button>
+        </div>
+
         <div class="pb-table-wrapper">
-          <!-- Table sort status & reset button now live here, above the table -->
+          <!-- Sort status bar lives just above the table -->
           <div class="pb-sort-status" id="sort-status">
             <span id="sort-status-label"></span>
             <button
@@ -120,13 +137,7 @@
                 <th>Notes</th>
               </tr>
             </thead>
-            <tbody id="checks-tbody">
-              <tr>
-                <td colspan="10">
-                  Waiting for data from <code>/api/logs/latest</code>…
-                </td>
-              </tr>
-            </tbody>
+            <tbody id="checks-tbody"></tbody>
           </table>
         </div>
       </section>
