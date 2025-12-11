@@ -598,10 +598,11 @@ function renderTable(entries) {
 
   tbody.innerHTML = "";
 
+  // No log entries at all
   if (!entries.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 10;
+    td.colSpan = 10; // matches the 10 columns in the table header
     td.textContent =
       "No log entries found yet. Try running pinetbeacon_check.py.";
     tr.appendChild(td);
@@ -609,20 +610,10 @@ function renderTable(entries) {
     return;
   }
 
-  if (!rowsToRender.length) {
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.colSpan = 10;
-    td.textContent = "No checks match this filter.";
-    tr.appendChild(td);
-    tbody.appendChild(tr);
-    return;
-  }
-
-  // Order entries (newest first by default, or sorted by column)
+  // 1) Order entries (newest first by default, or sorted by column)
   const ordered = sortEntries(entries);
 
-  // Apply filter on top of sorting
+  // 2) Apply filter on top of sorting
   const filtered = ordered.filter((entry) => {
     if (filterState === "problems") {
       const isDown = entry.status && entry.status !== "up";
@@ -645,8 +636,21 @@ function renderTable(entries) {
     return true;
   });
 
+  // 3) Final rows to render
   const rowsToRender = filtered;
 
+  // If we have entries overall, but none match this filter
+  if (!rowsToRender.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 10;
+    td.textContent = "No checks match this filter.";
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+
+  // 4) Build table rows
   for (const entry of rowsToRender) {
     const tr = document.createElement("tr");
 
@@ -780,7 +784,10 @@ function renderTable(entries) {
     );
 
     if (dnsLatencyHistory.length >= 2) {
-      const svgDns = createSparklineSvg(dnsLatencyHistory, "pb-sparkline--dns");
+      const svgDns = createSparklineSvg(
+        dnsLatencyHistory,
+        "pb-sparkline--dns"
+      );
       if (svgDns) {
         const wrapperDns = document.createElement("div");
         wrapperDns.className = "pb-sparkline-wrapper";
@@ -806,7 +813,6 @@ function renderTable(entries) {
     // Notes + "copy as JSON" action
     const tdNotes = document.createElement("td");
 
-    // Tiny copy button
     const copyBtn = document.createElement("button");
     copyBtn.type = "button";
     copyBtn.className = "pb-copy-btn";
@@ -819,7 +825,6 @@ function renderTable(entries) {
 
     tdNotes.appendChild(copyBtn);
 
-    // Optional notes text after the icon
     if (entry.notes) {
       const notesSpan = document.createElement("span");
       notesSpan.className = "pb-notes-text";
