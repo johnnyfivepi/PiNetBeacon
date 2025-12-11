@@ -557,6 +557,13 @@ body[data-theme="dark"] .pb-theme-toggle {
   color: #ffffff;
 }
 
+/* Keep active filter readable on hover (light theme) */
+.pb-filter-btn--active:hover {
+  background: var(--pb-accent);
+  border-color: var(--pb-accent);
+  color: #ffffff;
+}
+
 /* Dark mode tweaks */
 body[data-theme="dark"] .pb-filter-btn {
   background: #020617;
