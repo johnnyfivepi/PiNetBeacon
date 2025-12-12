@@ -487,43 +487,33 @@ body[data-theme="dark"] .pb-theme-toggle {
 }
 
 /* Sortable table header */
-
 .pb-sortable {
   cursor: pointer;
   user-select: none;
   position: relative;
-  padding-right: 1.1rem; /* space for arrow */
+
+  /* Base th padding is 0.75rem; this adds real room for the arrow */
+  padding-right: 2.0rem;
 }
 
+/* Arrow */
 .pb-sortable::after {
-  content: "";
   position: absolute;
-  right: 0.35rem;
+  right: 0.65rem;
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.7rem;
-  opacity: 0.45;
+  opacity: 0.55;
+  line-height: 1;
 }
 
-/* Arrow directions */
-.pb-sort-asc::after {
+/* Only show an arrow when actively sorted */
+.pb-sortable.pb-sort-asc::after {
   content: "▲";
 }
 
-.pb-sort-desc::after {
+.pb-sortable.pb-sort-desc::after {
   content: "▼";
-}
-
-/* Visible state for the sort bar */
-.pb-sort-status.pb-sort-status--visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-
-  /* Give it space + room for the content when shown */
-  max-height: 40px;      /* just needs to be taller than one line + button */
-  margin-top: 0.35rem;
-  margin-bottom: 0.5rem;
 }
 
 /* Filter bar above table */
