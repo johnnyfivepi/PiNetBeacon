@@ -84,31 +84,33 @@
           <div id="config-tooltip" class="pb-tooltip"></div>
         </div>
 
-        <!-- 🔍 Filter bar + "Reset view" pill -->
-        <div class="pb-filter-row">
-          <div id="filter-bar" class="pb-filter-bar">
-            <button
-              class="pb-filter-btn pb-filter-btn--active"
-              data-filter="all"
-              type="button"
-            >
-              All checks
-            </button>
-            <button
-              class="pb-filter-btn"
-              data-filter="problems"
-              type="button"
-            >
-              Only problems
-            </button>
-            <button
-              class="pb-filter-btn"
-              data-filter="dns"
-              type="button"
-            >
-              DNS issues
-            </button>
-          </div>
+        <!-- 🔍 Filter bar -->
+        <div id="filter-bar" class="pb-filter-bar">
+          <button
+            class="pb-filter-btn pb-filter-btn--active"
+            data-filter="all"
+            data-label="All checks"
+            type="button"
+          >
+            All checks
+          </button>
+          <button
+            class="pb-filter-btn"
+            data-filter="problems"
+            data-label="Only problems"
+            type="button"
+          >
+            Only problems
+          </button>
+          <button
+            class="pb-filter-btn"
+            data-filter="dns"
+            data-label="DNS issues"
+            type="button"
+          >
+            DNS issues
+          </button>
+        </div>
 
           <button
             id="reset-view-btn"

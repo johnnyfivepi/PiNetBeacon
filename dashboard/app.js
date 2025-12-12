@@ -166,6 +166,66 @@ let sortState = {
 // Filter state
 let filterState = "all"; // "all" | "problems" | "dns"
 
+// --- Filter counts (for badges in the buttons) ---
+function computeFilterCounts(entries) {
+  const total = entries.length;
+
+  let problems = 0;
+  let dnsIssues = 0;
+
+  for (const e of entries) {
+    const hasDnsIssue =
+      e.dns_status &&
+      e.dns_status !== "ok" &&
+      e.dns_status !== "healthy";
+
+    const isDown = e.status && e.status !== "up";
+
+    if (isDown || hasDnsIssue) {
+      problems += 1;
+    }
+
+    if (hasDnsIssue) {
+      dnsIssues += 1;
+    }
+  }
+
+  return { total, problems, dnsIssues };
+}
+
+function updateFilterCounts(entries) {
+  const bar = document.getElementById("filter-bar");
+  if (!bar) return;
+
+  const buttons = bar.querySelectorAll(".pb-filter-btn");
+  if (!buttons.length) return;
+
+  const counts = computeFilterCounts(entries);
+
+  buttons.forEach((btn) => {
+    const filter = btn.getAttribute("data-filter");
+    const baseLabel =
+      btn.getAttribute("data-label") ||
+      btn.textContent.replace(/\s*\(\d+\)$/u, ""); // safety fallback
+
+    let count = null;
+
+    if (filter === "all") {
+      count = counts.total;
+    } else if (filter === "problems") {
+      count = counts.problems;
+    } else if (filter === "dns") {
+      count = counts.dnsIssues;
+    }
+
+    if (count === null) {
+      btn.textContent = baseLabel;
+    } else {
+      btn.textContent = `${baseLabel} (${count})`;
+    }
+  });
+}
+
 // ---- Pi time state ----
 let lastPiTimeDisplay = null; // pretty formatted local time
 let lastPiFetchClientMs = null; // when we last fetched health (in ms)
@@ -892,6 +952,8 @@ async function updateDashboard() {
 
     const entries = logs.entries || [];
     currentEntries = entries; // save for re-sorting
+
+    // Update filter counts whenever new data comes in
     updateFilterCounts(entries);
 
     if (!sortState.column) {
