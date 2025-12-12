@@ -486,40 +486,33 @@ body[data-theme="dark"] .pb-theme-toggle {
   border-color: var(--pb-accent);
 }
 
-/* Sortable table header */
-.pb-sortable {
+/* Sortable table header (use higher specificity than .pb-table th) */
+.pb-table th.pb-sortable {
   cursor: pointer;
   user-select: none;
   position: relative;
 
-  /* IMPORTANT: leave enough space for the arrow so it never overlaps text */
-  padding-right: 2.1rem; /* was 1.1rem */
+  /* Reserve space so the arrow never overlaps the text */
+  padding-right: 2.1rem; /* bump as needed */
 }
 
-.pb-sortable::after {
+.pb-table th.pb-sortable::after {
   content: "";
   position: absolute;
-
-  /* Put the arrow in its own little lane on the far right */
   right: 0.65rem;
   top: 50%;
   transform: translateY(-50%);
-
-  width: 1rem;
-  text-align: right;
-
   font-size: 0.7rem;
   opacity: 0.45;
-
-  pointer-events: none; /* don't steal clicks */
+  pointer-events: none;
 }
 
 /* Arrow directions */
-.pb-sort-asc::after {
+.pb-table th.pb-sortable.pb-sort-asc::after {
   content: "▲";
 }
 
-.pb-sort-desc::after {
+.pb-table th.pb-sortable.pb-sort-desc::after {
   content: "▼";
 }
 
