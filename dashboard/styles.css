@@ -492,27 +492,34 @@ body[data-theme="dark"] .pb-theme-toggle {
   user-select: none;
   position: relative;
 
-  /* Base th padding is 0.75rem; this adds real room for the arrow */
-  padding-right: 2.0rem;
+  /* IMPORTANT: leave enough space for the arrow so it never overlaps text */
+  padding-right: 2.1rem; /* was 1.1rem */
 }
 
-/* Arrow */
 .pb-sortable::after {
+  content: "";
   position: absolute;
+
+  /* Put the arrow in its own little lane on the far right */
   right: 0.65rem;
   top: 50%;
   transform: translateY(-50%);
+
+  width: 1rem;
+  text-align: right;
+
   font-size: 0.7rem;
-  opacity: 0.55;
-  line-height: 1;
+  opacity: 0.45;
+
+  pointer-events: none; /* don't steal clicks */
 }
 
-/* Only show an arrow when actively sorted */
-.pb-sortable.pb-sort-asc::after {
+/* Arrow directions */
+.pb-sort-asc::after {
   content: "▲";
 }
 
-.pb-sortable.pb-sort-desc::after {
+.pb-sort-desc::after {
   content: "▼";
 }
 
