@@ -84,7 +84,7 @@
           <div id="config-tooltip" class="pb-tooltip"></div>
         </div>
 
-        <!-- 🔍 Filter bar -->
+        <!-- Filter row -->
         <div id="filter-bar" class="pb-filter-bar">
           <button
             class="pb-filter-btn pb-filter-btn--active"
@@ -94,32 +94,30 @@
           >
             All checks
           </button>
-          <button
-            class="pb-filter-btn"
-            data-filter="problems"
-            data-label="Only problems"
-            type="button"
-          >
+          <button class="pb-filter-btn" data-filter="problems" data-label="Only problems" type="button">
             Only problems
           </button>
-          <button
-            class="pb-filter-btn"
-            data-filter="dns"
-            data-label="DNS issues"
-            type="button"
-          >
+          <button class="pb-filter-btn" data-filter="dns" data-label="DNS issues" type="button">
             DNS issues
           </button>
 
-          <!-- Reset pill lives in the SAME flex row -->
-          <button
-            id="reset-view-btn"
-            class="pb-filter-reset-btn"
-            type="button"
-          >
+          <button id="reset-view-btn" class="pb-filter-reset-btn" type="button">
             Reset view
           </button>
         </div>
+
+        <div class="pb-table-wrapper">
+          <!-- Sort status bar lives just above the table -->
+          <div class="pb-sort-status" id="sort-status">
+            <span id="sort-status-label"></span>
+            <button
+              type="button"
+              id="sort-reset-btn"
+              title="Reset table sorting to newest-first order"
+            >
+              Reset sorting
+            </button>
+          </div>
 
           <table class="pb-table" id="checks-table">
             <thead>
