@@ -292,6 +292,14 @@ body[data-theme="dark"] .pb-theme-toggle {
   border-bottom: none;
 }
 
+/* Subtle row hover */
+.pb-table tbody tr:hover td {
+  filter: brightness(0.98);
+}
+body[data-theme="dark"] .pb-table tbody tr:hover td {
+  filter: brightness(1.08);
+}
+
 /* Keep the Time (UTC) column on a single line */
 .pb-table th:first-child,
 .pb-table td:first-child {
