@@ -237,8 +237,8 @@ body[data-theme="dark"] .pb-theme-toggle {
   padding: 0 0.75rem 0.75rem;
   background: var(--pb-surface);
 
-  overflow-x: auto;   /* ✅ allow sideways scroll if needed */
-  overflow-y: hidden; /* keep the rounded look */
+  overflow-x: auto;   /* keep horizontal scroll if needed */
+  overflow-y: visible; /* ✅ allows sticky headers to work */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -256,7 +256,7 @@ body[data-theme="dark"] .pb-theme-toggle {
 .pb-table thead th {
   position: sticky;
   top: 0;
-  z-index: 5; /* above rows */
+  z-index: 5;
   background: var(--pb-accent-soft);
 }
 
