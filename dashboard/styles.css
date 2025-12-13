@@ -252,6 +252,14 @@ body[data-theme="dark"] .pb-theme-toggle {
   background: var(--pb-accent-soft);
 }
 
+/* Sticky table header (keeps column names visible while scrolling) */
+.pb-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5; /* above rows */
+  background: var(--pb-accent-soft);
+}
+
 .pb-table th,
 .pb-table td {
   padding: 0.5rem 0.75rem;
@@ -742,6 +750,10 @@ body[data-theme="dark"] .pb-health {
 
 /* Header row */
 body[data-theme="dark"] .pb-table thead {
+  background: #020617;
+}
+
+body[data-theme="dark"] .pb-table thead th {
   background: #020617;
 }
 
