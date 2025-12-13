@@ -503,13 +503,12 @@ body[data-theme="dark"] .pb-theme-toggle {
   border-color: var(--pb-accent);
 }
 
-/* Sortable table header (use higher specificity than .pb-table th) */
+/* Sortable table header */
 .pb-table th.pb-sortable {
   cursor: pointer;
   user-select: none;
-
-  /* Reserve space so the arrow never overlaps the text */
-  padding-right: 1.8rem; /* bump as needed */
+  position: relative;     /* ✅ anchor ::after */
+  padding-right: 1.8rem;  /* space for arrow */
 }
 
 .pb-table th.pb-sortable::after {
@@ -523,21 +522,15 @@ body[data-theme="dark"] .pb-theme-toggle {
   pointer-events: none;
 }
 
-/* Arrow directions */
-.pb-table th.pb-sortable.pb-sort-asc::after {
-  content: "▲";
-}
+.pb-table th.pb-sortable.pb-sort-asc::after { content: "▲"; }
+.pb-table th.pb-sortable.pb-sort-desc::after { content: "▼"; }
 
-.pb-table th.pb-sortable.pb-sort-desc::after {
-  content: "▼";
-}
-
-/* Ensure sortable headers remain sticky (extra Safari safety) */
+/* Safari safety: keep sortable headers sticky */
 .pb-table thead th.pb-sortable {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 6; /* above body cells */
+  z-index: 6;
 }
 
 /* Filter bar above table */
