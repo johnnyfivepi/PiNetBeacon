@@ -236,9 +236,12 @@ body[data-theme="dark"] .pb-theme-toggle {
   border: 1px solid var(--pb-border);
   padding: 0 0.75rem 0.75rem;
   background: var(--pb-surface);
+  overflow: visible; /* <-- important for Safari sticky */
+}
 
-  overflow-x: auto;   /* keep horizontal scroll if needed */
-  overflow-y: visible; /* ✅ allows sticky headers to work */
+/* horizontal scrolling lives HERE instead */
+.pb-table-scroll {
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
