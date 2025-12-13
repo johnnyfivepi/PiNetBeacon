@@ -244,7 +244,8 @@ body[data-theme="dark"] .pb-theme-toggle {
 
 .pb-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate; /* <-- change from collapse */
+  border-spacing: 0;         /* keeps it looking the same */
   font-size: 0.9rem;
 }
 
@@ -252,7 +253,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   background: var(--pb-accent-soft);
 }
 
-/* Sticky table header (keeps column names visible while scrolling) */
+/* Sticky table header */
 .pb-table thead th {
   position: sticky;
   top: 0;
