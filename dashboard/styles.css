@@ -235,6 +235,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   border-radius: var(--pb-radius-lg);
   border: 1px solid var(--pb-border);
   padding: 0 0.75rem 0.75rem;
+  margin-bottom: 1.25rem;
   background: var(--pb-surface);
   overflow: hidden; /* OK here, because .pb-table-scroll is the scroller */
 }
