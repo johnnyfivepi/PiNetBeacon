@@ -532,6 +532,14 @@ body[data-theme="dark"] .pb-theme-toggle {
   content: "▼";
 }
 
+/* Ensure sortable headers remain sticky (extra Safari safety) */
+.pb-table thead th.pb-sortable {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 6; /* above body cells */
+}
+
 /* Filter bar above table */
 .pb-filter-bar {
   display: flex;
