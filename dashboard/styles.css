@@ -507,7 +507,6 @@ body[data-theme="dark"] .pb-theme-toggle {
 .pb-table th.pb-sortable {
   cursor: pointer;
   user-select: none;
-  position: relative;
 
   /* Reserve space so the arrow never overlaps the text */
   padding-right: 1.8rem; /* bump as needed */
