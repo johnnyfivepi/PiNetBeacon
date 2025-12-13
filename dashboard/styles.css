@@ -234,9 +234,12 @@ body[data-theme="dark"] .pb-theme-toggle {
 .pb-table-wrapper {
   border-radius: var(--pb-radius-lg);
   border: 1px solid var(--pb-border);
-  padding: 0 0.75rem 0.75rem;   /* ⬅ No top padding */
+  padding: 0 0.75rem 0.75rem;
   background: var(--pb-surface);
-  overflow: hidden;
+
+  overflow-x: auto;   /* ✅ allow sideways scroll if needed */
+  overflow-y: hidden; /* keep the rounded look */
+  -webkit-overflow-scrolling: touch;
 }
 
 .pb-table {
@@ -493,7 +496,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   position: relative;
 
   /* Reserve space so the arrow never overlaps the text */
-  padding-right: 2.1rem; /* bump as needed */
+  padding-right: 1.8rem; /* bump as needed */
 }
 
 .pb-table th.pb-sortable::after {
