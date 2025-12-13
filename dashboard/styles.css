@@ -236,13 +236,14 @@ body[data-theme="dark"] .pb-theme-toggle {
   border: 1px solid var(--pb-border);
   padding: 0 0.75rem 0.75rem;
   background: var(--pb-surface);
-  overflow: visible; /* <-- important for Safari sticky */
+  overflow: hidden; /* OK here, because .pb-table-scroll is the scroller */
 }
 
-/* horizontal scrolling lives HERE instead */
 .pb-table-scroll {
-  overflow-x: auto;
+  max-height: 70vh;      /* pick what feels good */
+  overflow: auto;        /* IMPORTANT: vertical + horizontal scrolling */
   -webkit-overflow-scrolling: touch;
+  position: relative;    /* helps z-index behave in Safari */
 }
 
 .pb-table {
@@ -258,6 +259,7 @@ body[data-theme="dark"] .pb-theme-toggle {
 
 /* Sticky table header */
 .pb-table thead th {
+  position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
   z-index: 5;
