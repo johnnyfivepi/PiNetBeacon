@@ -512,6 +512,24 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   border-color: var(--pb-accent);
 }
 
+/* Dark mode adjustments for sort status pills */
+body[data-theme="dark"] .pb-sort-status {
+  color: var(--pb-muted-dark);
+}
+
+body[data-theme="dark"] .pb-sort-label-btn,
+body[data-theme="dark"] .pb-sort-reset-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #e5e7eb; /* soft light text */
+}
+
+body[data-theme="dark"] .pb-sort-label-btn:hover,
+body[data-theme="dark"] .pb-sort-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--pb-accent);
+}
+
 /* Clickable "Sorted by..." label (looks like text) */
 .pb-sort-label-btn {
   border: none;
