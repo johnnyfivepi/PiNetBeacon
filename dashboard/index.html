@@ -107,15 +107,25 @@
         </div>
 
         <div class="pb-table-wrapper">
+          
           <!-- Sort status bar lives just above the table -->
           <div class="pb-sort-status" id="sort-status">
-            <span id="sort-status-label"></span>
+            <button
+              type="button"
+              id="sort-status-label"
+              class="pb-sort-label-btn"
+              title="Reset sorting to newest-first order"
+            >
+              <!-- JS will fill this text -->
+            </button>
+
             <button
               type="button"
               id="sort-reset-btn"
+              class="pb-sort-reset-btn"
               title="Reset table sorting to newest-first order"
             >
-              Reset sorting
+              Reset
             </button>
           </div>
 

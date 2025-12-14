@@ -269,30 +269,40 @@ function updateSortStatus() {
     : "";
 
   if (!hasSort || !label) {
-    // No active sort: hide the bar (no space used except its margin)
     bar.classList.remove("pb-sort-status--visible");
     labelEl.textContent = "";
+
+    // Optional: makes it feel less “clickable” when empty
+    labelEl.disabled = true;
   } else {
-    // Active sort: show + animate
     labelEl.textContent = label;
     bar.classList.add("pb-sort-status--visible");
+
+    labelEl.disabled = false;
   }
 
-  // Attach reset button only once
+  function resetSorting() {
+    sortState.column = null;
+    sortState.direction = "asc";
+
+    const headers = document.querySelectorAll("#checks-table th[data-sort]");
+    headers.forEach((h) => h.classList.remove("pb-sort-asc", "pb-sort-desc"));
+
+    updateSortStatus();
+    renderTable(currentEntries);
+  }
+
   if (!resetBtn.dataset.pbResetHooked) {
-    resetBtn.addEventListener("click", () => {
-      sortState.column = null;
-      sortState.direction = "asc";
-
-      const headers = document.querySelectorAll("#checks-table th[data-sort]");
-      headers.forEach((h) => {
-        h.classList.remove("pb-sort-asc", "pb-sort-desc");
-      });
-
-      updateSortStatus();
-      renderTable(currentEntries);
-    });
+    resetBtn.addEventListener("click", resetSorting);
     resetBtn.dataset.pbResetHooked = "true";
+  }
+
+  if (!labelEl.dataset.pbLabelHooked) {
+    labelEl.addEventListener("click", () => {
+      if (!sortState.column) return;
+      resetSorting();
+    });
+    labelEl.dataset.pbLabelHooked = "true";
   }
 }
 
