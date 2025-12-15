@@ -820,7 +820,7 @@ function renderTable(entries) {
     reset.className = "pb-empty-btn pb-empty-btn--primary";
     reset.textContent = "Reset view";
     reset.addEventListener("click", () => {
-      resetView({ scroll: true });
+      resetView();
     });
 
     actions.appendChild(reset);
