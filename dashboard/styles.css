@@ -512,11 +512,6 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   border-color: var(--pb-accent);
 }
 
-/* Dark mode adjustments for sort status pills */
-body[data-theme="dark"] .pb-sort-status {
-  color: var(--pb-muted-dark);
-}
-
 body[data-theme="dark"] .pb-sort-label-btn,
 body[data-theme="dark"] .pb-sort-reset-btn {
   background: rgba(255, 255, 255, 0.08);
@@ -550,6 +545,37 @@ body[data-theme="dark"] .pb-sort-reset-btn:hover {
   cursor: default;
   text-decoration: none;
   opacity: 0.5; /* keep it readable */
+}
+
+/* --- Sort bar visual hierarchy tweak (overrides) --- */
+
+/* Give the whole bar a subtle container feel */
+.pb-sort-status {
+  padding: 0.35rem 0.5rem;
+  border-radius: 12px;
+  background: rgba(76, 111, 255, 0.06);
+  border: 1px solid transparent;
+}
+
+/* Keep it subtle in dark mode */
+body[data-theme="dark"] .pb-sort-status {
+  background: rgba(76, 111, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--pb-muted); /* <- replaces the undefined --pb-muted-dark */
+}
+
+/* Make the label look like text (quiet), not a pill */
+.pb-sort-label-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0.15rem 0.25rem;
+  font-size: 0.8rem;
+}
+
+/* Keep reset compact */
+.pb-sort-reset-btn {
+  padding: 0.15rem 0.55rem;
+  font-size: 0.75rem;
 }
 
 /* Sortable table header */
