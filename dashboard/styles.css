@@ -470,29 +470,22 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   vertical-align: middle;
 }
 
-/* Sort status bar above table */
+/* Default: completely removed (no space) */
 .pb-sort-status {
+  display: none;
+}
+
+/* Visible: show it */
+.pb-sort-status.pb-sort-status--visible {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.8rem;
   color: var(--pb-muted);
 
-  /* animation */
-  opacity: 0;
-  transform: translateY(-4px);
-  pointer-events: none;
-  transition: opacity 0.18s ease-out, transform 0.18s ease-out;
-
-  /* No margin by default */
-  margin: 0;
-}
-
-/* Visible state = spacing appears */
-.pb-sort-status.pb-sort-status--visible {
-  margin: 0.25rem 0 0.5rem;  /* adds spacing ONLY when visible */
+  margin: 0.25rem 0 0.5rem;
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
   pointer-events: auto;
 }
 
