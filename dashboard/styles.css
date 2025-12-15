@@ -234,7 +234,7 @@ body[data-theme="dark"] .pb-theme-toggle {
 .pb-table-wrapper {
   border-radius: var(--pb-radius-lg);
   border: 1px solid var(--pb-border);
-  padding: 0 0.75rem 0.75rem;
+  padding: 0.75rem;
   margin-bottom: 1.25rem;
   background: var(--pb-surface);
   overflow: hidden; /* OK here, because .pb-table-scroll is the scroller */
@@ -470,9 +470,22 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   vertical-align: middle;
 }
 
-/* Default: completely removed (no space) */
+/* Sort status bar above table */
 .pb-sort-status {
-  display: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--pb-muted);
+
+  /* animation */
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+
+  /* No margin by default */
+  margin: 0;
 }
 
 /* Visible: show it */
