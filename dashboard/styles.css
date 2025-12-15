@@ -490,7 +490,7 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
 
 /* Visible state = spacing appears */
 .pb-sort-status.pb-sort-status--visible {
-  margin: 0.25rem 0 0.5rem;  /* adds spacing ONLY when visible */
+  margin: 0.25rem 0 0.25rem;  /* adds spacing ONLY when visible */
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
