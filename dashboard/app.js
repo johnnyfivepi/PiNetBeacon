@@ -716,9 +716,48 @@ function renderTable(entries) {
   if (!entries.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 10; // matches the 10 columns in the table header
-    td.textContent =
-      "No log entries found yet. Try running pinetbeacon_check.py.";
+    td.colSpan = 10;
+    td.className = "pb-empty-cell";
+
+    const box = document.createElement("div");
+    box.className = "pb-empty-state";
+
+    const left = document.createElement("div");
+    const h = document.createElement("h3");
+    h.textContent = "No checks yet";
+    const p = document.createElement("p");
+    p.textContent =
+      "PiNetBeacon hasn’t recorded any log entries yet. Run a check once, then refresh this page.";
+
+    left.appendChild(h);
+    left.appendChild(p);
+
+    const actions = document.createElement("div");
+    actions.className = "pb-empty-actions";
+
+    const runHint = document.createElement("button");
+    runHint.type = "button";
+    runHint.className = "pb-empty-btn";
+    runHint.textContent = "How do I run a check?";
+    runHint.addEventListener("click", () => {
+      alert("On the Pi: python3 scripts/pinetbeacon_check.py\n\nThen refresh this page.");
+    });
+
+    const refresh = document.createElement("button");
+    refresh.type = "button";
+    refresh.className = "pb-empty-btn pb-empty-btn--primary";
+    refresh.textContent = "Refresh";
+    refresh.addEventListener("click", () => {
+      updateDashboard();
+    });
+
+    actions.appendChild(runHint);
+    actions.appendChild(refresh);
+
+    box.appendChild(left);
+    box.appendChild(actions);
+
+    td.appendChild(box);
     tr.appendChild(td);
     tbody.appendChild(tr);
     return;
@@ -758,7 +797,38 @@ function renderTable(entries) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
     td.colSpan = 10;
-    td.textContent = "No checks match this filter.";
+    td.className = "pb-empty-cell";
+
+    const box = document.createElement("div");
+    box.className = "pb-empty-state";
+
+    const left = document.createElement("div");
+    const h = document.createElement("h3");
+    h.textContent = "Nothing to show";
+    const p = document.createElement("p");
+    p.textContent =
+      "No checks match this view right now. Try resetting the view to see all checks again.";
+
+    left.appendChild(h);
+    left.appendChild(p);
+
+    const actions = document.createElement("div");
+    actions.className = "pb-empty-actions";
+
+    const reset = document.createElement("button");
+    reset.type = "button";
+    reset.className = "pb-empty-btn pb-empty-btn--primary";
+    reset.textContent = "Reset view";
+    reset.addEventListener("click", () => {
+      resetView({ scroll: true });
+    });
+
+    actions.appendChild(reset);
+
+    box.appendChild(left);
+    box.appendChild(actions);
+
+    td.appendChild(box);
     tr.appendChild(td);
     tbody.appendChild(tr);
     return;
