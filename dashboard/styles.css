@@ -268,7 +268,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0.75rem;
-  z-index: 9;
+  z-index: 15;
   background: var(--pb-accent-soft);
 }
 
@@ -614,7 +614,7 @@ body[data-theme="dark"] .pb-sort-status button:hover {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 6; /* higher so rows can’t paint above header */
+  z-index: 20; /* higher so rows can’t paint above header */
 }
 
 /* Filter bar above table */
