@@ -266,7 +266,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-  z-index: 5;
+  z-index: 2; /* keep low so it never beats the table header */ 
   background: var(--pb-accent-soft);
 }
 
