@@ -249,7 +249,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   -webkit-overflow-scrolling: touch;
   position: relative;    /* helps z-index behave in Safari */
 
-  padding-top: 0.5rem; /* <-- creates a safe buffer above the sticky header */
+  padding-top: 0.75rem; /* <-- creates a safe buffer above the sticky header */
 }
 
 .pb-table {
@@ -267,7 +267,7 @@ body[data-theme="dark"] .pb-theme-toggle {
 .pb-table thead th {
   position: -webkit-sticky; /* Safari */
   position: sticky;
-  top: 0.5rem;
+  top: 0.75rem;
   z-index: 10;
   background: var(--pb-accent-soft);
 }
