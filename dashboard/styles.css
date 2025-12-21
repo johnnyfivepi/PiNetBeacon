@@ -73,7 +73,7 @@ body {
   backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1000;
 }
 
 .pb-header h1 {
@@ -234,13 +234,12 @@ body[data-theme="dark"] .pb-theme-toggle {
 .pb-table-wrapper {
   border-radius: var(--pb-radius-lg);
   border: 1px solid var(--pb-border);
-  
-  /* top | right/left | bottom */
-  padding: 0.75rem 0.75rem 0.75rem;
-  
+  padding: 0.75rem;            /* same spacing on all sides */
   margin-bottom: 1.25rem;
   background: var(--pb-surface);
-  overflow: hidden; /* OK here, because .pb-table-scroll is the scroller */
+  overflow: hidden;            /* clip rounded corners */
+  position: relative;          /* establishes stacking context */
+  z-index: 1;                  /* stays below the page header */
 }
 
 .pb-table-scroll {
@@ -266,7 +265,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-  z-index: 2; /* keep low so it never beats the table header */ 
+  z-index: 5; /* keep low so it never beats the table header */ 
   background: var(--pb-accent-soft);
 }
 
@@ -612,7 +611,7 @@ body[data-theme="dark"] .pb-sort-status button:hover {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 20; /* higher so rows can’t paint above header */
+  z-index: 3; /* above table rows, still low enough to never cover the page header */
 }
 
 /* Filter bar above table */
