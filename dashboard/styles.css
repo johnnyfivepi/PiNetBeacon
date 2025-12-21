@@ -236,7 +236,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   border: 1px solid var(--pb-border);
   
   /* top | right/left | bottom */
-  padding: 0.75rem 0.75rem 0.75rem;
+  padding: 0.15rem 0.75rem 0.75rem;
   
   margin-bottom: 1.25rem;
   background: var(--pb-surface);
@@ -248,8 +248,6 @@ body[data-theme="dark"] .pb-theme-toggle {
   overflow: auto;        /* IMPORTANT: vertical + horizontal scrolling */
   -webkit-overflow-scrolling: touch;
   position: relative;    /* helps z-index behave in Safari */
-
-  padding-top: 0.75rem; /* <-- creates a safe buffer above the sticky header */
 }
 
 .pb-table {
@@ -267,8 +265,8 @@ body[data-theme="dark"] .pb-theme-toggle {
 .pb-table thead th {
   position: -webkit-sticky; /* Safari */
   position: sticky;
-  top: 0.75rem;
-  z-index: 15;
+  top: 0;
+  z-index: 5;
   background: var(--pb-accent-soft);
 }
 
