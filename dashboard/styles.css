@@ -236,7 +236,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   border: 1px solid var(--pb-border);
   
   /* top | right/left | bottom */
-  padding: 0.75rem 0.75rem 0.75rem;
+  padding: 0.15rem 0.75rem 0.75rem;
   
   margin-bottom: 1.25rem;
   background: var(--pb-surface);
