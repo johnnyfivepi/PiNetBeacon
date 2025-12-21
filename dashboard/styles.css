@@ -614,7 +614,7 @@ body[data-theme="dark"] .pb-sort-status button:hover {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 20; /* higher so rows can’t paint above header */
+  z-index: 6; /* higher so rows can’t paint above header */
 }
 
 /* Filter bar above table */
