@@ -636,9 +636,14 @@ body[data-theme="dark"] .pb-sort-status button:hover {
   opacity: 0.45;
 }
 
+/* Focus ring for sortable headers (Safari-friendly) */
+.pb-table th.pb-sortable:focus {
+  outline: none;
+}
+
 .pb-table th.pb-sortable:focus-visible {
-  outline: 2px solid var(--pb-accent);
-  outline-offset: -2px; /* helps on table cells */
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--pb-accent);
   border-radius: 10px;
 }
 
@@ -655,7 +660,6 @@ body[data-theme="dark"] .pb-sort-status button:hover {
    ========================= */
 
 /* Nice visible focus ring for keyboard users */
-.pb-table th.pb-sortable:focus-visible,
 .pb-sort-label-btn:focus-visible,
 .pb-sort-reset-btn:focus-visible,
 .pb-filter-btn:focus-visible,
