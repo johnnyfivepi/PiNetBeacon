@@ -639,6 +639,7 @@ body[data-theme="dark"] .pb-sort-status button:hover {
 .pb-table th.pb-sortable:focus-visible {
   outline: 2px solid var(--pb-accent);
   outline-offset: -2px; /* helps on table cells */
+  border-radius: 10px;
 }
 
 /* Safari safety: keep sortable headers sticky */
