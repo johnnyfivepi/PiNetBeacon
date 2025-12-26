@@ -520,6 +520,17 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   pointer-events: auto;
 }
 
+.pb-sort-status.pb-sort-status--visible::after {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: -0.35rem;       /* sits in the gap */
+  height: 1px;
+  background: var(--pb-border);
+  opacity: 0.7;
+}
+
 .pb-sort-status button {
   border: 1px solid var(--pb-border);
   background: #f9fafb;
@@ -570,6 +581,10 @@ body[data-theme="dark"] .pb-sort-status.pb-sort-status--visible {
   border-color: rgba(255, 255, 255, 0.08);
 }
 
+body[data-theme="dark"] .pb-sort-status.pb-sort-status--visible::after {
+  opacity: 0.35;
+}
+
 body[data-theme="dark"] .pb-sort-status button {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.15);
@@ -593,18 +608,32 @@ body[data-theme="dark"] .pb-sort-status button:hover {
 }
 
 .pb-table th.pb-sortable::after {
-  content: "";
+  content: "⇅"; /* hint when not sorted */
   position: absolute;
   right: 0.65rem;
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.7rem;
-  opacity: 0.45;
+  opacity: 0.25;
   pointer-events: none;
 }
 
-.pb-table th.pb-sortable.pb-sort-asc::after { content: "▲"; }
-.pb-table th.pb-sortable.pb-sort-desc::after { content: "▼"; }
+/* Sorted arrows override the hint */
+.pb-table th.pb-sortable.pb-sort-asc::after {
+  content: "▲";
+  opacity: 0.55;
+}
+
+.pb-table th.pb-sortable.pb-sort-desc::after {
+  content: "▼";
+  opacity: 0.55;
+}
+
+/* Slightly stronger on hover/focus so it feels interactive */
+.pb-table th.pb-sortable:hover::after,
+.pb-table th.pb-sortable:focus-visible::after {
+  opacity: 0.45;
+}
 
 /* Safari safety: keep sortable headers sticky */
 .pb-table thead th.pb-sortable {
@@ -612,6 +641,25 @@ body[data-theme="dark"] .pb-sort-status button:hover {
   position: sticky;
   top: 0;
   z-index: 3; /* above table rows, still low enough to never cover the page header */
+}
+
+/* =========================
+   Accessibility: focus styles
+   ========================= */
+
+/* Nice visible focus ring for keyboard users */
+.pb-table th.pb-sortable:focus-visible,
+.pb-sort-label-btn:focus-visible,
+.pb-sort-reset-btn:focus-visible,
+.pb-filter-btn:focus-visible,
+.pb-filter-reset-btn:focus-visible,
+.pb-empty-btn:focus-visible,
+.pb-refresh:focus-visible,
+.pb-theme-toggle:focus-visible,
+.pb-copy-btn:focus-visible {
+  outline: 2px solid var(--pb-accent);
+  outline-offset: 2px;
+  border-radius: 8px;
 }
 
 /* Filter bar above table */

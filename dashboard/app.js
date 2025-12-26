@@ -1160,6 +1160,17 @@ function setupSorting() {
         sortState.direction === "asc" ? "pb-sort-asc" : "pb-sort-desc"
       );
 
+      th.setAttribute("tabindex", "0");
+      th.setAttribute("role", "button");
+      th.setAttribute("aria-label", `Sort by ${th.textContent || "column"}`);
+
+      th.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          th.click();
+        }
+      });
+
       // Re-render table using the current sort
       renderTable(currentEntries);
       updateSortStatus();
