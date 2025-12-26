@@ -265,7 +265,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-  z-index: 5; /* keep low so it never beats the table header */ 
+  z-index: 5;
   background: var(--pb-accent-soft);
 }
 
@@ -481,6 +481,7 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   /* keep it in the DOM, but collapsed when not visible */
   display: flex;
   align-items: center;
+  position: relative;
   gap: 0.5rem;
 
   font-size: 0.8rem;
@@ -633,6 +634,11 @@ body[data-theme="dark"] .pb-sort-status button:hover {
 .pb-table th.pb-sortable:hover::after,
 .pb-table th.pb-sortable:focus-visible::after {
   opacity: 0.45;
+}
+
+.pb-table th.pb-sortable:focus-visible {
+  outline: 2px solid var(--pb-accent);
+  outline-offset: -2px; /* helps on table cells */
 }
 
 /* Safari safety: keep sortable headers sticky */

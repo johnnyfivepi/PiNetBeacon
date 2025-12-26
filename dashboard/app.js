@@ -1137,44 +1137,54 @@ function setupSorting() {
   headers.forEach((th) => {
     th.classList.add("pb-sortable");
 
-    th.addEventListener("click", () => {
-      const column = th.getAttribute("data-sort");
-      if (!column) return;
+    // Make headers keyboard-focusable
+    th.setAttribute("tabindex", "0");
+    th.setAttribute("role", "button");
 
-      if (sortState.column === column) {
-        // Toggle direction if clicking the same column
-        sortState.direction = sortState.direction === "asc" ? "desc" : "asc";
-      } else {
-        // Switch to a new column, start with ascending
-        sortState.column = column;
-        sortState.direction = "asc";
-      }
+    const label = (th.textContent || "column").trim();
+    th.setAttribute("aria-label", `Sort by ${label}`);
 
-      // Clear arrows from all sortable headers
-      headers.forEach((h) => {
-        h.classList.remove("pb-sort-asc", "pb-sort-desc");
-      });
-
-      // Add arrow to the active header
-      th.classList.add(
-        sortState.direction === "asc" ? "pb-sort-asc" : "pb-sort-desc"
-      );
-
-      th.setAttribute("tabindex", "0");
-      th.setAttribute("role", "button");
-      th.setAttribute("aria-label", `Sort by ${th.textContent || "column"}`);
-
+    // Keyboard activation (Enter / Space) — guard already present
+    if (!th.dataset.pbKeyHooked) {
       th.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           th.click();
         }
       });
+      th.dataset.pbKeyHooked = "true";
+    }
 
-      // Re-render table using the current sort
-      renderTable(currentEntries);
-      updateSortStatus();
-    });
+    if (!th.dataset.pbClickHooked) {
+      th.addEventListener("click", () => {
+        const column = th.getAttribute("data-sort");
+        if (!column) return;
+
+        if (sortState.column === column) {
+          sortState.direction =
+            sortState.direction === "asc" ? "desc" : "asc";
+        } else {
+          sortState.column = column;
+          sortState.direction = "asc";
+        }
+
+        // Clear arrows from all sortable headers
+        headers.forEach((h) =>
+          h.classList.remove("pb-sort-asc", "pb-sort-desc")
+        );
+
+        // Add arrow to the active header
+        th.classList.add(
+          sortState.direction === "asc" ? "pb-sort-asc" : "pb-sort-desc"
+        );
+
+        renderTable(currentEntries);
+        updateSortStatus();
+      });
+
+      th.dataset.pbClickHooked = "true";
+    }
+    // ⬆️⬆️⬆️ END NEW GUARD ⬆️⬆️⬆️
   });
 }
 
