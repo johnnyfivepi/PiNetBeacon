@@ -644,7 +644,7 @@ body[data-theme="dark"] .pb-sort-status button:hover {
 .pb-table th.pb-sortable:focus-visible {
   outline: none;
   box-shadow: inset 0 0 0 2px var(--pb-accent);
-  border-radius: 10px;
+  border-radius: 0;
 }
 
 /* Safari safety: keep sortable headers sticky */
