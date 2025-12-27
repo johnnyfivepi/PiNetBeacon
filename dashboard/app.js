@@ -661,9 +661,7 @@ function buildSparklineSummary(values, unitsLabel) {
   const last = values[values.length - 1];
   const min = Math.min(...values);
   const max = Math.max(...values);
-  return `Last ${last.toFixed(1)} ${unitsLabel} · range ${min.toFixed(
-    1
-  )}–${max.toFixed(1)} ${unitsLabel}`;
+  return `Last ${formatNumber(last, 1)} ${unitsLabel} · range ${formatNumber(min, 1)}–${formatNumber(max, 1)} ${unitsLabel}`;
 }
 
 // Copy a single log entry as pretty JSON to the clipboard
