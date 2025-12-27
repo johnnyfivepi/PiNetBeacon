@@ -6,7 +6,11 @@
 //
 // It then updates the summary cards, table, and health box on the page.
 
-alert("PB JS loaded");
+console.log("formatNumber tests:", {
+  undef: formatNumber(undefined, 1),
+  nan: formatNumber(NaN, 1),
+  str: formatNumber("oops", 1),
+});
 
 // --- Theme handling (light / dark) ---
 const PB_THEME_KEY = "pinetbeacon-theme";
