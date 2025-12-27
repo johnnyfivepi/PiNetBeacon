@@ -75,6 +75,15 @@ function formatTimestamp(ts) {
   }
 }
 
+function formatNumber(value, decimals, fallback = "–") {
+  if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
+  return value.toFixed(decimals);
+}
+
+function formatPercent(value, decimals = 1, fallback = "–") {
+  return formatNumber(value, decimals, fallback);
+}
+
 // Format Pi local time in a friendlier way
 function formatLocalPiTime(ts) {
   if (!ts) return "";
@@ -397,6 +406,17 @@ function sortEntries(entries) {
   return entries.slice().reverse();
 }
 
+function formatAge(diffSec) {
+  if (diffSec <= 1) return "updated just now";
+  if (diffSec < 60) return `updated ${diffSec}s ago`;
+
+  const mins = Math.floor(diffSec / 60);
+  if (mins < 60) return `updated ${mins}m ago`;
+
+  const hrs = Math.floor(mins / 60);
+  return `updated ${hrs}h ago`;
+}
+
 function updatePiTimeLabel() {
   const piTimeEl = document.getElementById("pi-time");
   if (!piTimeEl || !lastPiTimeDisplay || lastPiFetchClientMs === null) return;
@@ -404,15 +424,7 @@ function updatePiTimeLabel() {
   const diffMs = Date.now() - lastPiFetchClientMs;
   const diffSec = Math.max(0, Math.floor(diffMs / 1000));
 
-  let ageLabel;
-  if (diffSec <= 1) {
-    ageLabel = "updated just now";
-  } else if (diffSec < 60) {
-    ageLabel = `updated ${diffSec}s ago`;
-  } else {
-    const mins = Math.floor(diffSec / 60);
-    ageLabel = `updated ${mins}m ago`;
-  }
+  const ageLabel = formatAge(diffSec);
 
   let driftText = "";
   let warn = false;
@@ -425,7 +437,6 @@ function updatePiTimeLabel() {
     }
   }
 
-  // Mark whether we’re in a warning state (CSS can use this)
   piTimeEl.dataset.pbWarn = warn ? "true" : "false";
 
   piTimeEl.innerHTML = `<span class="pb-emoji">🕒</span> Pi local time: ${lastPiTimeDisplay} · ${ageLabel}${driftText}`;
@@ -703,6 +714,15 @@ async function copyEntryAsJson(entry, button) {
   }
 }
 
+function formatNumber(value, decimals, fallback = "–") {
+  if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
+  return value.toFixed(decimals);
+}
+
+function formatPercent(value, decimals = 1, fallback = "–") {
+  return formatNumber(value, decimals, fallback);
+}
+
 function renderTable(entries) {
   const tbody = document.getElementById("checks-tbody");
   if (!tbody) {
@@ -879,10 +899,7 @@ function renderTable(entries) {
 
     // Latency (numeric)
     const tdLatency = document.createElement("td");
-    tdLatency.textContent =
-      typeof entry.avg_latency_ms === "number"
-        ? entry.avg_latency_ms.toFixed(1)
-        : "–";
+    tdLatency.textContent = formatNumber(entry.avg_latency_ms, 1);
     tr.appendChild(tdLatency);
 
     // Latency trend (sparkline)
@@ -919,10 +936,7 @@ function renderTable(entries) {
 
     // Packet loss
     const tdLoss = document.createElement("td");
-    tdLoss.textContent =
-      typeof entry.packet_loss_percent === "number"
-        ? entry.packet_loss_percent.toFixed(1)
-        : "–";
+    tdLoss.textContent = formatNumber(entry.packet_loss_percent, 1);
     tr.appendChild(tdLoss);
 
     // DNS status badge (same style family as Last status)
@@ -950,10 +964,7 @@ function renderTable(entries) {
 
     // DNS latency (numeric)
     const tdDnsLatency = document.createElement("td");
-    tdDnsLatency.textContent =
-      typeof entry.dns_latency_ms === "number"
-        ? entry.dns_latency_ms.toFixed(2)
-        : "–";
+    tdDnsLatency.textContent = formatNumber(entry.dns_latency_ms, 2);
     tr.appendChild(tdDnsLatency);
 
     // DNS latency trend (sparkline)
