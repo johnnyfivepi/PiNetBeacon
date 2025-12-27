@@ -1295,3 +1295,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Periodic refresh
   setInterval(updateDashboard, 30000);
 });
+
+function formatNumber(value, decimals, fallback = "–") {
+  if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
+  return value.toFixed(decimals);
+}
