@@ -270,6 +270,15 @@ body[data-theme="dark"] .pb-theme-toggle {
   background: var(--pb-accent-soft);
 }
 
+.pb-table tbody tr {
+  position: relative;
+  z-index: 0;
+}
+
+.pb-table tbody tr:hover {
+  z-index: 5;
+}
+
 .pb-table th,
 .pb-table td {
   padding: 0.5rem 0.75rem;
