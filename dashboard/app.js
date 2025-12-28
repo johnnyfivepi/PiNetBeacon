@@ -989,6 +989,8 @@ async function updateDashboard() {
     const entries = logs.entries || [];
     currentEntries = entries; // save for re-sorting
 
+    console.log("PB entries sample:", entries.slice(0, 3));
+
     // Update filter counts whenever new data comes in
     updateFilterCounts(entries);
 
