@@ -84,6 +84,21 @@ function formatPercent(value, decimals = 1, fallback = "–") {
   return formatNumber(value, decimals, fallback);
 }
 
+function formatDnsResultsTooltip(dnsResults) {
+  if (!Array.isArray(dnsResults) || dnsResults.length === 0) return "";
+
+  return dnsResults
+    .map((r) => {
+      const server = r.server || "unknown";
+      const status = r.status || "—";
+      const ms =
+        typeof r.latency_ms === "number" ? `${r.latency_ms.toFixed(1)}ms` : "–";
+      const err = r.error ? ` (${r.error})` : "";
+      return `${server}: ${status} · ${ms}${err}`;
+    })
+    .join("\n");
+}
+
 // Format Pi local time in a friendlier way
 function formatLocalPiTime(ts) {
   if (!ts) return "";
@@ -903,6 +918,12 @@ function renderTable(entries) {
       dnsBadge.classList.add("pb-status-badge--down");
     }
     // any other string just stays neutral
+
+    // per-DNS-server tooltip (shows dns_results on hover)
+    const tooltipText = formatDnsResultsTooltip(entry.dns_results);
+    if (tooltipText) {
+      dnsBadge.title = tooltipText;
+    }
 
     tdDnsStatus.appendChild(dnsBadge);
     tr.appendChild(tdDnsStatus);
