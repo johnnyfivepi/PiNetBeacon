@@ -276,7 +276,7 @@ body[data-theme="dark"] .pb-theme-toggle {
 }
 
 .pb-table tbody tr:hover {
-  z-index: 5;
+  z-index: 10;
 }
 
 .pb-table th,
