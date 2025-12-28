@@ -11,9 +11,9 @@ PiNetBeacon: simple network check script.
 import json
 import subprocess
 from datetime import datetime, timezone
-from pathlib import Path
-import socket          
-import time            
+from pathlib import Path          
+import time 
+import dns.resolver             # type: ignore[import]
 
 # Paths are relative to this file so the script works wherever you call it from.
 CONFIG_PATH = Path(__file__).parent / "config.json"
@@ -68,31 +68,76 @@ def run_ping(host: str, count: int = 3, timeout: int = 2):
 
     return avg_latency, packet_loss_percent, None
 
-
 # -------------------------------------------------------
 # NEW: DNS resolution helper
 # -------------------------------------------------------
-def run_dns_check(hostname: str, timeout: float):
+def run_dns_check(hostname: str, timeout: float, dns_servers=None):
     """
-    Resolve a hostname and measure how long it takes.
-    Returns (dns_status, dns_latency_ms, dns_error).
+    Resolve `hostname` using one or more specific DNS servers and measure latency.
+
+    Returns:
+      (overall_status, overall_latency_ms, overall_error, per_server_results)
+
+    - overall_status: "ok" if at least ONE server succeeds, else "error"
+    - overall_latency_ms: fastest successful latency (ms) or None
+    - overall_error: summary string or None
+    - per_server_results: list of dicts: [{server, status, latency_ms, error}, ...]
     """
     if not hostname:
-        return "skipped", None, None
+        return "skipped", None, None, []
 
-    old_timeout = socket.getdefaulttimeout()
-    socket.setdefaulttimeout(timeout)
-    start = time.monotonic()
+    # Normalize dns_servers into a list
+    if not dns_servers:
+        dns_servers = []
+    if isinstance(dns_servers, str):
+        dns_servers = [dns_servers]
 
-    try:
-        socket.getaddrinfo(hostname, 80)
-        elapsed_ms = (time.monotonic() - start) * 1000.0
-        return "ok", round(elapsed_ms, 3), None
-    except Exception as e:
-        return "error", None, str(e)
-    finally:
-        socket.setdefaulttimeout(old_timeout)
+    per_server_results = []
 
+    # If user didn't provide servers, let dnspython use system defaults once
+    servers_to_try = dns_servers if dns_servers else [None]
+
+    for server in servers_to_try:
+        resolver = dns.resolver.Resolver()
+        resolver.lifetime = float(timeout)  # total time allowed
+        resolver.timeout = float(timeout)   # per-try timeout
+
+        if server:
+            resolver.nameservers = [server]
+
+        start = time.monotonic()
+        try:
+            resolver.resolve(hostname, "A")
+            elapsed_ms = (time.monotonic() - start) * 1000.0
+            per_server_results.append(
+                {
+                    "server": server or "system",
+                    "status": "ok",
+                    "latency_ms": round(elapsed_ms, 3),
+                    "error": None,
+                }
+            )
+        except Exception as e:
+            per_server_results.append(
+                {
+                    "server": server or "system",
+                    "status": "error",
+                    "latency_ms": None,
+                    "error": str(e),
+                }
+            )
+
+    # Roll up results
+    successes = [r for r in per_server_results if r["status"] == "ok"]
+
+    if successes:
+        fastest = min(r["latency_ms"] for r in successes if r["latency_ms"] is not None)
+        return "ok", fastest, None, per_server_results
+
+    # No successes
+    # Make a short readable summary error (use first error as the headline)
+    first_err = per_server_results[0]["error"] if per_server_results else "unknown error"
+    return "error", None, first_err, per_server_results
 
 def log_result(entry: dict) -> None:
     """Append one JSON line to the log file."""
@@ -111,6 +156,7 @@ def main() -> None:
     # NEW DNS config
     dns_hostname = cfg.get("dns_hostname", "")
     dns_timeout = cfg.get("dns_timeout", 2)
+    dns_servers = cfg.get("dns_servers", [])
 
     timestamp = datetime.now(timezone.utc).isoformat()
 
@@ -139,9 +185,10 @@ def main() -> None:
     # ----------------------------
     # NEW: Run DNS
     # ----------------------------
-    dns_status, dns_latency_ms, dns_error = run_dns_check(
+    dns_status, dns_latency_ms, dns_error, dns_results = run_dns_check(
         dns_hostname,
         dns_timeout,
+        dns_servers,
     )
 
     # Optional: degrade status if DNS fails but ping is fine
@@ -168,6 +215,7 @@ def main() -> None:
         "dns_status": dns_status,
         "dns_latency_ms": dns_latency_ms,
         "dns_error": dns_error,
+        "dns_results": dns_results,
     }
 
     print(entry)
