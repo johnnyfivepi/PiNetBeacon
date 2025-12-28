@@ -6,12 +6,6 @@
 //
 // It then updates the summary cards, table, and health box on the page.
 
-console.log("formatNumber tests:", {
-  undef: formatNumber(undefined, 1),
-  nan: formatNumber(NaN, 1),
-  str: formatNumber("oops", 1),
-});
-
 // --- Theme handling (light / dark) ---
 const PB_THEME_KEY = "pinetbeacon-theme";
 
@@ -552,50 +546,6 @@ function updateAvailabilityBar(availPercent) {
   }
 }
 
-function updateFilterCounts(entries) {
-  const bar = document.getElementById("filter-bar");
-  if (!bar) return;
-
-  const allBtn = bar.querySelector('[data-filter="all"]');
-  const problemsBtn = bar.querySelector('[data-filter="problems"]');
-  const dnsBtn = bar.querySelector('[data-filter="dns"]');
-
-  if (!allBtn && !problemsBtn && !dnsBtn) return;
-
-  const total = entries.length;
-
-  let problems = 0;
-  let dnsIssues = 0;
-
-  for (const e of entries) {
-    const hasDnsIssue =
-      e.dns_status &&
-      e.dns_status !== "ok" &&
-      e.dns_status !== "healthy";
-
-    const isDown = e.status && e.status !== "up";
-
-    if (hasDnsIssue) dnsIssues++;
-    if (isDown || hasDnsIssue) problems++;
-  }
-
-  const labelWithCount = (base, count) =>
-    count > 0 ? `${base} (${count})` : base;
-
-  if (allBtn) {
-    allBtn.textContent =
-      total > 0 ? `All checks (${total})` : "All checks";
-  }
-
-  if (problemsBtn) {
-    problemsBtn.textContent = labelWithCount("Only problems", problems);
-  }
-
-  if (dnsBtn) {
-    dnsBtn.textContent = labelWithCount("DNS issues", dnsIssues);
-  }
-}
-
 // Build a small history of numeric metric values for a given target_host
 function buildMetricHistory(allEntries, targetHost, metricKey, maxPoints) {
   if (!targetHost) return [];
@@ -716,15 +666,6 @@ async function copyEntryAsJson(entry, button) {
       button.disabled = false;
     }, 900);
   }
-}
-
-function formatNumber(value, decimals, fallback = "–") {
-  if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
-  return value.toFixed(decimals);
-}
-
-function formatPercent(value, decimals = 1, fallback = "–") {
-  return formatNumber(value, decimals, fallback);
 }
 
 function renderTable(entries) {
@@ -1302,7 +1243,3 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(updateDashboard, 30000);
 });
 
-function formatNumber(value, decimals, fallback = "–") {
-  if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
-  return value.toFixed(decimals);
-}
