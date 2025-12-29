@@ -267,7 +267,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   background: var(--pb-accent-soft);
   transform: translateZ(0);
   will-change: transform;
@@ -355,9 +355,9 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
 }
 
 .pb-sparkline-wrapper:hover {
-  z-index: 9999;  /* raise the wrapper */
+  z-index: 1;  /* raise the wrapper */
 }
-
+ 
 .pb-sparkline-tooltip {
   position: absolute;
   left: 50%;
@@ -382,12 +382,19 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   transition:
     opacity 0.15s ease-out,
     transform 0.15s ease-out;
-  z-index: 10000;  /* above wrapper */
+  z-index: 50;  /* above wrapper */
 }
 
 .pb-sparkline-wrapper:hover .pb-sparkline-tooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(10px); /* softer pop */
+}
+
+/* If we add .pb-tooltip-below, show tooltip under the sparkline instead */
+.pb-sparkline-wrapper.pb-tooltip-below .pb-sparkline-tooltip {
+  bottom: auto;
+  top: 100%;
+  transform: translateX(-50%) translateY(6px);
 }
 
 /* Tooltip for lines like "Pi local time" and "Config loaded" */

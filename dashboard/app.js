@@ -882,6 +882,22 @@ function renderTable(entries) {
         const tooltip = document.createElement("div");
         tooltip.className = "pb-sparkline-tooltip";
 
+        wrapper.addEventListener("mouseenter", () => {
+          const headRow = document.querySelector(".pb-table thead tr");
+          if (!headRow) return;
+
+          const headBottom = headRow.getBoundingClientRect().bottom;
+
+          // Flip based on where the tooltip would land
+          const tipTop = tooltip.getBoundingClientRect().top;
+
+          wrapper.classList.toggle("pb-tooltip-below", tipTop < headBottom + 6);
+        });
+
+        wrapper.addEventListener("mouseleave", () => {
+          wrapper.classList.remove("pb-tooltip-below");
+        });
+
         const summaryText = buildSparklineSummary(latencyHistory, "ms");
         tooltip.textContent = summaryText;
 
