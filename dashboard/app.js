@@ -961,10 +961,7 @@ function renderTable(entries) {
     );
 
     if (dnsLatencyHistory.length >= 2) {
-      const svgDns = createSparklineSvg(
-        dnsLatencyHistory,
-        "pb-sparkline--dns"
-      );
+      const svgDns = createSparklineSvg(dnsLatencyHistory, "pb-sparkline--dns");
       if (svgDns) {
         const wrapperDns = document.createElement("div");
         wrapperDns.className = "pb-sparkline-wrapper";
@@ -972,11 +969,27 @@ function renderTable(entries) {
         const tooltipDns = document.createElement("div");
         tooltipDns.className = "pb-sparkline-tooltip";
 
-        const summaryTextDns = buildSparklineSummary(
-          dnsLatencyHistory,
-          "ms DNS"
-        );
+        const summaryTextDns = buildSparklineSummary(dnsLatencyHistory, "ms DNS");
         tooltipDns.textContent = summaryTextDns;
+
+        // Flip tooltip below sticky header when needed (same idea as latency sparkline)
+        wrapperDns.addEventListener("mouseenter", () => {
+          const headRow = document.querySelector(".pb-table thead tr");
+          if (!headRow) return;
+
+          const headBottom = headRow.getBoundingClientRect().bottom;
+
+          // NOTE: tooltip must be in DOM before measuring, so we append first below.
+          // We'll measure after append using requestAnimationFrame.
+          requestAnimationFrame(() => {
+            const tipTop = tooltipDns.getBoundingClientRect().top;
+            wrapperDns.classList.toggle("pb-tooltip-below", tipTop < headBottom + 6);
+          });
+        });
+
+        wrapperDns.addEventListener("mouseleave", () => {
+          wrapperDns.classList.remove("pb-tooltip-below");
+        });
 
         wrapperDns.appendChild(svgDns);
         wrapperDns.appendChild(tooltipDns);
@@ -986,25 +999,6 @@ function renderTable(entries) {
       tdDnsSpark.textContent = "—";
     }
     tr.appendChild(tdDnsSpark);
-
-    tooltipDns.className = "pb-sparkline-tooltip";
-
-    wrapperDns.addEventListener("mouseenter", () => {
-      const headRow = document.querySelector(".pb-table thead tr");
-      if (!headRow) return;
-
-      const headBottom = headRow.getBoundingClientRect().bottom;
-      const tipTop = tooltipDns.getBoundingClientRect().top;
-
-      wrapperDns.classList.toggle(
-        "pb-tooltip-below",
-        tipTop < headBottom + 6
-      );
-    });
-
-    wrapperDns.addEventListener("mouseleave", () => {
-      wrapperDns.classList.remove("pb-tooltip-below");
-    });
 
     // Notes + "copy as JSON" action
     const tdNotes = document.createElement("td");
