@@ -247,6 +247,7 @@ body[data-theme="dark"] .pb-theme-toggle {
   overflow: auto;        /* IMPORTANT: vertical + horizontal scrolling */
   -webkit-overflow-scrolling: touch;
   position: relative;    /* helps z-index behave in Safari */
+  isolation: isolate;
   z-index: 0;
 }
 
@@ -266,8 +267,10 @@ body[data-theme="dark"] .pb-theme-toggle {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 10;
   background: var(--pb-accent-soft);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .pb-table tbody tr {
@@ -304,12 +307,13 @@ body[data-theme="dark"] .pb-theme-toggle {
   border-bottom: none;
 }
 
-/* Subtle row hover */
+/* Subtle row hover — avoid filter (causes Firefox sticky glitches) */
 .pb-table tbody tr:hover td {
-  filter: brightness(0.98);
+  background-color: rgba(76, 111, 255, 0.06);
 }
+
 body[data-theme="dark"] .pb-table tbody tr:hover td {
-  filter: brightness(1.08);
+  background-color: rgba(76, 111, 255, 0.12);
 }
 
 /* Keep the Time (UTC) column on a single line */
