@@ -357,8 +357,8 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
 .pb-sparkline-tooltip {
   position: absolute;
   left: 50%;
-  bottom: 100%;
-  transform: translateX(-50%) translateY(-4px);
+  top: 100%;
+  transform: translateX(-50%) translateY(6px);
 
   background: rgba(30, 41, 59, 0.75); /* slate-800 at 75% */
   backdrop-filter: blur(4px); /* Subtle blur */
@@ -383,7 +383,7 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
 
 .pb-sparkline-wrapper:hover .pb-sparkline-tooltip {
   opacity: 1;
-  transform: translateX(-50%) translateY(-7px); /* softer pop */
+  transform: translateX(-50%) translateY(10px); /* softer pop */
 }
 
 /* Tooltip for lines like "Pi local time" and "Config loaded" */
