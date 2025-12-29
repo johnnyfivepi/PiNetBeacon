@@ -987,6 +987,25 @@ function renderTable(entries) {
     }
     tr.appendChild(tdDnsSpark);
 
+    tooltipDns.className = "pb-sparkline-tooltip";
+
+    wrapperDns.addEventListener("mouseenter", () => {
+      const headRow = document.querySelector(".pb-table thead tr");
+      if (!headRow) return;
+
+      const headBottom = headRow.getBoundingClientRect().bottom;
+      const tipTop = tooltipDns.getBoundingClientRect().top;
+
+      wrapperDns.classList.toggle(
+        "pb-tooltip-below",
+        tipTop < headBottom + 6
+      );
+    });
+
+    wrapperDns.addEventListener("mouseleave", () => {
+      wrapperDns.classList.remove("pb-tooltip-below");
+    });
+
     // Notes + "copy as JSON" action
     const tdNotes = document.createElement("td");
 

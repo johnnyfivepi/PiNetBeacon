@@ -248,7 +248,6 @@ body[data-theme="dark"] .pb-theme-toggle {
   -webkit-overflow-scrolling: touch;
   position: relative;    /* helps z-index behave in Safari */
   isolation: isolate;
-  z-index: 0;
 }
 
 .pb-table {
@@ -260,6 +259,9 @@ body[data-theme="dark"] .pb-theme-toggle {
 
 .pb-table thead {
   background: var(--pb-accent-soft);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 /* Sticky table header */
@@ -267,10 +269,16 @@ body[data-theme="dark"] .pb-theme-toggle {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 51;
   background: var(--pb-accent-soft);
   transform: translateZ(0);
   will-change: transform;
+}
+
+/* ensure tbody sits below header in the stacking order */
+.pb-table tbody {
+  position: relative;
+  z-index: 1;
 }
 
 .pb-table tbody tr {
@@ -355,7 +363,7 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
 }
 
 .pb-sparkline-wrapper:hover {
-  z-index: 1;  /* raise the wrapper */
+  z-index: 2;  /* raise the wrapper */
 }
  
 .pb-sparkline-tooltip {
@@ -674,7 +682,7 @@ body[data-theme="dark"] .pb-sort-status button:hover {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 3; /* above table rows, still low enough to never cover the page header */
+  z-index: 52; /* above table rows, still low enough to never cover the page header */
 }
 
 /* =========================
