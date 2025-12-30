@@ -92,9 +92,11 @@ function formatDnsResultsTooltip(dnsResults) {
       const server = r.server || "unknown";
       const status = r.status || "—";
       const ms =
-        typeof r.latency_ms === "number" ? `${r.latency_ms.toFixed(1)}ms` : "–";
+        typeof r.latency_ms === "number"
+          ? `${r.latency_ms.toFixed(1)}ms`
+          : "–";
       const err = r.error ? ` (${r.error})` : "";
-      return `${server}: ${status} · ${ms}${err}`;
+      return `• ${server}: ${status} · ${ms}${err}`;
     })
     .join("\n");
 }
