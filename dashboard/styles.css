@@ -450,11 +450,11 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   padding: 0.45rem 0.7rem;
   border-radius: 10px;
   font-size: 0.72rem;
-  line-height: 1.35;
+  line-height: 1.4;
 
   min-width: 180px;
   max-width: 260px;
-  white-space: normal;
+  white-space: pre-line;
   text-align: left;
 
   opacity: 0;
