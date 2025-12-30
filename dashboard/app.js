@@ -933,15 +933,25 @@ function renderTable(entries) {
     ) {
       dnsBadge.classList.add("pb-status-badge--down");
     }
-    // any other string just stays neutral
 
     // per-DNS-server tooltip (shows dns_results on hover)
     const tooltipText = formatDnsResultsTooltip(entry.dns_results);
+
     if (tooltipText) {
-      dnsBadge.title = tooltipText;
+      const wrap = document.createElement("span");
+      wrap.className = "pb-tooltip-parent";
+
+      const tip = document.createElement("div");
+      tip.className = "pb-tooltip";
+      tip.textContent = tooltipText; // uses pre-line styling
+
+      wrap.appendChild(dnsBadge);
+      wrap.appendChild(tip);
+      tdDnsStatus.appendChild(wrap);
+    } else {
+      tdDnsStatus.appendChild(dnsBadge);
     }
 
-    tdDnsStatus.appendChild(dnsBadge);
     tr.appendChild(tdDnsStatus);
 
     // DNS latency (numeric)
