@@ -84,7 +84,7 @@ PiNetBeacon times this whole adventure. If the round trip is quick, things feel 
 
 If you want to dig a little deeper, Cloudflare has a great explanation of latency: 
 
-- [What is latency (Cloudflare)](https://www.cloudflare.com/learning/performance/what-is-latency/)
+- [What is latency - Cloudflare](https://www.cloudflare.com/learning/performance/what-is-latency/)
 
 [↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
 
