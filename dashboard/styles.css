@@ -964,6 +964,14 @@ body[data-theme="dark"] .pb-empty-btn--primary {
   color: #b3261e;
 }
 
+.pb-dns-count {
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  line-height: 1;
+  color: var(--pb-muted);
+  text-align: center;
+}
+
 /* Health block */
 
 .pb-health {

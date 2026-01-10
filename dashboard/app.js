@@ -915,12 +915,19 @@ function renderTable(entries) {
 
     // DNS status badge (same style family as Last status)
     const tdDnsStatus = document.createElement("td");
-    const dnsBadge = document.createElement("span");
-    const dnsStatusText = entry.dns_status || "—";
 
-    dnsBadge.textContent = dnsStatusText;
+    // Wrapper so we can show our custom tooltip
+    const wrap = document.createElement("span");
+    wrap.className = "pb-tooltip-parent";
+
+    // Badge
+    const dnsBadge = document.createElement("span");
     dnsBadge.className = "pb-status-badge";
 
+    const dnsStatusText = (entry.dns_status || "—").toString().toLowerCase();
+    dnsBadge.textContent = dnsStatusText;
+
+    // Badge colors
     if (dnsStatusText === "ok") {
       dnsBadge.classList.add("pb-status-badge--up");
     } else if (dnsStatusText === "partial") {
@@ -934,30 +941,38 @@ function renderTable(entries) {
       dnsBadge.classList.add("pb-status-badge--down");
     }
 
+    // Optional small count under the badge (prevents giant pill)
     const ok = typeof entry.dns_ok === "number" ? entry.dns_ok : null;
     const total = typeof entry.dns_total === "number" ? entry.dns_total : null;
 
-    dnsBadge.textContent =
-      ok !== null && total !== null ? `${dnsStatusText} (${ok}/${total})` : dnsStatusText;
+    let countEl = null;
+    if (ok !== null && total !== null) {
+      countEl = document.createElement("div");
+      countEl.className = "pb-dns-count";
+      countEl.textContent = `${ok}/${total}`;
+    }
 
-    // per-DNS-server tooltip (shows dns_results on hover)
+    // Tooltip content (per-server)
     const tooltipText = formatDnsResultsTooltip(entry.dns_results);
 
+    // Build DOM
+    wrap.appendChild(dnsBadge);
+
+    if (countEl) {
+      wrap.appendChild(countEl);
+    }
+
     if (tooltipText) {
-      const wrap = document.createElement("span");
-      wrap.className = "pb-tooltip-parent";
+      // IMPORTANT: don't use native title tooltip
+      dnsBadge.removeAttribute("title");
 
       const tip = document.createElement("div");
       tip.className = "pb-tooltip";
       tip.textContent = tooltipText; // uses pre-line styling
-
-      wrap.appendChild(dnsBadge);
       wrap.appendChild(tip);
-      tdDnsStatus.appendChild(wrap);
-    } else {
-      tdDnsStatus.appendChild(dnsBadge);
     }
 
+    tdDnsStatus.appendChild(wrap);
     tr.appendChild(tdDnsStatus);
 
     // DNS latency (numeric)
