@@ -26,6 +26,7 @@ Let’s start simple and build from there.
 - 🏃‍♂️ [What latency really is](#️-what-latency-really-is)
 - 🕳️ [What packet loss means](#️-what-packet-loss-means)
 - 🛠️ [How PiNetBeacon actually checks your connection](#️-how-pinetbeacon-actually-checks-your-connection)
+- 🌐 [What DNS is (and why it deserves its own checks)](#-what-dns-is-and-why-it-deserves-its-own-checks)
 - 📊 [Why checking over time matters](#-why-checking-over-time-matters)
 - ✨ [What's next](#-whats-next)
 
@@ -124,7 +125,7 @@ Fortinet has a nice explanation of packet loss:
 
 ## 🛠️ How PiNetBeacon actually checks your connection
 
-Now that you know the basic ideas behind latency and packet loss, here’s how PiNetBeacon measures them:
+Now that you know the basic ideas behind latency, packet loss, and DNS, here’s how PiNetBeacon measures what’s going on:
 
 PiNetBeacon uses a tiny, built-in tool called `ping`. You’ve probably heard the word before. It’s the networking version of shouting “hey, you there?” down a hallway and seeing how long it takes to get a “yep!”
 
@@ -155,6 +156,102 @@ Here’s a detailed guide from Bunny.net about how `ping` works:
 
 ---
 
+## 🌐 What DNS is (and why it deserves its own checks)
+
+So far, we’ve talked about how fast your Pi can reach *something* on the internet. But there’s another piece of the puzzle that can cause problems even when latency and packet loss look fine: **DNS**.
+
+DNS is what turns names like:
+
+`example.com`
+`youtube.com`
+`cloudflare.com`
+
+into IP addresses like:
+
+`93.184.216.34`
+`142.250.190.14`
+
+Before your Pi can talk to *any* website, it has to ask a DNS server:
+
+> “Hey — what address goes with this name?”
+
+Only *after* that lookup succeeds can the actual connection begin.
+
+### Why DNS problems feel sneaky
+
+DNS issues are tricky because they don’t always look like “the internet is down”.
+
+Instead, you get things like:
+
+- websites that hang before loading  
+- apps that say “connecting…” forever  
+- some sites working while others fail  
+- things magically fixing themselves after a refresh  
+
+From your perspective, it feels random. From the network’s perspective, DNS is just having a day.
+
+### How PiNetBeacon checks DNS
+
+PiNetBeacon treats DNS as a **separate system** from ping.
+
+During each check, it can:
+
+- resolve a hostname (like `example.com`)
+- optionally try **multiple DNS servers**
+- measure how long each lookup takes
+- record which servers succeed or fail
+
+Each DNS server gets its own result, including:
+
+- whether it responded
+- how long it took
+- any error that occurred
+
+These individual results are saved in the log and shown in the dashboard tooltip.
+
+### Why “slow” DNS can still be “ok”
+
+This part matters.
+
+A DNS lookup that takes **600–700 ms** is definitely slow — but if it *does* respond, it’s still technically working.
+
+That’s why you might see something like:
+
+```1.1.1.1: ok · 25ms  
+8.8.8.8: ok · 30ms  
+9.9.9.9: ok · 690ms```
+
+PiNetBeacon currently reports this as:
+
+- **DNS status: ok** (because at least one server succeeded)
+- **DNS latency:** the *fastest successful* lookup
+
+The slower server isn’t ignored — it’s still visible in the tooltip — but it doesn’t cause a failure on its own.
+
+This design helps you answer questions like:
+
+- “Is DNS generally working?”
+- “Are some resolvers slower than others?”
+- “Do DNS slowdowns line up with user-visible issues?”
+
+Rather than hiding slow behavior, PiNetBeacon surfaces it without overreacting.
+
+### DNS is about quality, not just uptime
+
+Unlike ping, DNS problems often show up as **degradation**, not total failure.
+
+That’s why PiNetBeacon:
+
+- logs per-server results
+- tracks DNS latency over time
+- lets you spot patterns instead of single bad moments
+
+A resolver that’s “ok but slow” all evening tells a very different story than one brief outage at 3 AM.
+
+[↑ Back to safety](#contents-choose-your-own-adventure){:.pb-back}
+
+---
+
 ## 📊 Why checking over time matters
 
 A single check is useful, but the real magic happens when you collect dozens or hundreds of them. One ping result can be a fluke. Ten results start to form a pattern. A whole day of results can tell you a story.
@@ -172,6 +269,9 @@ Here are a few things that only show up when you look at the bigger picture:
 
 - **Consistent low latency** that tells you things are actually working great  
   (internet goblin not spotted... yet)
+
+- **DNS slowdowns** that don’t show up in speed tests  
+  (pages hang before loading, even though throughput looks fine)
 
 PiNetBeacon doesn’t try to predict or fix anything. It just collects small truths about your connection and writes them down in a clean, readable way. Once you see the patterns, you can make smarter decisions:
 
