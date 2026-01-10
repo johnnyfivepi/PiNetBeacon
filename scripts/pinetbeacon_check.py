@@ -71,73 +71,75 @@ def run_ping(host: str, count: int = 3, timeout: int = 2):
 # -------------------------------------------------------
 # NEW: DNS resolution helper
 # -------------------------------------------------------
-def run_dns_check(hostname: str, timeout: float, dns_servers=None):
+def run_dns_check(hostname: str, timeout: float, servers=None):
     """
-    Resolve `hostname` using one or more specific DNS servers and measure latency.
+    Resolve a hostname using one or more specific DNS servers and measure latency.
 
     Returns:
-      (overall_status, overall_latency_ms, overall_error, per_server_results)
+      (dns_status, dns_latency_ms, dns_error, dns_results, dns_ok, dns_total)
 
-    - overall_status: "ok" if at least ONE server succeeds, else "error"
-    - overall_latency_ms: fastest successful latency (ms) or None
-    - overall_error: summary string or None
-    - per_server_results: list of dicts: [{server, status, latency_ms, error}, ...]
+    dns_status:
+      - "ok"      = all servers succeeded
+      - "partial" = some succeeded
+      - "error"   = none succeeded
+
+    dns_latency_ms:
+      - worst (max) latency among successful servers, or None if none succeeded
     """
     if not hostname:
-        return "skipped", None, None, []
+        return "skipped", None, None, [], 0, 0
 
-    # Normalize dns_servers into a list
-    if not dns_servers:
-        dns_servers = []
-    if isinstance(dns_servers, str):
-        dns_servers = [dns_servers]
+    servers = servers or []
+    results = []
 
-    per_server_results = []
-
-    # If user didn't provide servers, let dnspython use system defaults once
-    servers_to_try = dns_servers if dns_servers else [None]
-
-    for server in servers_to_try:
+    # If no servers are provided, fall back to system resolver once
+    if not servers:
         resolver = dns.resolver.Resolver()
-        resolver.lifetime = float(timeout)  # total time allowed
-        resolver.timeout = float(timeout)   # per-try timeout
-
-        if server:
-            resolver.nameservers = [server]
+        resolver.lifetime = float(timeout)
+        resolver.timeout = float(timeout)
 
         start = time.monotonic()
         try:
             resolver.resolve(hostname, "A")
             elapsed_ms = (time.monotonic() - start) * 1000.0
-            per_server_results.append(
-                {
-                    "server": server or "system",
-                    "status": "ok",
-                    "latency_ms": round(elapsed_ms, 3),
-                    "error": None,
-                }
-            )
+            results.append({"server": "system", "status": "ok", "latency_ms": round(elapsed_ms, 3), "error": None})
         except Exception as e:
-            per_server_results.append(
-                {
-                    "server": server or "system",
-                    "status": "error",
-                    "latency_ms": None,
-                    "error": str(e),
-                }
-            )
+            results.append({"server": "system", "status": "error", "latency_ms": None, "error": str(e)})
+    else:
+        for server in servers:
+            resolver = dns.resolver.Resolver(configure=False)
+            resolver.nameservers = [server]
+            resolver.lifetime = float(timeout)
+            resolver.timeout = float(timeout)
 
-    # Roll up results
-    successes = [r for r in per_server_results if r["status"] == "ok"]
+            start = time.monotonic()
+            try:
+                resolver.resolve(hostname, "A")
+                elapsed_ms = (time.monotonic() - start) * 1000.0
+                results.append({"server": server, "status": "ok", "latency_ms": round(elapsed_ms, 3), "error": None})
+            except Exception as e:
+                results.append({"server": server, "status": "error", "latency_ms": None, "error": str(e)})
 
-    if successes:
-        fastest = min(r["latency_ms"] for r in successes if r["latency_ms"] is not None)
-        return "ok", fastest, None, per_server_results
+    dns_total = len(results)
+    ok_latencies = [
+        r["latency_ms"] for r in results
+        if r.get("status") == "ok" and isinstance(r.get("latency_ms"), (int, float))
+    ]
+    dns_ok = len(ok_latencies)
 
-    # No successes
-    # Make a short readable summary error (use first error as the headline)
-    first_err = per_server_results[0]["error"] if per_server_results else "unknown error"
-    return "error", None, first_err, per_server_results
+    if dns_total == 0:
+        return "skipped", None, None, [], 0, 0
+
+    if dns_ok == 0:
+        return "error", None, "All DNS servers failed", results, dns_ok, dns_total
+
+    # worst successful latency (max)
+    dns_latency_ms = max(ok_latencies)
+
+    if dns_ok == dns_total:
+        return "ok", dns_latency_ms, None, results, dns_ok, dns_total
+
+    return "partial", dns_latency_ms, "Some DNS servers failed", results, dns_ok, dns_total
 
 def log_result(entry: dict) -> None:
     """Append one JSON line to the log file."""
@@ -185,7 +187,7 @@ def main() -> None:
     # ----------------------------
     # NEW: Run DNS
     # ----------------------------
-    dns_status, dns_latency_ms, dns_error, dns_results = run_dns_check(
+    dns_status, dns_latency_ms, dns_error, dns_results, dns_ok, dns_total = run_dns_check(
         dns_hostname,
         dns_timeout,
         dns_servers,
@@ -216,6 +218,8 @@ def main() -> None:
         "dns_latency_ms": dns_latency_ms,
         "dns_error": dns_error,
         "dns_results": dns_results,
+        "dns_ok": dns_ok,
+        "dns_total": dns_total,
     }
 
     print(entry)
