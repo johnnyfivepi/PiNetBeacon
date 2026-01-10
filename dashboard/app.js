@@ -760,11 +760,7 @@ function renderTable(entries) {
     }
 
     if (filterState === "dns") {
-      return (
-        entry.dns_status &&
-        entry.dns_status !== "ok" &&
-        entry.dns_status !== "healthy"
-      );
+      return entry.dns_status && entry.dns_status !== "ok";
     }
 
     // default: "all"
@@ -927,6 +923,8 @@ function renderTable(entries) {
 
     if (dnsStatusText === "ok") {
       dnsBadge.classList.add("pb-status-badge--up");
+    } else if (dnsStatusText === "partial") {
+      dnsBadge.classList.add("pb-status-badge--warn");
     } else if (
       dnsStatusText === "fail" ||
       dnsStatusText === "error" ||
@@ -935,6 +933,12 @@ function renderTable(entries) {
     ) {
       dnsBadge.classList.add("pb-status-badge--down");
     }
+
+    const ok = typeof entry.dns_ok === "number" ? entry.dns_ok : null;
+    const total = typeof entry.dns_total === "number" ? entry.dns_total : null;
+
+    dnsBadge.textContent =
+      ok !== null && total !== null ? `${dnsStatusText} (${ok}/${total})` : dnsStatusText;
 
     // per-DNS-server tooltip (shows dns_results on hover)
     const tooltipText = formatDnsResultsTooltip(entry.dns_results);
