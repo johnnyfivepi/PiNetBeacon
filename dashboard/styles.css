@@ -470,6 +470,12 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   pointer-events: none;
 }
 
+/* Portal tooltips: render above everything, not clipped by scroll containers */
+.pb-tooltip--portal {
+  position: fixed !important;
+  z-index: 5000;
+}
+
 /* Copy-as-JSON icon button in Notes column */
 .pb-copy-btn {
   border: none;

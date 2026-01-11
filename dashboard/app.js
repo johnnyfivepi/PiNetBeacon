@@ -967,25 +967,30 @@ function renderTable(entries) {
         // IMPORTANT: don't use native title tooltip
         dnsBadge.removeAttribute("title");
 
+        // Create the tooltip as a "portal" attached to <body>
         const tip = document.createElement("div");
-        tip.className = "pb-tooltip pb-tooltip--fixed";
-        tip.textContent = tooltipText; // uses pre-line styling
-        wrap.appendChild(tip);
+        tip.className = "pb-tooltip pb-tooltip--portal";
+        tip.textContent = tooltipText;
 
-        // ✅ Position fixed tooltip so it doesn't get clipped by the scroll container
+        // Start hidden
+        tip.style.opacity = "0";
+        tip.style.transform = "translate(-9999px, -9999px)";
+
+        document.body.appendChild(tip);
+
+        // Show + position below the badge on hover
         wrap.addEventListener("mouseenter", () => {
           const r = wrap.getBoundingClientRect();
 
-          // Put tooltip BELOW the badge, centered
           tip.style.left = `${r.left + r.width / 2}px`;
           tip.style.top = `${r.bottom + 8}px`;
           tip.style.transform = "translateX(-50%)";
-          tip.classList.add("pb-tooltip-show");
+          tip.style.opacity = "1";
         });
 
+        // Hide on leave
         wrap.addEventListener("mouseleave", () => {
-          tip.classList.remove("pb-tooltip-show");
-          // park it offscreen so it can't accidentally overlap stuff
+          tip.style.opacity = "0";
           tip.style.transform = "translate(-9999px, -9999px)";
         });
       }
