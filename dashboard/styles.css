@@ -359,50 +359,34 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
 .pb-sparkline-wrapper {
   position: relative;
   display: inline-block;
-  z-index: 1;   /* base */
-}
-
-.pb-sparkline-wrapper:hover {
-  z-index: 2;  /* raise the wrapper */
 }
  
 .pb-sparkline-tooltip {
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%) translateY(6px);
+  position: fixed;          /* ✅ key change */
+  left: 0;
+  top: 0;
+  transform: none;          /* ✅ JS will position it */
 
-  background: rgba(30, 41, 59, 0.75); /* slate-800 at 75% */
-  backdrop-filter: blur(4px); /* Subtle blur */
+  background: rgba(30, 41, 59, 0.75);
+  backdrop-filter: blur(4px);
 
-  color: #f1f5f9; /* soft text */
+  color: #f1f5f9;
   padding: 0.25rem 0.55rem;
-  border-radius: 8px;   /* no more giant pill */
+  border-radius: 8px;
   font-size: 0.68rem;
   white-space: nowrap;
 
   opacity: 0;
   pointer-events: none;
 
-  /* softer shadow */
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+  transition: opacity 0.12s ease-out;
 
-  transition:
-    opacity 0.15s ease-out,
-    transform 0.15s ease-out;
-  z-index: 50;  /* above wrapper */
+  z-index: 9999;            /* ✅ above sticky header */
 }
 
-.pb-sparkline-wrapper:hover .pb-sparkline-tooltip {
+.pb-sparkline-tooltip.pb-tooltip-show {
   opacity: 1;
-  transform: translateX(-50%) translateY(10px); /* softer pop */
-}
-
-/* If we add .pb-tooltip-below, show tooltip under the sparkline */
-.pb-sparkline-wrapper.pb-tooltip-below .pb-sparkline-tooltip {
-  bottom: auto;
-  top: 100%;
-  transform: translateX(-50%) translateY(6px);
 }
 
 /* Tooltip for lines like "Pi local time" and "Config loaded" */
