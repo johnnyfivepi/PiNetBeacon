@@ -952,111 +952,108 @@ function renderTable(entries) {
       countEl.textContent = `${ok}/${total}`;
     }
 
-    // Tooltip content (per-server)
-    const tooltipText = formatDnsResultsTooltip(entry.dns_results);
-
-    // Build DOM
-    wrap.appendChild(dnsBadge);
-
-    if (countEl) {
-      wrap.appendChild(countEl);
-    }
-
-    if (tooltipText) {
-      // IMPORTANT: don't use native title tooltip
-      dnsBadge.removeAttribute("title");
-
-      const tip = document.createElement("div");
-      tip.className = "pb-tooltip";
-      tip.textContent = tooltipText; // uses pre-line styling
-      wrap.appendChild(tip);
-    }
-
-    tdDnsStatus.appendChild(wrap);
-    tr.appendChild(tdDnsStatus);
-
-    // DNS latency (numeric)
-    const tdDnsLatency = document.createElement("td");
-    tdDnsLatency.textContent = formatNumber(entry.dns_latency_ms, 2);
-    tr.appendChild(tdDnsLatency);
-
-    // DNS latency trend (sparkline)
-    const tdDnsSpark = document.createElement("td");
-    tdDnsSpark.className = "pb-spark-cell";
-
-    const dnsLatencyHistory = buildMetricHistory(
-      entries,
-      entry.target_host,
-      "dns_latency_ms",
-      20
-    );
-
-    if (dnsLatencyHistory.length >= 2) {
-      const svgDns = createSparklineSvg(dnsLatencyHistory, "pb-sparkline--dns");
-      if (svgDns) {
-        const wrapperDns = document.createElement("div");
-        wrapperDns.className = "pb-sparkline-wrapper";
-
-        const tooltipDns = document.createElement("div");
-        tooltipDns.className = "pb-sparkline-tooltip";
-
-        const summaryTextDns = buildSparklineSummary(dnsLatencyHistory, "ms DNS");
-        tooltipDns.textContent = summaryTextDns;
-
-        // Flip tooltip below sticky header when needed (same idea as latency sparkline)
-        wrapperDns.addEventListener("mouseenter", () => {
-          const headRow = document.querySelector(".pb-table thead tr");
-          if (!headRow) return;
-
-          const headBottom = headRow.getBoundingClientRect().bottom;
-
-          // NOTE: tooltip must be in DOM before measuring, so we append first below.
-          // We'll measure after append using requestAnimationFrame.
-          requestAnimationFrame(() => {
-            const tipTop = tooltipDns.getBoundingClientRect().top;
-            wrapperDns.classList.toggle("pb-tooltip-below", tipTop < headBottom + 6);
-          });
-        });
-
-        wrapperDns.addEventListener("mouseleave", () => {
-          wrapperDns.classList.remove("pb-tooltip-below");
-        });
-
-        wrapperDns.appendChild(svgDns);
-        wrapperDns.appendChild(tooltipDns);
-        tdDnsSpark.appendChild(wrapperDns);
+    // Tooltip content (per-server) 
+      const tooltipText = formatDnsResultsTooltip(entry.dns_results); 
+    
+      // Build DOM
+      wrap.appendChild(dnsBadge); 
+      
+      if (countEl) { 
+        wrap.appendChild(countEl); 
+      } 
+      
+      if (tooltipText) {
+        // IMPORTANT: don't use native title tooltip 
+        dnsBadge.removeAttribute("title");
+        
+        const tip = document.createElement("div"); 
+        tip.className = "pb-tooltip"; 
+        tip.textContent = tooltipText; // uses pre-line styling 
+        wrap.appendChild(tip); 
       }
-    } else {
-      tdDnsSpark.textContent = "—";
-    }
-    tr.appendChild(tdDnsSpark);
-
-    // Notes + "copy as JSON" action
-    const tdNotes = document.createElement("td");
-
-    const copyBtn = document.createElement("button");
-    copyBtn.type = "button";
-    copyBtn.className = "pb-copy-btn";
-    copyBtn.textContent = "📋";
-    copyBtn.title = "Copy this row as JSON";
-
-    copyBtn.addEventListener("click", () => {
-      copyEntryAsJson(entry, copyBtn);
-    });
-
-    tdNotes.appendChild(copyBtn);
-
-    if (entry.notes) {
-      const notesSpan = document.createElement("span");
-      notesSpan.className = "pb-notes-text";
-      notesSpan.textContent = entry.notes;
-      tdNotes.appendChild(notesSpan);
-    }
-
-    tr.appendChild(tdNotes);
-    tbody.appendChild(tr);
-  }
-}
+      
+      tdDnsStatus.appendChild(wrap);
+      tr.appendChild(tdDnsStatus); 
+      
+      // DNS latency (numeric) 
+      const tdDnsLatency = document.createElement("td");
+      tdDnsLatency.textContent = formatNumber(entry.dns_latency_ms, 2);
+      tr.appendChild(tdDnsLatency);
+      
+      // DNS latency trend (sparkline) 
+      const tdDnsSpark = document.createElement("td");
+      tdDnsSpark.className = "pb-spark-cell"; 
+      
+      const dnsLatencyHistory = buildMetricHistory( 
+        entries, 
+        entry.target_host, 
+        "dns_latency_ms", 20 
+      ); 
+      
+      if (dnsLatencyHistory.length >= 2) { 
+        const svgDns = createSparklineSvg(dnsLatencyHistory, "pb-sparkline--dns"); 
+        if (svgDns) { 
+          const wrapperDns = document.createElement("div"); 
+          wrapperDns.className = "pb-sparkline-wrapper"; 
+          
+          const tooltipDns = document.createElement("div"); 
+          tooltipDns.className = "pb-sparkline-tooltip"; 
+          
+          const summaryTextDns = buildSparklineSummary(dnsLatencyHistory, "ms DNS"); 
+          tooltipDns.textContent = summaryTextDns; 
+          
+          // Flip tooltip below sticky header when needed (same idea as latency sparkline) 
+          wrapperDns.addEventListener("mouseenter", () => { const headRow = document.querySelector(".pb-table thead tr"); 
+            if (!headRow) return; 
+            
+            const headBottom = headRow.getBoundingClientRect().bottom; 
+            
+            // NOTE: tooltip must be in DOM before measuring, so we append first below. 
+            // We'll measure after append using requestAnimationFrame. 
+            requestAnimationFrame(() => { 
+              const tipTop = tooltipDns.getBoundingClientRect().top; 
+              wrapperDns.classList.toggle("pb-tooltip-below", tipTop < headBottom + 6); 
+            }); 
+          }); 
+          
+          wrapperDns.addEventListener("mouseleave", () => { 
+            wrapperDns.classList.remove("pb-tooltip-below"); 
+          }); 
+          
+          wrapperDns.appendChild(svgDns); 
+          wrapperDns.appendChild(tooltipDns); 
+          tdDnsSpark.appendChild(wrapperDns); 
+          } 
+        } else { 
+          tdDnsSpark.textContent = "—"; } 
+          tr.appendChild(tdDnsSpark); 
+          
+          // Notes + "copy as JSON" action 
+          const tdNotes = document.createElement("td"); 
+          
+          const copyBtn = document.createElement("button"); 
+          copyBtn.type = "button"; 
+          copyBtn.className = "pb-copy-btn"; 
+          copyBtn.textContent = "📋"; 
+          copyBtn.title = "Copy this row as JSON"; 
+          
+          copyBtn.addEventListener("click", () => { 
+            copyEntryAsJson(entry, copyBtn); 
+          }); 
+          
+          tdNotes.appendChild(copyBtn); 
+          
+          if (entry.notes) { 
+            const notesSpan = document.createElement("span"); 
+            notesSpan.className = "pb-notes-text"; 
+            notesSpan.textContent = entry.notes; 
+            tdNotes.appendChild(notesSpan); 
+          } 
+          
+          tr.appendChild(tdNotes); 
+          tbody.appendChild(tr); 
+        } 
+      }
 
 async function updateDashboard() {
   const healthEl = document.getElementById("health-json");
