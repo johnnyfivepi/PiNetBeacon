@@ -880,28 +880,29 @@ function renderTable(entries) {
         const tooltip = document.createElement("div");
         tooltip.className = "pb-sparkline-tooltip";
 
-        wrapper.addEventListener("mouseenter", () => {
-          const headRow = document.querySelector(".pb-table thead tr");
-          if (!headRow) return;
-
-          const headBottom = headRow.getBoundingClientRect().bottom;
-
-          // Flip based on where the tooltip would land
-          const tipTop = tooltip.getBoundingClientRect().top;
-
-          wrapper.classList.toggle("pb-tooltip-below", tipTop < headBottom + 6);
-        });
-
-        wrapper.addEventListener("mouseleave", () => {
-          wrapper.classList.remove("pb-tooltip-below");
-        });
-
         const summaryText = buildSparklineSummary(latencyHistory, "ms");
         tooltip.textContent = summaryText;
 
+        // Build DOM first
         wrapper.appendChild(svg);
         wrapper.appendChild(tooltip);
         tdLatencySpark.appendChild(wrapper);
+
+        // ✅ Position fixed tooltip (not clipped by the table scroller)
+        wrapper.addEventListener("mouseenter", () => {
+          const r = wrapper.getBoundingClientRect();
+
+          tooltip.style.left = `${r.left + r.width / 2}px`;
+          tooltip.style.top = `${r.bottom + 8}px`;
+          tooltip.style.transform = "translateX(-50%)";
+          tooltip.classList.add("pb-tooltip-show");
+        });
+
+        wrapper.addEventListener("mouseleave", () => {
+          tooltip.classList.remove("pb-tooltip-show");
+          // park offscreen
+          tooltip.style.transform = "translate(-9999px, -9999px)";
+        });
       }
     } else {
       tdLatencySpark.textContent = "—";
@@ -979,11 +980,11 @@ function renderTable(entries) {
           tip.style.left = `${r.left + r.width / 2}px`;
           tip.style.top = `${r.bottom + 8}px`;
           tip.style.transform = "translateX(-50%)";
-          tip.style.opacity = "1";
+          tip.classList.add("pb-tooltip-show");
         });
 
         wrap.addEventListener("mouseleave", () => {
-          tip.style.opacity = "0";
+          tip.classList.remove("pb-tooltip-show");
           // park it offscreen so it can't accidentally overlap stuff
           tip.style.transform = "translate(-9999px, -9999px)";
         });
@@ -1007,43 +1008,42 @@ function renderTable(entries) {
         "dns_latency_ms", 20 
       ); 
       
-      if (dnsLatencyHistory.length >= 2) { 
-        const svgDns = createSparklineSvg(dnsLatencyHistory, "pb-sparkline--dns"); 
-        if (svgDns) { 
-          const wrapperDns = document.createElement("div"); 
-          wrapperDns.className = "pb-sparkline-wrapper"; 
-          
-          const tooltipDns = document.createElement("div"); 
-          tooltipDns.className = "pb-sparkline-tooltip"; 
-          
-          const summaryTextDns = buildSparklineSummary(dnsLatencyHistory, "ms DNS"); 
-          tooltipDns.textContent = summaryTextDns; 
-          
-          // Flip tooltip below sticky header when needed (same idea as latency sparkline) 
-          wrapperDns.addEventListener("mouseenter", () => { const headRow = document.querySelector(".pb-table thead tr"); 
-            if (!headRow) return; 
-            
-            const headBottom = headRow.getBoundingClientRect().bottom; 
-            
-            // NOTE: tooltip must be in DOM before measuring, so we append first below. 
-            // We'll measure after append using requestAnimationFrame. 
-            requestAnimationFrame(() => { 
-              const tipTop = tooltipDns.getBoundingClientRect().top; 
-              wrapperDns.classList.toggle("pb-tooltip-below", tipTop < headBottom + 6); 
-            }); 
-          }); 
-          
-          wrapperDns.addEventListener("mouseleave", () => { 
-            wrapperDns.classList.remove("pb-tooltip-below"); 
-          }); 
-          
-          wrapperDns.appendChild(svgDns); 
-          wrapperDns.appendChild(tooltipDns); 
-          tdDnsSpark.appendChild(wrapperDns); 
-          } 
-        } else { 
-          tdDnsSpark.textContent = "—"; } 
-          tr.appendChild(tdDnsSpark); 
+      if (dnsLatencyHistory.length >= 2) {
+        const svgDns = createSparklineSvg(dnsLatencyHistory, "pb-sparkline--dns");
+        if (svgDns) {
+          const wrapperDns = document.createElement("div");
+          wrapperDns.className = "pb-sparkline-wrapper";
+
+          const tooltipDns = document.createElement("div");
+          tooltipDns.className = "pb-sparkline-tooltip";
+
+          const summaryTextDns = buildSparklineSummary(dnsLatencyHistory, "ms DNS");
+          tooltipDns.textContent = summaryTextDns;
+
+          // Build DOM first
+          wrapperDns.appendChild(svgDns);
+          wrapperDns.appendChild(tooltipDns);
+          tdDnsSpark.appendChild(wrapperDns);
+
+          // ✅ Position fixed tooltip (not clipped by the table scroller)
+          wrapperDns.addEventListener("mouseenter", () => {
+            const r = wrapperDns.getBoundingClientRect();
+
+            tooltipDns.style.left = `${r.left + r.width / 2}px`;
+            tooltipDns.style.top = `${r.bottom + 8}px`;
+            tooltipDns.style.transform = "translateX(-50%)";
+            tooltipDns.classList.add("pb-tooltip-show");
+          });
+
+          wrapperDns.addEventListener("mouseleave", () => {
+            tooltipDns.classList.remove("pb-tooltip-show");
+            tooltipDns.style.transform = "translate(-9999px, -9999px)";
+          });
+        }
+      } else {
+        tdDnsSpark.textContent = "—";
+      }
+      tr.appendChild(tdDnsSpark); 
           
           // Notes + "copy as JSON" action 
           const tdNotes = document.createElement("td"); 
