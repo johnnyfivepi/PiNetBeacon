@@ -475,6 +475,17 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   transform: translateY(0);
 }
 
+/* NEW: fixed-position tooltip variant (escapes scroll container clipping) */
+.pb-tooltip.pb-tooltip--fixed {
+  position: fixed; /* key difference */
+  left: 0;
+  top: 0;
+  transform: translate(-9999px, -9999px); /* hidden until JS positions it */
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Copy-as-JSON icon button in Notes column */
 .pb-copy-btn {
   border: none;

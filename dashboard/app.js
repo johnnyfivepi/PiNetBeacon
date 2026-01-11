@@ -963,13 +963,30 @@ function renderTable(entries) {
       } 
       
       if (tooltipText) {
-        // IMPORTANT: don't use native title tooltip 
+        // IMPORTANT: don't use native title tooltip
         dnsBadge.removeAttribute("title");
-        
-        const tip = document.createElement("div"); 
-        tip.className = "pb-tooltip"; 
-        tip.textContent = tooltipText; // uses pre-line styling 
-        wrap.appendChild(tip); 
+
+        const tip = document.createElement("div");
+        tip.className = "pb-tooltip pb-tooltip--fixed";
+        tip.textContent = tooltipText; // uses pre-line styling
+        wrap.appendChild(tip);
+
+        // ✅ Position fixed tooltip so it doesn't get clipped by the scroll container
+        wrap.addEventListener("mouseenter", () => {
+          const r = wrap.getBoundingClientRect();
+
+          // Put tooltip BELOW the badge, centered
+          tip.style.left = `${r.left + r.width / 2}px`;
+          tip.style.top = `${r.bottom + 8}px`;
+          tip.style.transform = "translateX(-50%)";
+          tip.style.opacity = "1";
+        });
+
+        wrap.addEventListener("mouseleave", () => {
+          tip.style.opacity = "0";
+          // park it offscreen so it can't accidentally overlap stuff
+          tip.style.transform = "translate(-9999px, -9999px)";
+        });
       }
       
       tdDnsStatus.appendChild(wrap);
