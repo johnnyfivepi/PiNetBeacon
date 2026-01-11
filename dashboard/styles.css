@@ -367,13 +367,14 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   top: 0;
   transform: none;          /* ✅ JS will position it */
 
-  background: rgba(30, 41, 59, 0.75);
-  backdrop-filter: blur(4px);
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(6px);
 
   color: #f1f5f9;
-  padding: 0.25rem 0.55rem;
-  border-radius: 8px;
-  font-size: 0.68rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  line-height: 1.4;
   white-space: nowrap;
 
   opacity: 0;
@@ -457,6 +458,11 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
 .pb-tooltip-parent:hover .pb-tooltip {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* If you're hovering a DNS badge tooltip area, don't show sparkline tooltips */
+.pb-tooltip-parent:hover .pb-sparkline-tooltip {
+  opacity: 0 !important;
 }
 
 /* NEW: fixed-position tooltip variant (escapes scroll container clipping) */
