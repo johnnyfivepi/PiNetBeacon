@@ -238,7 +238,7 @@ Rather than hiding slow behavior, PiNetBeacon surfaces it without overreacting.
 
 ### DNS is about quality, not just uptime
 
-Unlike ping, DNS problems often show up as **degradation**, not total failure.
+Unlike ping, DNS problems often show up as **degradation**, not total failure. 
 
 That’s why PiNetBeacon: 
 
