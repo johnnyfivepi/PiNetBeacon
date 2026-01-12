@@ -240,7 +240,7 @@ Rather than hiding slow behavior, PiNetBeacon surfaces it without overreacting.
 
 Unlike ping, DNS problems often show up as **degradation**, not total failure.
 
-That’s why PiNetBeacon:
+That’s why PiNetBeacon: 
 
 - logs per-server results
 - tracks DNS latency over time
