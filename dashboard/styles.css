@@ -465,7 +465,7 @@ body[data-theme="dark"] .pb-table tbody tr:hover td {
   opacity: 0 !important;
 }
 
-/* NEW: fixed-position tooltip variant (escapes scroll container clipping) */
+/* Fixed-position tooltip variant (escapes scroll container clipping) */
 .pb-tooltip.pb-tooltip--fixed {
   position: fixed; /* key difference */
   left: 0;
