@@ -94,7 +94,6 @@ body {
 }
 
 /* Shared header buttons: Refresh + Theme toggle */
-
 .pb-refresh,
 .pb-theme-toggle {
   display: inline-flex;
